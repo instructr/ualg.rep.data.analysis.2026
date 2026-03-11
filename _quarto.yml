@@ -1,0 +1,42 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Reproducible Data Analysis Course"
+  navbar:
+    search: true
+    tools:
+      - icon: house-heart-fill
+        menu:
+          - text: Universidade do Algarve
+            url: https://www.ualg.pt/  
+    left:
+      - href: index.qmd
+        text: "Home"
+      - href: system_setup.qmd
+        text: "General information"  
+      - href: calendar.qmd
+        text: "Calendar"        
+      - text: "Classes"
+        menu:
+          - classes/class1.qmd
+          - classes/class2.qmd
+      - text: "Contact me"
+        menu:
+          - contact_me.qmd
+          
+  back-to-top-navigation: true
+  page-footer: 
+    left: "Copyright 2026, Isabel Duarte" 
+    right: 
+      - icon: github
+        href: https://github.com/instructr/ualg.rep.data.analysis.2026
+    background: light
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+
+editor: source

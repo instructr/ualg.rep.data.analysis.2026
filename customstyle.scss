@@ -1,0 +1,17 @@
+// Set tab text color and background color
+.panel-tabset .nav-tabs .nav-link {
+    font-size: 16px;  // Adjust font size if needed
+    color: pink !important;  // Change tab text color to pink
+}
+
+// Style the active tab
+.panel-tabset .nav-tabs .nav-link.active {
+    background-color: pink !important;  // Pink background for active tab
+    color: white !important;  // White text for contrast
+}
+
+// Optional: Hover effect
+.panel-tabset .nav-tabs .nav-link:hover {
+    background-color: #ffb6c1 !important;  // Lighter pink on hover
+    color: white !important;
+}

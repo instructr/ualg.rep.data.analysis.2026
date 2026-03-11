@@ -1,0 +1,114 @@
+### **2. Review R**
+
+#### **Review & Extra notes about R and RStudio**
+
+After finishing the introduction to R with `swirl`, please recall the following information and hints about R and R programming. 
+
+1. R is case sensitive - be aware of capital letters (**b** is different from **B**).
+
+2. All R code lines starting with the **#** (hash) sign are interpreted as comments, and therefore are not evaluated.  
+
+```{r comments, tidy=FALSE}
+# This is a comment
+# 3 + 4   # this code is not evaluated, so and it does not print any result
+2 + 3     # the code before the hash sign is evaluated, so it prints the result (value 5)
+```
+
+3. Expressions in R are evaluated from the innermost parenthesis toward the outermost one (following proper mathematical rules).
+
+```{r parenthesis}
+# Example with parenthesis:
+((2+2)/2)-2
+# Without parenthesis:
+2+2/2-2
+```
+
+4. Spaces in variable names are not allowed --- use a dot `.` or underscore `_` to create longer names to make the variables more descriptive, e.g. `my.variable_name`.  
+
+5. Spaces between variables and operators do not matter: `3+2` is the same as `3 + 2`, and `function (arg1 , arg2)` is the same as `function(arg1,arg2)`.  
+
+6. A new line (enter) ends one command in R. If you want to write 2 expressions/commands in the same line, you have to separate them by a `;` (semi-colon).
+
+```{r semicolon, tidy=FALSE}
+#Example:
+3 + 2 ; 5 + 1  
+```
+
+7. To access the help pages on R functions, just type `help(function_name)` or `?function_name`.
+
+```{r get_help, eval=FALSE}
+# Example: open the documentation about the function sum
+help (sum)    
+# Quick access to help page about sum
+?sum          
+```
+
+8. RStudio **auto-completes** your commands by showing you possible alternatives as soon as you type 3 consecutive characters. If you want to see the options for less than 3 chars to get help on available functions, just press tab to display available options. **Tip: Use auto-complete as much as possible to avoid typing mistakes.**  
+
+9. There are 4 main vector **data types** in R: **Logical** (TRUE or FALSE); **Numeric** (e.g. 1,2,3...); **Character** (i.e. text, for example "universidade", "do", "Algarve") and **Complex** (e.g. 3+2i).  
+
+10. Vectors are ordered sets of elements. In R vectors are **1-based**, i.e. the first index position is number 1 (as opposed to other programming languages whose indexes start at zero, like Python).  
+
+11. R objects can be divided in two main groups: **Functions** and **Data-related objects**. Functions receive arguments inside circular brackets `( )` and objects receive arguments inside square brackets `[ ]`:
+
+    `function (arguments)`  
+    `data.object [arguments]`
+    
+12. There are **five basic data structures** in R: `Vector`, `Matrix`, `Array`, `Data frame`, and `List` (see following figure):
+
+![](../pics/r-dataStructures.png){width=600px}
+
+12.1 The basic data structure in R is the **vector**, which requires all of its elements to be of the same type (e.g. all *numeric*; all *character* (text); all *logical* (`TRUE` or `FALSE`)).   
+
+12.2 **Matrices** are two dimensional vectors (tables), where *all columns are of the same length*, and all from the same type.   
+
+12.3 **Data frames** are the most flexible and commonly used R data structures, used to store datasets in spreadsheet-like tables. The columns can be vectors of different types (i.e. text, number, logical, etc, can all be stored in the same data frame), but each column must to be of the same data type.   
+
+12.4 **Lists** are ordered sets of elements, that can be arbitrary R objects (vectors, data frames, matrices, strings, functions, other lists etc), and heterogeneous, i.e. each element can be of a different type and different lengths.   
+
+13. R is column-major by default, meaning that the elements of a multi-dimensional array are linearly stored in memory column-wise. This is important for example when using data to populate a `matrix`.
+
+```{r column_major}
+
+matrix(1:9, ncol = 3)
+
+```
+
+14. When subsetting matrices and data-frames, the first index is the row, and the second index is the column. If left empty (no value), then the full row or the full column is returned.
+
+```{r subset_index}
+# My letters matrix
+(my_letters <- matrix(rep(LETTERS[1:3], each=3), ncol = 3))
+
+# Element in Row 1, Column 2
+my_letters[1,2]
+
+# Element in Row 2, Column 3
+my_letters[2,3]
+
+# Row 3
+my_letters[3,]
+
+# Column 1
+my_letters[,1]
+
+```
+
+<br>
+
+---
+
+<br>
+
+### **3. R For Absolute Beginners Tutorial**
+
+**NOTE | This tutorial is just for FUTURE study, NOT to complete in class.**
+
+In the following section, you will find a brief **introductory R tutorial** covering key concepts such as fundamental syntax, core data structures (vectors, matrices, data frames, lists, and factors), control flow with loops and conditionals, function declaration, and commonly used built-in functions.
+
+This is useful for future self-paced learning, and it includes extra concepts and programming tasks that are not part of the Computational Biology class, but they are useful if you want to learn more about R, and continue to use it for your future research data analyses.
+
+---
+
+{{< include _r4ab_hands_on_tutorial.qmd >}}
+

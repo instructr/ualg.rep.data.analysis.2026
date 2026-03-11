@@ -1,0 +1,13 @@
+---
+title: "Topic 1 | Tidy data"
+---
+
+::: {.callout-note}
+## Class Details
+📅 **Date:** March, 2026  
+📖 **Synopsis:** The tidy data concept: variables in columns, observations in rows, single values in cells.
+:::
+
+</br>
+
+{{< include _tidy_data_intro.qmd >}}
