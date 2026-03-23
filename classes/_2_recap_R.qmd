@@ -1,8 +1,13 @@
-### **2. Review R**
+## **Review R: Hands-on tutorial**
 
-#### **Review & Extra notes about R and RStudio**
+If you already have some knowledge of R, but need to refresh your memory, your are in the right place!
 
-After finishing the introduction to R with `swirl`, please recall the following information and hints about R and R programming. 
+  - Start by recalling some concepts about R programming and using RStudio; 
+
+  - After this gentle introduction, you have a **hands-on tutorial** that you can follow, or you can move to the next tab `Practice R` and follow a simple data analysis project. You choose!
+  
+
+#### **About R and RStudio**
 
 1. R is case sensitive - be aware of capital letters (**b** is different from **B**).
 
@@ -100,15 +105,4 @@ my_letters[,1]
 
 <br>
 
-### **3. R For Absolute Beginners Tutorial**
-
-**NOTE | This tutorial is just for FUTURE study, NOT to complete in class.**
-
-In the following section, you will find a brief **introductory R tutorial** covering key concepts such as fundamental syntax, core data structures (vectors, matrices, data frames, lists, and factors), control flow with loops and conditionals, function declaration, and commonly used built-in functions.
-
-This is useful for future self-paced learning, and it includes extra concepts and programming tasks that are not part of the Computational Biology class, but they are useful if you want to learn more about R, and continue to use it for your future research data analyses.
-
----
-
-{{< include _r4ab_hands_on_tutorial.qmd >}}
-
+{{< include _2_r4ab_hands_on_tutorial.qmd >}}

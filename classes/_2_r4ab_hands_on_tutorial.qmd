@@ -1,4 +1,6 @@
-#### **R4AB | Hands on tutorial**
+### **Hands-on Tutorial**
+
+**NOTE | This tutorial is for students that have limited knowledge of R, but are not absolute beginners.**
 
 This mini hands-on tutorial serves as an introduction to basic R, covering the following topics:
 
@@ -650,7 +652,9 @@ mean(my.data)
 
 Most R users need to load their own datasets, usually saved as table files (e.g. Excel, or .csv files), to be able to analyse and manipulate them. After the analysis, the results need to be exported/saved (e.g. to view or use with other software).
 
-``` r
+
+```{r eval=FALSE, echo=TRUE}
+
 # Inspect the esoph built-in dataset
 esoph
 dim(esoph)
