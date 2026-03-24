@@ -244,7 +244,7 @@ window.Quarto = {
   <li><a href="#validate-the-cleaned-data" id="toc-validate-the-cleaned-data" class="nav-link" data-scroll-target="#validate-the-cleaned-data"><span class="header-section-number">3.2</span> Validate the cleaned data</a></li>
   <li><a href="#save-the-cleaned-data" id="toc-save-the-cleaned-data" class="nav-link" data-scroll-target="#save-the-cleaned-data"><span class="header-section-number">3.3</span> Save the cleaned data</a></li>
   </ul></li>
-  <li><a href="#part-4-exploratory-data-analysis-descriptive-statistics" id="toc-part-4-exploratory-data-analysis-descriptive-statistics" class="nav-link" data-scroll-target="#part-4-exploratory-data-analysis-descriptive-statistics"><span class="header-section-number">4</span> Part 4: Exploratory Data Analysis — Descriptive Statistics</a>
+  <li><a href="#part-4-exploratory-data-analysis-descriptive-statistics" id="toc-part-4-exploratory-data-analysis-descriptive-statistics" class="nav-link" data-scroll-target="#part-4-exploratory-data-analysis-descriptive-statistics"><span class="header-section-number">4</span> Part 4: Exploratory Data Analysis | Descriptive Statistics</a>
   <ul class="collapse">
   <li><a href="#load-the-cleaned-data" id="toc-load-the-cleaned-data" class="nav-link" data-scroll-target="#load-the-cleaned-data"><span class="header-section-number">4.1</span> Load the cleaned data</a></li>
   <li><a href="#sample-size-by-group" id="toc-sample-size-by-group" class="nav-link" data-scroll-target="#sample-size-by-group"><span class="header-section-number">4.2</span> Sample size by group</a></li>
@@ -353,7 +353,7 @@ window.Quarto = {
 <li>Apply dimensionality reduction with PCA</li>
 <li>Build a simple machine learning model using tidymodels</li>
 </ol>
-<p>We will work with a <strong>messy version of the Palmer Penguins dataset</strong>—a popular alternative to the iris dataset for learning data science. The data contains measurements of penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.</p>
+<p>We will work with a <strong>messy version of the Palmer Penguins dataset,</strong> a popular alternative to the iris dataset for learning data science. The data contains measurements of penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.</p>
 <hr>
 </section>
 <section id="part-1-project-setup-and-organization" class="level2" data-number="1">
@@ -409,7 +409,7 @@ Create Project</code></pre>
 <section id="download-the-messy-dataset" class="level3" data-number="1.2">
 <h3 data-number="1.2" class="anchored" data-anchor-id="download-the-messy-dataset"><span class="header-section-number">1.2</span> Download the messy dataset</h3>
 <p>Download the <code>messy_penguins.csv</code> file from the course materials and place it in the <code>data/raw/</code> folder.</p>
-<p>The file is available at: <a href="data/messy_penguins.csv">messy_penguins.csv</a></p>
+<p>The file is available at: <a href="data/raw/messy_penguins.csv">messy_penguins.csv</a></p>
 <hr>
 </section>
 </section>
@@ -929,7 +929,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 </section>
 </section>
 <section id="part-4-exploratory-data-analysis-descriptive-statistics" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="part-4-exploratory-data-analysis-descriptive-statistics"><span class="header-section-number">4</span> Part 4: Exploratory Data Analysis — Descriptive Statistics</h2>
+<h2 data-number="4" class="anchored" data-anchor-id="part-4-exploratory-data-analysis-descriptive-statistics"><span class="header-section-number">4</span> Part 4: Exploratory Data Analysis | Descriptive Statistics</h2>
 <p>Now we explore the cleaned data to understand its characteristics before any modeling.</p>
 <section id="load-the-cleaned-data" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="load-the-cleaned-data"><span class="header-section-number">4.1</span> Load the cleaned data</h3>
@@ -1404,7 +1404,7 @@ Figure&nbsp;7: PCA biplot showing penguin species separation and variable loadin
 <li><code>count(species)</code> shows us how many penguins of each species remain in our dataset.</li>
 </ol>
 <p><strong>Why we do it:</strong></p>
-<p>Machine learning algorithms cannot handle missing values—they need complete data for every observation. By selecting only the relevant columns first, we avoid accidentally removing rows that have missing values in columns we don’t even use.</p>
+<p>Machine learning algorithms cannot handle missing values: they need complete data for every observation. By selecting only the relevant columns first, we avoid accidentally removing rows that have missing values in columns we don’t even use.</p>
 <p>Checking the class balance (how many of each species) is important because if one species were much rarer than others, our model might struggle to learn its patterns. In our case, we have roughly similar numbers of each species, which is good.</p>
 </div>
 </div>
@@ -1528,7 +1528,7 @@ Computational engine: ranger </code></pre>
 <li><code>set_mode("classification")</code> specifies that we’re predicting categories (species), not continuous numbers.</li>
 </ol>
 <p><strong>Why we do it:</strong></p>
-<p><em>Why Random Forest?</em> A Random Forest is an ensemble method—it builds many decision trees and combines their predictions by voting. This makes it robust, accurate, and resistant to overfitting. It works well “out of the box” without much tuning, making it ideal for learning.</p>
+<p><em>Why Random Forest?</em> A Random Forest is an ensemble method: it builds many decision trees and combines their predictions by voting. This makes it robust, accurate, and resistant to overfitting. It works well “out of the box” without much tuning, making it ideal for learning.</p>
 <p><em>Why these parameter values?</em></p>
 <ul>
 <li><code>trees = 500</code>: More trees generally means better and more stable predictions, at the cost of computation time. 500 is a reasonable default.</li>
@@ -1553,7 +1553,7 @@ Computational engine: ranger </code></pre>
 <div class="callout-body-container callout-body">
 <p><strong>What it does:</strong></p>
 <ol type="1">
-<li><code>recipe(species ~ ., data = penguins_train)</code> declares the modelling task: predict <code>species</code> using all other columns (<code>.</code> means “everything else”). The <code>data</code> argument is used only to identify column names and types—no actual fitting happens yet.</li>
+<li><code>recipe(species ~ ., data = penguins_train)</code> declares the modelling task: predict <code>species</code> using all other columns (<code>.</code> means “everything else”). The <code>data</code> argument is used only to identify column names and types (no actual fitting happens yet).</li>
 <li><code>step_normalize(all_numeric_predictors())</code> adds a preprocessing step that will centre and scale all numeric predictors to have mean 0 and standard deviation 1.</li>
 </ol>
 <p><strong>Why we do it:</strong></p>
@@ -1646,14 +1646,14 @@ OOB prediction error (Brier s.):  0.01879658 </code></pre>
 <p><strong>What it does:</strong></p>
 <p><code>fit(data = penguins_train)</code> executes the workflow on the training data:</p>
 <ol type="1">
-<li>The recipe is “prepped”—it learns the preprocessing parameters (means and standard deviations for normalisation) from the training data.</li>
+<li>The recipe is “prepped”: it learns the preprocessing parameters (means and standard deviations for normalisation) from the training data.</li>
 <li>The training data is transformed according to the recipe.</li>
 <li>The Random Forest model is trained on the transformed training data.</li>
 </ol>
 <p>The result, <code>rf_fit</code>, is a fitted workflow containing both the learned preprocessing parameters and the trained model.</p>
 <p><strong>Why we do it:</strong></p>
 <p>This is where the actual learning happens. The Random Forest algorithm examines the training data, builds 500 decision trees, and learns rules like “if bill length &gt; 45mm and bill depth &lt; 15mm, this is probably a Gentoo”.</p>
-<p>We fit on training data only—the test data remains completely unseen, preserving it as an honest evaluation set.</p>
+<p>We fit on training data only (the test data remains completely unseen), preserving it as an honest evaluation set.</p>
 </div>
 </div>
 </div>
@@ -1756,7 +1756,7 @@ Prediction  Adelie Chinstrap Gentoo
 <p>Calculates accuracy: the proportion of predictions that were correct.</p>
 <p><span class="math display">\[\text{Accuracy} = \frac{\text{Number of correct predictions}}{\text{Total number of predictions}}\]</span></p>
 <p><strong>Why we do it:</strong></p>
-<p>Accuracy is intuitive—it answers “what percentage did we get right?” However, it can be misleading with imbalanced classes. If 90% of penguins were Adelie, a model that always guessed “Adelie” would have 90% accuracy but would be useless for identifying other species.</p>
+<p>Accuracy is intuitive: it answers “what percentage did we get right?” However, it can be misleading with imbalanced classes. If 90% of penguins were Adelie, a model that always guessed “Adelie” would have 90% accuracy but would be useless for identifying other species.</p>
 <p>In our case, classes are roughly balanced, so accuracy is a reasonable metric.</p>
 </div>
 </div>
@@ -1867,7 +1867,7 @@ Figure&nbsp;8: Confusion matrix for random forest classification
 <p><em>Why cross-validate?</em> A single train/test split gives us one estimate of model performance. But what if we got lucky (or unlucky) with that particular split? Cross-validation provides multiple estimates, letting us assess how stable our performance is.</p>
 <p><em>How to interpret the results:</em></p>
 <ul>
-<li><em>Mean accuracy</em>: the average accuracy across all 5 folds—a more reliable estimate than a single split.</li>
+<li><em>Mean accuracy</em>: the average accuracy across all 5 folds (a more reliable estimate than a single split).</li>
 <li><em>Standard error</em>: indicates how much the accuracy varied between folds. A small standard error means consistent performance; a large one suggests the model’s performance depends heavily on which data it sees.</li>
 </ul>
 <p><em>What is ROC AUC?</em> The Area Under the Receiver Operating Characteristic curve measures how well the model distinguishes between classes across all possible decision thresholds. Values range from 0.5 (random guessing) to 1.0 (perfect separation). It’s particularly useful when you care about ranking predictions, not just the final class labels.</p>
@@ -2049,7 +2049,7 @@ Figure&nbsp;12: Cross-validation metrics across folds
 <li><p><strong>Evaluate</strong>: Calculate metrics to assess performance.</p></li>
 <li><p><strong>Cross-validate</strong>: Get robust performance estimates with uncertainty.</p></li>
 </ol>
-<p>This workflow, enabled by the tidymodels framework, is modular and reproducible. You can easily substitute different models, add preprocessing steps, or change evaluation metrics—all while maintaining the same overall structure.</p>
+<p>This workflow, enabled by the tidymodels framework, is modular and reproducible. You can easily substitute different models, add preprocessing steps, or change evaluation metrics, all while maintaining the same overall structure.</p>
 </div>
 </div>
 </div>
@@ -2946,7 +2946,7 @@ loaded via a namespace (and not attached):
 <span id="cb98-37"><a href="#cb98-37" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Apply dimensionality reduction with PCA</span>
 <span id="cb98-38"><a href="#cb98-38" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Build a simple machine learning model using tidymodels</span>
 <span id="cb98-39"><a href="#cb98-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-40"><a href="#cb98-40" aria-hidden="true" tabindex="-1"></a>We will work with a **messy version of the Palmer Penguins dataset**---a popular alternative to the iris dataset for learning data science. The data contains measurements of penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.</span>
+<span id="cb98-40"><a href="#cb98-40" aria-hidden="true" tabindex="-1"></a>We will work with a **messy version of the Palmer Penguins dataset,** a popular alternative to the iris dataset for learning data science. The data contains measurements of penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.</span>
 <span id="cb98-41"><a href="#cb98-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-42"><a href="#cb98-42" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb98-43"><a href="#cb98-43" aria-hidden="true" tabindex="-1"></a></span>
@@ -3007,7 +3007,7 @@ loaded via a namespace (and not attached):
 <span id="cb98-100"><a href="#cb98-100" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-101"><a href="#cb98-101" aria-hidden="true" tabindex="-1"></a>Download the <span class="in">`messy_penguins.csv`</span> file from the course materials and place it in the <span class="in">`data/raw/`</span> folder.</span>
 <span id="cb98-102"><a href="#cb98-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-103"><a href="#cb98-103" aria-hidden="true" tabindex="-1"></a>The file is available at: <span class="co">[</span><span class="ot">messy_penguins.csv</span><span class="co">](data/messy_penguins.csv)</span></span>
+<span id="cb98-103"><a href="#cb98-103" aria-hidden="true" tabindex="-1"></a>The file is available at: <span class="co">[</span><span class="ot">messy_penguins.csv</span><span class="co">](data/raw/messy_penguins.csv)</span></span>
 <span id="cb98-104"><a href="#cb98-104" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-105"><a href="#cb98-105" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb98-106"><a href="#cb98-106" aria-hidden="true" tabindex="-1"></a></span>
@@ -3207,7 +3207,7 @@ loaded via a namespace (and not attached):
 <span id="cb98-316"><a href="#cb98-316" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-317"><a href="#cb98-317" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb98-318"><a href="#cb98-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-319"><a href="#cb98-319" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 4: Exploratory Data Analysis --- Descriptive Statistics</span></span>
+<span id="cb98-319"><a href="#cb98-319" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 4: Exploratory Data Analysis | Descriptive Statistics</span></span>
 <span id="cb98-320"><a href="#cb98-320" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-321"><a href="#cb98-321" aria-hidden="true" tabindex="-1"></a>Now we explore the cleaned data to understand its characteristics before any modeling.</span>
 <span id="cb98-322"><a href="#cb98-322" aria-hidden="true" tabindex="-1"></a></span>
@@ -3585,7 +3585,7 @@ loaded via a namespace (and not attached):
 <span id="cb98-720"><a href="#cb98-720" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-721"><a href="#cb98-721" aria-hidden="true" tabindex="-1"></a>**Why we do it:**</span>
 <span id="cb98-722"><a href="#cb98-722" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-723"><a href="#cb98-723" aria-hidden="true" tabindex="-1"></a>Machine learning algorithms cannot handle missing values---they need complete data for every observation. By selecting only the relevant columns first, we avoid accidentally removing rows that have missing values in columns we don't even use.</span>
+<span id="cb98-723"><a href="#cb98-723" aria-hidden="true" tabindex="-1"></a>Machine learning algorithms cannot handle missing values: they need complete data for every observation. By selecting only the relevant columns first, we avoid accidentally removing rows that have missing values in columns we don't even use.</span>
 <span id="cb98-724"><a href="#cb98-724" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-725"><a href="#cb98-725" aria-hidden="true" tabindex="-1"></a>Checking the class balance (how many of each species) is important because if one species were much rarer than others, our model might struggle to learn its patterns. In our case, we have roughly similar numbers of each species, which is good.</span>
 <span id="cb98-726"><a href="#cb98-726" aria-hidden="true" tabindex="-1"></a>:::</span>
@@ -3671,7 +3671,7 @@ loaded via a namespace (and not attached):
 <span id="cb98-810"><a href="#cb98-810" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-811"><a href="#cb98-811" aria-hidden="true" tabindex="-1"></a>**Why we do it:**</span>
 <span id="cb98-812"><a href="#cb98-812" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-813"><a href="#cb98-813" aria-hidden="true" tabindex="-1"></a>*Why Random Forest?* A Random Forest is an ensemble method---it builds many decision trees and combines their predictions by voting. This makes it robust, accurate, and resistant to overfitting. It works well "out of the box" without much tuning, making it ideal for learning.</span>
+<span id="cb98-813"><a href="#cb98-813" aria-hidden="true" tabindex="-1"></a>*Why Random Forest?* A Random Forest is an ensemble method: it builds many decision trees and combines their predictions by voting. This makes it robust, accurate, and resistant to overfitting. It works well "out of the box" without much tuning, making it ideal for learning.</span>
 <span id="cb98-814"><a href="#cb98-814" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-815"><a href="#cb98-815" aria-hidden="true" tabindex="-1"></a>*Why these parameter values?*</span>
 <span id="cb98-816"><a href="#cb98-816" aria-hidden="true" tabindex="-1"></a></span>
@@ -3687,7 +3687,7 @@ loaded via a namespace (and not attached):
 <span id="cb98-826"><a href="#cb98-826" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-827"><a href="#cb98-827" aria-hidden="true" tabindex="-1"></a>**What it does:**</span>
 <span id="cb98-828"><a href="#cb98-828" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-829"><a href="#cb98-829" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="in">`recipe(species ~ ., data = penguins_train)`</span> declares the modelling task: predict <span class="in">`species`</span> using all other columns (<span class="in">`.`</span> means "everything else"). The <span class="in">`data`</span> argument is used only to identify column names and types---no actual fitting happens yet.</span>
+<span id="cb98-829"><a href="#cb98-829" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="in">`recipe(species ~ ., data = penguins_train)`</span> declares the modelling task: predict <span class="in">`species`</span> using all other columns (<span class="in">`.`</span> means "everything else"). The <span class="in">`data`</span> argument is used only to identify column names and types (no actual fitting happens yet).</span>
 <span id="cb98-830"><a href="#cb98-830" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span><span class="in">`step_normalize(all_numeric_predictors())`</span> adds a preprocessing step that will centre and scale all numeric predictors to have mean 0 and standard deviation 1.</span>
 <span id="cb98-831"><a href="#cb98-831" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-832"><a href="#cb98-832" aria-hidden="true" tabindex="-1"></a>**Why we do it:**</span>
@@ -3739,7 +3739,7 @@ loaded via a namespace (and not attached):
 <span id="cb98-880"><a href="#cb98-880" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-881"><a href="#cb98-881" aria-hidden="true" tabindex="-1"></a><span class="in">`fit(data = penguins_train)`</span> executes the workflow on the training data:</span>
 <span id="cb98-882"><a href="#cb98-882" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-883"><a href="#cb98-883" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The recipe is "prepped"---it learns the preprocessing parameters (means and standard deviations for normalisation) from the training data.</span>
+<span id="cb98-883"><a href="#cb98-883" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The recipe is "prepped": it learns the preprocessing parameters (means and standard deviations for normalisation) from the training data.</span>
 <span id="cb98-884"><a href="#cb98-884" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The training data is transformed according to the recipe.</span>
 <span id="cb98-885"><a href="#cb98-885" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>The Random Forest model is trained on the transformed training data.</span>
 <span id="cb98-886"><a href="#cb98-886" aria-hidden="true" tabindex="-1"></a></span>
@@ -3749,7 +3749,7 @@ loaded via a namespace (and not attached):
 <span id="cb98-890"><a href="#cb98-890" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-891"><a href="#cb98-891" aria-hidden="true" tabindex="-1"></a>This is where the actual learning happens. The Random Forest algorithm examines the training data, builds 500 decision trees, and learns rules like "if bill length &gt; 45mm and bill depth &lt; 15mm, this is probably a Gentoo".</span>
 <span id="cb98-892"><a href="#cb98-892" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-893"><a href="#cb98-893" aria-hidden="true" tabindex="-1"></a>We fit on training data only---the test data remains completely unseen, preserving it as an honest evaluation set.</span>
+<span id="cb98-893"><a href="#cb98-893" aria-hidden="true" tabindex="-1"></a>We fit on training data only (the test data remains completely unseen), preserving it as an honest evaluation set.</span>
 <span id="cb98-894"><a href="#cb98-894" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb98-895"><a href="#cb98-895" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-896"><a href="#cb98-896" aria-hidden="true" tabindex="-1"></a><span class="fu">### Evaluate on test data</span></span>
@@ -3813,7 +3813,7 @@ loaded via a namespace (and not attached):
 <span id="cb98-958"><a href="#cb98-958" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-959"><a href="#cb98-959" aria-hidden="true" tabindex="-1"></a>**Why we do it:**</span>
 <span id="cb98-960"><a href="#cb98-960" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-961"><a href="#cb98-961" aria-hidden="true" tabindex="-1"></a>Accuracy is intuitive---it answers "what percentage did we get right?" However, it can be misleading with imbalanced classes. If 90% of penguins were Adelie, a model that always guessed "Adelie" would have 90% accuracy but would be useless for identifying other species.</span>
+<span id="cb98-961"><a href="#cb98-961" aria-hidden="true" tabindex="-1"></a>Accuracy is intuitive: it answers "what percentage did we get right?" However, it can be misleading with imbalanced classes. If 90% of penguins were Adelie, a model that always guessed "Adelie" would have 90% accuracy but would be useless for identifying other species.</span>
 <span id="cb98-962"><a href="#cb98-962" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-963"><a href="#cb98-963" aria-hidden="true" tabindex="-1"></a>In our case, classes are roughly balanced, so accuracy is a reasonable metric.</span>
 <span id="cb98-964"><a href="#cb98-964" aria-hidden="true" tabindex="-1"></a>:::</span>
@@ -3898,7 +3898,7 @@ loaded via a namespace (and not attached):
 <span id="cb98-1047"><a href="#cb98-1047" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-1048"><a href="#cb98-1048" aria-hidden="true" tabindex="-1"></a>*How to interpret the results:*</span>
 <span id="cb98-1049"><a href="#cb98-1049" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-1050"><a href="#cb98-1050" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Mean accuracy*: the average accuracy across all 5 folds---a more reliable estimate than a single split.</span>
+<span id="cb98-1050"><a href="#cb98-1050" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Mean accuracy*: the average accuracy across all 5 folds (a more reliable estimate than a single split).</span>
 <span id="cb98-1051"><a href="#cb98-1051" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Standard error*: indicates how much the accuracy varied between folds. A small standard error means consistent performance; a large one suggests the model's performance depends heavily on which data it sees.</span>
 <span id="cb98-1052"><a href="#cb98-1052" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-1053"><a href="#cb98-1053" aria-hidden="true" tabindex="-1"></a>*What is ROC AUC?* The Area Under the Receiver Operating Characteristic curve measures how well the model distinguishes between classes across all possible decision thresholds. Values range from 0.5 (random guessing) to 1.0 (perfect separation). It's particularly useful when you care about ranking predictions, not just the final class labels.</span>
@@ -4054,7 +4054,7 @@ loaded via a namespace (and not attached):
 <span id="cb98-1211"><a href="#cb98-1211" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-1212"><a href="#cb98-1212" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>**Cross-validate**: Get robust performance estimates with uncertainty.</span>
 <span id="cb98-1213"><a href="#cb98-1213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-1214"><a href="#cb98-1214" aria-hidden="true" tabindex="-1"></a>This workflow, enabled by the tidymodels framework, is modular and reproducible. You can easily substitute different models, add preprocessing steps, or change evaluation metrics---all while maintaining the same overall structure.</span>
+<span id="cb98-1214"><a href="#cb98-1214" aria-hidden="true" tabindex="-1"></a>This workflow, enabled by the tidymodels framework, is modular and reproducible. You can easily substitute different models, add preprocessing steps, or change evaluation metrics, all while maintaining the same overall structure.</span>
 <span id="cb98-1215"><a href="#cb98-1215" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb98-1216"><a href="#cb98-1216" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-1217"><a href="#cb98-1217" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>

@@ -37,7 +37,7 @@ In this mini-project, you will:
 6. Apply dimensionality reduction with PCA
 7. Build a simple machine learning model using tidymodels
 
-We will work with a **messy version of the Palmer Penguins dataset**---a popular alternative to the iris dataset for learning data science. The data contains measurements of penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.
+We will work with a **messy version of the Palmer Penguins dataset,** a popular alternative to the iris dataset for learning data science. The data contains measurements of penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.
 
 ---
 
@@ -98,7 +98,7 @@ penguins_analysis/
 
 Download the `messy_penguins.csv` file from the course materials and place it in the `data/raw/` folder.
 
-The file is available at: [messy_penguins.csv](data/messy_penguins.csv)
+The file is available at: [messy_penguins.csv](data/raw/messy_penguins.csv)
 
 ---
 
@@ -298,7 +298,7 @@ cat("Cleaned rows:", nrow(penguins_clean), "\n")
 
 ---
 
-## Part 4: Exploratory Data Analysis --- Descriptive Statistics
+## Part 4: Exploratory Data Analysis | Descriptive Statistics
 
 Now we explore the cleaned data to understand its characteristics before any modeling.
 
@@ -676,7 +676,7 @@ penguins_ml |> count(species)
 
 **Why we do it:**
 
-Machine learning algorithms cannot handle missing values---they need complete data for every observation. By selecting only the relevant columns first, we avoid accidentally removing rows that have missing values in columns we don't even use.
+Machine learning algorithms cannot handle missing values: they need complete data for every observation. By selecting only the relevant columns first, we avoid accidentally removing rows that have missing values in columns we don't even use.
 
 Checking the class balance (how many of each species) is important because if one species were much rarer than others, our model might struggle to learn its patterns. In our case, we have roughly similar numbers of each species, which is good.
 :::
@@ -762,7 +762,7 @@ rf_workflow
 
 **Why we do it:**
 
-*Why Random Forest?* A Random Forest is an ensemble method---it builds many decision trees and combines their predictions by voting. This makes it robust, accurate, and resistant to overfitting. It works well "out of the box" without much tuning, making it ideal for learning.
+*Why Random Forest?* A Random Forest is an ensemble method: it builds many decision trees and combines their predictions by voting. This makes it robust, accurate, and resistant to overfitting. It works well "out of the box" without much tuning, making it ideal for learning.
 
 *Why these parameter values?*
 
@@ -778,7 +778,7 @@ rf_workflow
 
 **What it does:**
 
-1. `recipe(species ~ ., data = penguins_train)` declares the modelling task: predict `species` using all other columns (`.` means "everything else"). The `data` argument is used only to identify column names and types---no actual fitting happens yet.
+1. `recipe(species ~ ., data = penguins_train)` declares the modelling task: predict `species` using all other columns (`.` means "everything else"). The `data` argument is used only to identify column names and types (no actual fitting happens yet).
 2. `step_normalize(all_numeric_predictors())` adds a preprocessing step that will centre and scale all numeric predictors to have mean 0 and standard deviation 1.
 
 **Why we do it:**
@@ -830,7 +830,7 @@ rf_fit
 
 `fit(data = penguins_train)` executes the workflow on the training data:
 
-1. The recipe is "prepped"---it learns the preprocessing parameters (means and standard deviations for normalisation) from the training data.
+1. The recipe is "prepped": it learns the preprocessing parameters (means and standard deviations for normalisation) from the training data.
 2. The training data is transformed according to the recipe.
 3. The Random Forest model is trained on the transformed training data.
 
@@ -840,7 +840,7 @@ The result, `rf_fit`, is a fitted workflow containing both the learned preproces
 
 This is where the actual learning happens. The Random Forest algorithm examines the training data, builds 500 decision trees, and learns rules like "if bill length > 45mm and bill depth < 15mm, this is probably a Gentoo".
 
-We fit on training data only---the test data remains completely unseen, preserving it as an honest evaluation set.
+We fit on training data only (the test data remains completely unseen), preserving it as an honest evaluation set.
 :::
 
 ### Evaluate on test data
@@ -904,7 +904,7 @@ $$\text{Accuracy} = \frac{\text{Number of correct predictions}}{\text{Total numb
 
 **Why we do it:**
 
-Accuracy is intuitive---it answers "what percentage did we get right?" However, it can be misleading with imbalanced classes. If 90% of penguins were Adelie, a model that always guessed "Adelie" would have 90% accuracy but would be useless for identifying other species.
+Accuracy is intuitive: it answers "what percentage did we get right?" However, it can be misleading with imbalanced classes. If 90% of penguins were Adelie, a model that always guessed "Adelie" would have 90% accuracy but would be useless for identifying other species.
 
 In our case, classes are roughly balanced, so accuracy is a reasonable metric.
 :::
@@ -989,7 +989,7 @@ collect_metrics(cv_results)
 
 *How to interpret the results:*
 
-- *Mean accuracy*: the average accuracy across all 5 folds---a more reliable estimate than a single split.
+- *Mean accuracy*: the average accuracy across all 5 folds (a more reliable estimate than a single split).
 - *Standard error*: indicates how much the accuracy varied between folds. A small standard error means consistent performance; a large one suggests the model's performance depends heavily on which data it sees.
 
 *What is ROC AUC?* The Area Under the Receiver Operating Characteristic curve measures how well the model distinguishes between classes across all possible decision thresholds. Values range from 0.5 (random guessing) to 1.0 (perfect separation). It's particularly useful when you care about ranking predictions, not just the final class labels.
@@ -1145,7 +1145,7 @@ Here's the full machine learning workflow in context:
 
 9. **Cross-validate**: Get robust performance estimates with uncertainty.
 
-This workflow, enabled by the tidymodels framework, is modular and reproducible. You can easily substitute different models, add preprocessing steps, or change evaluation metrics---all while maintaining the same overall structure.
+This workflow, enabled by the tidymodels framework, is modular and reproducible. You can easily substitute different models, add preprocessing steps, or change evaluation metrics, all while maintaining the same overall structure.
 :::
 
 ::: {.callout-note collapse="true"}
