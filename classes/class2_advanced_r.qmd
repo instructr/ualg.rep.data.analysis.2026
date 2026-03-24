@@ -1,0 +1,1405 @@
+---
+title: "Topic 2 | Advanced R"
+subtitle: "Reproducible Data Analysis: From Messy Data to Machine Learning"
+author: "Isabel Duarte"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    number-sections: true
+    code-fold: false
+    code-tools: true
+    theme: cosmo
+    highlight-style: github
+execute:
+  warning: false
+  message: false
+---
+
+## Overview {.unnumbered}
+
+::: {.callout-note}
+## Mini-Project Details
+
+**Estimated time:** 3--4 hours  
+**Synopsis:** This hands-on mini-project walks you through the complete workflow of reproducible data analysis in R, from organizing your project to applying machine learning techniques.
+:::
+
+In this mini-project, you will:
+
+1. Set up a proper folder structure for reproducible research
+2. Load and inspect a messy dataset
+3. Clean and tidy the data following best practices
+4. Perform exploratory data analysis with descriptive statistics
+5. Create publication-quality visualizations with ggplot2
+6. Apply dimensionality reduction with PCA
+7. Build a simple machine learning model using tidymodels
+
+We will work with a **messy version of the Palmer Penguins dataset**---a popular alternative to the iris dataset for learning data science. The data contains measurements of penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.
+
+---
+
+## Part 1: Project Setup and Organization
+
+A well-organized project structure is the foundation of reproducible research. Before writing any code, we establish a clear directory hierarchy.
+
+### Create the project folder structure
+
+Open RStudio and create a new project:
+
+```
+File > New Project... > New Directory > New Project
+Directory name: penguins_analysis
+Create project as subdirectory of: ~/
+Create Project
+```
+
+Now create the required subdirectories. Run this in the R console:
+
+```{r}
+#| eval: false
+
+# Create the folder structure for the project
+dir.create("data/raw", recursive = TRUE)
+dir.create("data/processed", recursive = TRUE)
+dir.create("scripts", recursive = TRUE)
+dir.create("output/figures", recursive = TRUE)
+dir.create("output/tables", recursive = TRUE)
+dir.create("docs", recursive = TRUE)
+```
+
+Your project should now have this structure:
+
+```
+penguins_analysis/
+├── data/
+│   ├── raw/           # Original, unmodified data
+│   └── processed/     # Cleaned data ready for analysis
+├── scripts/           # R scripts for data processing
+├── output/
+│   ├── figures/       # Plots and visualizations
+│   └── tables/        # Summary tables
+├── docs/              # Documentation and notes
+└── penguins_analysis.Rproj
+```
+
+::: {.callout-tip}
+## Why this structure?
+
+- **raw/**: Never modify original data. Keep it read-only as a reference.
+- **processed/**: Store cleaned versions with clear names.
+- **scripts/**: Separate data cleaning from analysis for clarity.
+- **output/**: Makes it easy to regenerate all results from code.
+:::
+
+### Download the messy dataset
+
+Download the `messy_penguins.csv` file from the course materials and place it in the `data/raw/` folder.
+
+The file is available at: [messy_penguins.csv](data/messy_penguins.csv)
+
+---
+
+## Part 2: Loading and Inspecting Messy Data
+
+### Load required packages
+
+We use the tidyverse ecosystem for modern, readable R code:
+
+```{r}
+#| label: load-packages
+
+# Core tidyverse packages
+library(tidyverse)   # includes ggplot2, dplyr, tidyr, readr, etc.
+
+# Additional packages for this project
+library(janitor)     # data cleaning utilities
+library(skimr)       # summary statistics
+library(corrplot)    # correlation visualization
+library(GGally)      # pairs plots
+library(tidymodels)
+```
+
+If any package is not installed, run:
+
+```{r}
+#| eval: false
+
+install.packages(c("tidyverse", "janitor", "skimr", "corrplot", 
+                   "GGally", "tidymodels", "ranger"))
+```
+
+### Read the messy data
+
+Always use explicit arguments when reading data to ensure reproducibility:
+
+```{r}
+#| label: load-data
+
+# Read the messy data from the raw folder
+penguins_raw <- read_csv(
+  "data/raw/messy_penguins.csv",
+  col_types = cols(.default = col_character()),  # read all as character first
+  na = c("", "NA", "na", "N/A", "n/a", "missing") # define missing values
+)
+
+# First look at the data
+penguins_raw
+```
+
+### Inspect the data structure
+
+Before cleaning, we need to understand what problems exist:
+
+```{r}
+#| label: inspect-data
+
+# Check dimensions
+dim(penguins_raw)
+
+# View column names (notice the inconsistent naming)
+names(penguins_raw)
+
+# Check the structure
+str(penguins_raw)
+
+# Quick glimpse
+glimpse(penguins_raw)
+```
+
+### Identify data quality issues
+
+Let's systematically check for problems:
+
+```{r}
+#| label: identify-issues
+
+# Check unique values in categorical columns
+penguins_raw |> 
+  count(Species, sort = TRUE)
+
+penguins_raw |> 
+  count(island, sort = TRUE)
+
+penguins_raw |> 
+  count(Sex, sort = TRUE)
+
+# Check for missing values
+penguins_raw |> 
+  summarise(across(everything(), ~ sum(is.na(.))))
+```
+
+::: {.callout-important}
+## Data Quality Issues Identified
+
+1. **Column names**: Inconsistent formatting (spaces, parentheses, mixed case)
+2. **Species**: Mixed case ("Adelie", "adelie", "ADELIE")
+3. **Island**: Mixed case ("Torgersen", "torgersen", "Biscoe", "biscoe")
+4. **Sex**: Multiple representations ("male", "Male", "MALE", "female", "Female", "FEMALE")
+5. **Missing values**: Multiple representations already converted to NA
+6. **Numeric columns**: Currently stored as character
+7. **Incomplete rows**: Row 39 is missing the last columns
+:::
+
+---
+
+## Part 3: Data Cleaning and Tidying
+
+Now we create a reproducible cleaning script. This script should be saved separately in `scripts/clean_penguins.R` for reuse.
+
+### Step-by-step cleaning
+
+```{r}
+#| label: clean-data
+
+penguins_clean <- penguins_raw |> 
+  # Step 1: Clean column names (snake_case, lowercase)
+  janitor::clean_names() |> 
+  
+  # Step 2: Rename columns with units in the name
+  rename(
+    flipper_length_mm = flipper_length_mm,
+    body_mass_g = body_mass_g
+  ) |> 
+  
+  # Step 3: Standardize categorical variables
+  mutate(
+    species = str_to_title(species),    # Capitalize first letter
+    island = str_to_title(island),
+    sex = str_to_lower(sex),
+    sex = case_when(
+      sex %in% c("male", "m") ~ "male",
+      sex %in% c("female", "f") ~ "female",
+      TRUE ~ NA_character_
+    )
+  ) |> 
+  
+  # Step 4: Convert numeric columns
+  mutate(
+    bill_length_mm = as.numeric(bill_length_mm),
+    bill_depth_mm = as.numeric(bill_depth_mm),
+    flipper_length_mm = as.numeric(flipper_length_mm),
+    body_mass_g = as.numeric(body_mass_g),
+    year = as.integer(year)
+  ) |> 
+  
+  # Step 5: Convert to factors where appropriate
+  mutate(
+    species = factor(species),
+    island = factor(island),
+    sex = factor(sex)
+  ) |> 
+  
+  # Step 6: Remove the ID column (not needed for analysis)
+  select(-id) |> 
+  
+  # Step 7: Remove rows with all measurements missing
+  filter(!if_all(c(bill_length_mm, bill_depth_mm, 
+                   flipper_length_mm, body_mass_g), is.na))
+
+# Check the result
+glimpse(penguins_clean)
+```
+
+### Validate the cleaned data
+
+```{r}
+#| label: validate-data
+
+# Check factor levels
+levels(penguins_clean$species)
+levels(penguins_clean$island)
+levels(penguins_clean$sex)
+
+# Summary of numeric variables
+penguins_clean |> 
+  select(where(is.numeric)) |> 
+  summary()
+
+# Use skimr for a comprehensive summary
+skim(penguins_clean)
+```
+
+### Save the cleaned data
+
+```{r}
+#| label: save-clean-data
+
+# Save to processed folder
+write_csv(penguins_clean, "data/processed/penguins_clean.csv")
+
+# Confirmation message
+cat("Cleaned data saved to: data/processed/penguins_clean.csv\n")
+cat("Original rows:", nrow(penguins_raw), "\n")
+cat("Cleaned rows:", nrow(penguins_clean), "\n")
+```
+
+---
+
+## Part 4: Exploratory Data Analysis --- Descriptive Statistics
+
+Now we explore the cleaned data to understand its characteristics before any modeling.
+
+### Load the cleaned data
+
+In a real workflow, you would start here if the cleaning was done previously:
+
+
+
+### Sample size by group
+
+```{r}
+#| label: load-clean-data
+
+penguins <- read_csv(
+  "data/processed/penguins_clean.csv",
+  col_types = cols(
+    species = col_character(),
+    island = col_character(),
+    sex = col_character(),
+    bill_length_mm = col_double(),
+    bill_depth_mm = col_double(),
+    flipper_length_mm = col_double(),
+    body_mass_g = col_double(),
+    year = col_integer()
+  )
+) |> 
+  mutate(
+    species = factor(species),
+    island = factor(island),
+    sex = factor(sex)
+  )
+```
+
+### Summary statistics by species
+
+```{r}
+#| label: summary-stats
+
+# Calculate descriptive statistics for numeric variables by species
+penguins |> 
+  group_by(species) |> 
+  summarise(
+    n = n(),
+    mean_bill_length = mean(bill_length_mm, na.rm = TRUE),
+    sd_bill_length = sd(bill_length_mm, na.rm = TRUE),
+    mean_bill_depth = mean(bill_depth_mm, na.rm = TRUE),
+    sd_bill_depth = sd(bill_depth_mm, na.rm = TRUE),
+    mean_flipper_length = mean(flipper_length_mm, na.rm = TRUE),
+    sd_flipper_length = sd(flipper_length_mm, na.rm = TRUE),
+    mean_body_mass = mean(body_mass_g, na.rm = TRUE),
+    sd_body_mass = sd(body_mass_g, na.rm = TRUE)
+  ) |> 
+  mutate(across(where(is.numeric), ~ round(., 2)))
+```
+
+### Correlation analysis
+
+```{r}
+#| label: correlation
+
+# Calculate correlation matrix for numeric variables
+cor_matrix <- penguins |> 
+  select(where(is.numeric), -year) |> 
+  drop_na() |> 
+  cor()
+
+# Display the correlation matrix
+round(cor_matrix, 2)
+```
+
+---
+
+## Part 5: Data Visualization with ggplot2
+
+Visualization is essential for understanding patterns in data. We follow the grammar of graphics principles.
+
+### Distribution of measurements
+
+```{r}
+#| label: fig-histograms
+#| fig-cap: "Distribution of penguin measurements by species"
+#| fig-width: 10
+#| fig-height: 8
+
+# Histograms of all numeric variables
+penguins |> 
+  select(species, bill_length_mm, bill_depth_mm, 
+         flipper_length_mm, body_mass_g) |> 
+  pivot_longer(
+    cols = -species,
+    names_to = "measurement",
+    values_to = "value"
+  ) |> 
+  ggplot(aes(x = value, fill = species)) +
+  geom_histogram(bins = 20, alpha = 0.7, position = "identity") +
+  facet_wrap(~ measurement, scales = "free") +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    title = "Distribution of Penguin Measurements",
+    x = "Value",
+    y = "Count",
+    fill = "Species"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+### Boxplots comparing species
+
+```{r}
+#| label: fig-boxplots
+#| fig-cap: "Comparison of body mass across penguin species"
+#| fig-width: 8
+#| fig-height: 5
+
+ggplot(penguins, aes(x = species, y = body_mass_g, fill = species)) +
+  geom_boxplot(alpha = 0.7, outlier.shape = NA) +
+  geom_jitter(width = 0.2, alpha = 0.4, size = 1.5) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    title = "Body Mass Distribution by Species",
+    x = "Species",
+    y = "Body Mass (g)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+### Scatter plot with regression lines
+
+```{r}
+#| label: fig-scatter
+#| fig-cap: "Relationship between bill dimensions by species"
+#| fig-width: 8
+#| fig-height: 6
+
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point(alpha = 0.7, size = 2) +
+  geom_smooth(method = "lm", se = TRUE, alpha = 0.2) +
+  scale_color_brewer(palette = "Set2") +
+  labs(
+    title = "Bill Length vs Bill Depth",
+    subtitle = "Within-species positive correlations",
+    x = "Bill Length (mm)",
+    y = "Bill Depth (mm)",
+    color = "Species"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+::: {.callout-note collapse="true"}
+## Simpson's paradox
+
+This dataset is well know for displaying an instance of Simpson's paradox for the relationship between bill dimensions, where it presents an **overall negative correlation** (when no stratification by species is performed); but this trend is reversed when looking at individual species (which present whithin-species positive correlation).
+:::
+
+### Pairs plot for multivariate exploration
+
+```{r}
+#| label: fig-pairs
+#| fig-cap: "Pairs plot of penguin measurements"
+#| fig-width: 10
+#| fig-height: 10
+
+penguins |> 
+  select(species, bill_length_mm, bill_depth_mm, 
+         flipper_length_mm, body_mass_g) |> 
+  drop_na() |> 
+  ggpairs(
+    columns = 2:5,
+    mapping = aes(color = species, alpha = 0.5),
+    upper = list(continuous = wrap("cor", size = 3)),
+    lower = list(continuous = wrap("points", size = 1)),
+    diag = list(continuous = wrap("densityDiag", alpha = 0.5))
+  ) +
+  scale_color_brewer(palette = "Set2") +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal()
+```
+
+### Correlation heatmap
+
+```{r}
+#| label: fig-corrplot
+#| fig-cap: "Correlation matrix of penguin measurements"
+#| fig-width: 6
+#| fig-height: 6
+
+corrplot(
+  cor_matrix,
+  method = "color",
+  type = "upper",
+  order = "hclust",
+  addCoef.col = "black",
+  tl.col = "black",
+  tl.srt = 45,
+  col = colorRampPalette(c("#6D9EC1", "white", "#E46726"))(200),
+  title = "Correlation Matrix",
+  mar = c(0, 0, 2, 0)
+)
+```
+
+---
+
+## Part 6: Principal Component Analysis (PCA)
+
+PCA reduces dimensionality while preserving variance, useful for visualization and understanding variable relationships.
+
+### Prepare data for PCA
+
+```{r}
+#| label: pca-prep
+
+# PCA requires complete cases and only numeric variables
+penguins_pca_data <- penguins |> 
+  select(species, bill_length_mm, bill_depth_mm, 
+         flipper_length_mm, body_mass_g) |> 
+  drop_na()
+
+# Extract numeric columns and scale them
+penguins_scaled <- penguins_pca_data |> 
+  select(-species) |> 
+  scale()
+
+# Store species for later plotting
+species_labels <- penguins_pca_data$species
+```
+
+### Perform PCA
+
+```{r}
+#| label: pca-compute
+
+# Run PCA
+pca_result <- prcomp(penguins_scaled, center = FALSE, scale. = FALSE)
+
+# Summary of PCA
+summary(pca_result)
+```
+
+### Variance explained
+
+```{r}
+#| label: fig-scree
+#| fig-cap: "Scree plot showing variance explained by each principal component"
+#| fig-width: 8
+#| fig-height: 5
+
+# Calculate variance explained
+var_explained <- tibble(
+  PC = paste0("PC", 1:4),
+  variance = pca_result$sdev^2,
+  prop_variance = variance / sum(variance),
+  cum_variance = cumsum(prop_variance)
+)
+
+var_explained
+
+# Scree plot
+ggplot(var_explained, aes(x = PC, y = prop_variance)) +
+  geom_col(fill = "steelblue", alpha = 0.7) +
+  geom_line(aes(group = 1), color = "darkred", linewidth = 1) +
+  geom_point(color = "darkred", size = 3) +
+  geom_text(aes(label = scales::percent(prop_variance, accuracy = 0.1)), 
+            vjust = -0.5) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Variance Explained by Principal Components",
+    x = "Principal Component",
+    y = "Proportion of Variance"
+  ) +
+  theme_minimal()
+```
+
+### PCA biplot
+
+```{r}
+#| label: fig-pca-biplot
+#| fig-cap: "PCA biplot showing penguin species separation and variable loadings"
+#| fig-width: 9
+#| fig-height: 7
+
+# Create data frame with PC scores
+pca_scores <- as_tibble(pca_result$x) |> 
+  mutate(species = species_labels)
+
+# Loadings for arrows
+loadings <- as_tibble(pca_result$rotation, rownames = "variable") |> 
+  mutate(
+    PC1 = PC1 * 3,  # scale for visibility
+    PC2 = PC2 * 3
+  )
+
+# Biplot
+ggplot() +
+  # Points colored by species
+  geom_point(
+    data = pca_scores,
+    aes(x = PC1, y = PC2, color = species),
+    alpha = 0.7, size = 2
+  ) +
+  # Loadings as arrows
+  geom_segment(
+    data = loadings,
+    aes(x = 0, y = 0, xend = PC1, yend = PC2),
+    arrow = arrow(length = unit(0.2, "cm")),
+    color = "gray30", linewidth = 0.8
+  ) +
+  # Labels for loadings
+  geom_text(
+    data = loadings,
+    aes(x = PC1 * 1.1, y = PC2 * 1.1, label = variable),
+    color = "gray20", size = 3.5
+  ) +
+  scale_color_brewer(palette = "Set2") +
+  labs(
+    title = "PCA Biplot of Penguin Measurements",
+    subtitle = paste0("PC1 + PC2 explain ", 
+                      scales::percent(sum(var_explained$prop_variance[1:2]), 
+                                     accuracy = 0.1), 
+                      " of variance"),
+    x = paste0("PC1 (", scales::percent(var_explained$prop_variance[1], 
+                                        accuracy = 0.1), ")"),
+    y = paste0("PC2 (", scales::percent(var_explained$prop_variance[2], 
+                                        accuracy = 0.1), ")"),
+    color = "Species"
+  ) +
+  coord_fixed() +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+### Interpretation
+
+::: {.callout-note}
+## PCA Interpretation
+
+- **PC1** primarily captures overall body size (flipper length and body mass load strongly)
+- **PC2** captures bill shape (bill length and depth in opposite directions)
+- Gentoo penguins separate clearly on PC1 (larger body size)
+- Adelie and Chinstrap overlap more but separate on PC2 (bill dimensions)
+:::
+
+---
+
+## Part 7: Machine Learning with tidymodels
+
+We will build a classification model to predict penguin species from morphological measurements.
+
+### Prepare the modeling data
+
+```{r}
+#| label: ml-prep
+
+# Remove rows with missing values for the features we'll use
+penguins_ml <- penguins |> 
+  select(species, bill_length_mm, bill_depth_mm, 
+         flipper_length_mm, body_mass_g) |> 
+  drop_na()
+
+# Check class balance
+penguins_ml |> count(species)
+```
+
+::: {.callout-note collapse="true"}
+## Understanding data preparation for ML
+
+**What it does:**
+
+1. `select(...)` keeps only the columns we need: the target variable (`species`) and the four numeric predictors (the measurements).
+2. `drop_na()` removes any rows that have missing values in any of these columns.
+3. `count(species)` shows us how many penguins of each species remain in our dataset.
+
+**Why we do it:**
+
+Machine learning algorithms cannot handle missing values---they need complete data for every observation. By selecting only the relevant columns first, we avoid accidentally removing rows that have missing values in columns we don't even use.
+
+Checking the class balance (how many of each species) is important because if one species were much rarer than others, our model might struggle to learn its patterns. In our case, we have roughly similar numbers of each species, which is good.
+:::
+
+### Split data into training and testing sets
+
+```{r}
+#| label: data-split
+
+# for reproducibility
+set.seed(42)  # answer to life the universe and everything!
+
+# Create train/test split (75/25)
+penguins_split <- 
+  initial_split(penguins_ml, 
+                prop = 0.75, 
+                strata = species)
+
+penguins_train <- training(penguins_split)
+penguins_test <- testing(penguins_split)
+
+cat("Training set size:", nrow(penguins_train), "\n")
+cat("Test set size:", nrow(penguins_test), "\n")
+```
+
+::: {.callout-note collapse="true"}
+## Understanding train/test splitting
+
+**What it does:**
+
+1. `set.seed(42)` fixes the random number generator so that the "random" split is the same every time we run the code.
+2. `initial_split(..., prop = 0.75, strata = species)` divides the data: 75% for training, 25% for testing. The `strata = species` argument ensures that each species is represented proportionally in both sets.
+3. `training()` and `testing()` extract the two subsets from the split object.
+
+**Why we do it:**
+
+*Why split the data?* We need to evaluate how well our model performs on data it has never seen. If we trained and tested on the same data, the model could simply memorise the answers rather than learning general patterns. This would give us an overly optimistic estimate of performance.
+
+*Why set a seed?* Data splitting involves randomness. Without a seed, you would get different training and testing sets each time you run the code, making your results impossible to reproduce. Setting a seed ensures that you (and anyone else running your code) get identical results.
+
+*Why stratify?* Imagine if, by chance, all the Chinstrap penguins ended up in the training set and none in the test set. We couldn't evaluate how well the model predicts Chinstraps! Stratified sampling prevents this by ensuring each species appears in both sets in the same proportions as the original data.
+:::
+
+### Define the model workflow
+
+We'll use a random forest classifier:
+
+```{r}
+#| label: model-workflow
+
+# Define the model specification
+rf_spec <- rand_forest(
+  trees = 500,
+  mtry = 2,
+  min_n = 5
+) |> 
+  set_engine("ranger") |> 
+  set_mode("classification")
+
+# Define the recipe (preprocessing steps)
+penguins_recipe <- recipe(species ~ ., data = penguins_train) |> 
+  step_normalize(all_numeric_predictors())  # scale numeric features
+
+# Combine into a workflow
+rf_workflow <- workflow() |> 
+  add_recipe(penguins_recipe) |> 
+  add_model(rf_spec)
+
+rf_workflow
+```
+
+::: {.callout-note collapse="true"}
+## Understanding the model specification
+
+**What it does:**
+
+1. `rand_forest(...)` specifies that we want a Random Forest model with particular settings:
+   - `trees = 500`: build 500 individual decision trees
+   - `mtry = 2`: at each split, randomly consider only 2 of the 4 predictors
+   - `min_n = 5`: don't split a node if it has fewer than 5 observations
+2. `set_engine("ranger")` tells tidymodels to use the `ranger` package as the computational backend.
+3. `set_mode("classification")` specifies that we're predicting categories (species), not continuous numbers.
+
+**Why we do it:**
+
+*Why Random Forest?* A Random Forest is an ensemble method---it builds many decision trees and combines their predictions by voting. This makes it robust, accurate, and resistant to overfitting. It works well "out of the box" without much tuning, making it ideal for learning.
+
+*Why these parameter values?*
+
+- `trees = 500`: More trees generally means better and more stable predictions, at the cost of computation time. 500 is a reasonable default.
+- `mtry = 2`: By randomly restricting which predictors each tree can consider at each split, we ensure the trees are diverse. If every tree used the same "best" predictor first, they would all be very similar, defeating the purpose of an ensemble. A common rule of thumb for classification is `sqrt(number of predictors)`, which for 4 predictors is 2.
+- `min_n = 5`: This prevents trees from creating very specific rules based on just one or two observations, which would be overfitting.
+
+*Why separate specification from fitting?* Tidymodels separates *what* model you want from *how* to fit it. This modular design lets you easily swap models (try logistic regression instead of random forest) without rewriting the rest of your code.
+:::
+
+::: {.callout-note collapse="true"}
+## Understanding the preprocessing recipe
+
+**What it does:**
+
+1. `recipe(species ~ ., data = penguins_train)` declares the modelling task: predict `species` using all other columns (`.` means "everything else"). The `data` argument is used only to identify column names and types---no actual fitting happens yet.
+2. `step_normalize(all_numeric_predictors())` adds a preprocessing step that will centre and scale all numeric predictors to have mean 0 and standard deviation 1.
+
+**Why we do it:**
+
+*Why use a recipe?* A recipe is a blueprint for data preprocessing. It records *what* transformations to apply, but doesn't apply them yet. This is crucial because:
+
+- The same transformations must be applied identically to training data, test data, and any future data.
+- Parameters (like the mean and standard deviation used for scaling) must be learned from the training data only, then applied to test data. If we scaled the test data using its own statistics, we would be "peeking" at test data during training.
+
+*Why normalise?* While Random Forests don't strictly require normalisation (they're based on splitting rules, not distances), it's good practice and essential for many other algorithms. Including it here means if you later switch to a model that does require scaling (like logistic regression or SVM), your code still works.
+:::
+
+::: {.callout-note collapse="true"}
+## Understanding the workflow
+
+**What it does:**
+
+1. `workflow()` creates an empty workflow container.
+2. `add_recipe(penguins_recipe)` attaches the preprocessing recipe.
+3. `add_model(rf_spec)` attaches the model specification.
+
+**Why we do it:**
+
+A workflow bundles preprocessing and modelling into a single object. This has several advantages:
+
+- *Simplicity*: You fit the workflow once, and it automatically applies preprocessing then fits the model.
+- *Safety*: It ensures preprocessing parameters are learned from training data and correctly applied to new data.
+- *Portability*: The fitted workflow can be saved and reused, carrying all necessary information with it.
+
+Think of it as packaging your entire analysis pipeline into one neat object.
+:::
+
+### Train the model
+
+```{r}
+#| label: model-fit
+
+# Fit the model on training data
+rf_fit <- rf_workflow |> 
+  fit(data = penguins_train)
+
+rf_fit
+```
+
+::: {.callout-note collapse="true"}
+## Understanding model training
+
+**What it does:**
+
+`fit(data = penguins_train)` executes the workflow on the training data:
+
+1. The recipe is "prepped"---it learns the preprocessing parameters (means and standard deviations for normalisation) from the training data.
+2. The training data is transformed according to the recipe.
+3. The Random Forest model is trained on the transformed training data.
+
+The result, `rf_fit`, is a fitted workflow containing both the learned preprocessing parameters and the trained model.
+
+**Why we do it:**
+
+This is where the actual learning happens. The Random Forest algorithm examines the training data, builds 500 decision trees, and learns rules like "if bill length > 45mm and bill depth < 15mm, this is probably a Gentoo".
+
+We fit on training data only---the test data remains completely unseen, preserving it as an honest evaluation set.
+:::
+
+### Evaluate on test data
+
+```{r}
+#| label: model-eval
+
+# Make predictions on test set
+penguins_predictions <- rf_fit |> 
+  predict(penguins_test) |> 
+  bind_cols(penguins_test)
+
+# View predictions
+penguins_predictions |> 
+  select(species, .pred_class) |> 
+  head(10)
+```
+
+::: {.callout-note collapse="true"}
+## Understanding test set predictions
+
+**What it does:**
+
+1. `predict(penguins_test)` takes the fitted workflow and applies it to the test data:
+   - First, it transforms the test data using the preprocessing recipe (with parameters learned from training data).
+   - Then, it runs the transformed data through the trained model to get predictions.
+   - The output is a tibble with a column `.pred_class` containing the predicted species.
+2. `bind_cols(penguins_test)` attaches these predictions to the original test data, so we can compare predictions to actual species.
+
+**Why we do it:**
+
+Now we see how well our model generalises to new data. The test set simulates real-world deployment: the model has never seen these penguins before.
+
+By keeping predictions alongside the true species, we can directly compare them and calculate performance metrics.
+:::
+
+### Model performance metrics
+
+```{r}
+#| label: model-metrics
+
+# Accuracy
+accuracy(penguins_predictions, 
+         truth = species, 
+         estimate = .pred_class)
+
+# Confusion matrix
+conf_mat(penguins_predictions, 
+         truth = species, 
+         estimate = .pred_class)
+```
+
+::: {.callout-note collapse="true"}
+## Understanding accuracy
+
+**What it does:**
+
+Calculates accuracy: the proportion of predictions that were correct.
+
+$$\text{Accuracy} = \frac{\text{Number of correct predictions}}{\text{Total number of predictions}}$$
+
+**Why we do it:**
+
+Accuracy is intuitive---it answers "what percentage did we get right?" However, it can be misleading with imbalanced classes. If 90% of penguins were Adelie, a model that always guessed "Adelie" would have 90% accuracy but would be useless for identifying other species.
+
+In our case, classes are roughly balanced, so accuracy is a reasonable metric.
+:::
+
+::: {.callout-note collapse="true"}
+## Understanding the confusion matrix
+
+**What it does:**
+
+Creates a confusion matrix: a table showing, for each actual species, how many were predicted as each species.
+
+```
+            Predicted
+Actual      Adelie  Chinstrap  Gentoo
+Adelie         12         0       0
+Chinstrap       0         8       0
+Gentoo          0         0      10
+```
+
+**Why we do it:**
+
+The confusion matrix reveals *where* errors occur. Maybe the model confuses Adelie and Chinstrap but never misclassifies Gentoo. This detailed view helps diagnose problems and understand model behaviour beyond a single accuracy number.
+
+- *Diagonal entries*: correct predictions
+- *Off-diagonal entries*: errors (actual species in row, predicted species in column)
+:::
+
+### Visualize the confusion matrix
+
+```{r}
+#| label: fig-confusion
+#| fig-cap: "Confusion matrix for random forest classification"
+#| fig-width: 6
+#| fig-height: 5
+
+penguins_predictions |> 
+  conf_mat(truth = species, estimate = .pred_class) |> 
+  autoplot(type = "heatmap") +
+  scale_fill_gradient(low = "white", high = "steelblue") +
+  labs(title = "Confusion Matrix: Random Forest Classification") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+### Cross-validation for robust evaluation
+
+```{r}
+#| label: cross-validation
+
+set.seed(2026)   # current year :)
+
+# Create 5-fold cross-validation
+cv_folds <- vfold_cv(penguins_train, v = 5, strata = species)
+
+# Fit with cross-validation
+cv_results <- rf_workflow |> 
+  fit_resamples(
+    resamples = cv_folds,
+    metrics = metric_set(accuracy, roc_auc)
+  )
+
+# Collect metrics
+collect_metrics(cv_results)
+```
+
+::: {.callout-note collapse="true"}
+## Understanding cross-validation
+
+**What it does:**
+
+1. `set.seed(2026)` ensures reproducible fold assignments.
+2. `vfold_cv(penguins_train, v = 5, strata = species)` divides the training data into 5 equal parts (folds), stratified by species.
+3. `fit_resamples(...)` performs 5-fold cross-validation:
+   - Iteration 1: train on folds 2--5, evaluate on fold 1
+   - Iteration 2: train on folds 1, 3--5, evaluate on fold 2
+   - ... and so on
+4. `metrics = metric_set(accuracy, roc_auc)` specifies which metrics to calculate.
+5. `collect_metrics(cv_results)` summarises the results, showing the mean and standard error of each metric across the 5 folds.
+
+**Why we do it:**
+
+*Why cross-validate?* A single train/test split gives us one estimate of model performance. But what if we got lucky (or unlucky) with that particular split? Cross-validation provides multiple estimates, letting us assess how stable our performance is.
+
+*How to interpret the results:*
+
+- *Mean accuracy*: the average accuracy across all 5 folds---a more reliable estimate than a single split.
+- *Standard error*: indicates how much the accuracy varied between folds. A small standard error means consistent performance; a large one suggests the model's performance depends heavily on which data it sees.
+
+*What is ROC AUC?* The Area Under the Receiver Operating Characteristic curve measures how well the model distinguishes between classes across all possible decision thresholds. Values range from 0.5 (random guessing) to 1.0 (perfect separation). It's particularly useful when you care about ranking predictions, not just the final class labels.
+:::
+
+```{r}
+#| label: fig-cv-results
+#| fig-cap: "Cross-validation performance across 5 folds"
+#| fig-width: 9
+#| fig-height: 5
+
+# Extract per-fold metrics
+cv_fold_metrics <- cv_results |> 
+  collect_metrics(summarize = FALSE)
+
+# Create a summary for plotting
+cv_summary <- cv_results |> 
+  collect_metrics()
+
+# Plot metrics across folds
+ggplot(cv_fold_metrics, aes(x = id, y = .estimate, fill = .metric)) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7, alpha = 0.8) +
+  geom_hline(
+    data = cv_summary,
+    aes(yintercept = mean, color = .metric),
+    linetype = "dashed",
+    linewidth = 0.8
+  ) +
+  scale_fill_brewer(palette = "Set2", labels = c("Accuracy", "ROC AUC")) +
+  scale_color_brewer(palette = "Set2", labels = c("Accuracy", "ROC AUC")) +
+  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +
+  labs(
+    title = "Cross-Validation Performance",
+    subtitle = "Dashed lines indicate mean across all folds",
+    x = "Fold",
+    y = "Metric Value",
+    fill = "Metric",
+    color = "Metric"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    panel.grid.minor = element_blank()
+  )
+```
+
+```{r}
+#| label: fig-cv-lollipop
+#| fig-cap: "Cross-validation performance by fold"
+#| fig-width: 8
+#| fig-height: 5
+
+cv_fold_metrics |> 
+  mutate(.metric = case_when(
+    .metric == "accuracy" ~ "Accuracy",
+    .metric == "roc_auc" ~ "ROC AUC"
+  )) |> 
+  ggplot(aes(x = id, y = .estimate, color = .metric)) +
+  geom_segment(
+    aes(xend = id, yend = 0.8),
+    linewidth = 1,
+    position = position_dodge(width = 0.4)
+  ) +
+  geom_point(size = 4, position = position_dodge(width = 0.4)) +
+  scale_color_brewer(palette = "Set2") +
+  scale_y_continuous(limits = c(0.8, 1), labels = scales::percent) +
+  labs(
+    title = "Cross-Validation Performance",
+    x = "Fold",
+    y = "Metric Value",
+    color = "Metric"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+#| label: fig-cv-strip
+#| fig-cap: "Cross-validation metrics with overall mean"
+#| fig-width: 7
+#| fig-height: 4
+
+cv_fold_metrics |> 
+  mutate(.metric = case_when(
+    .metric == "accuracy" ~ "Accuracy",
+    .metric == "roc_auc" ~ "ROC AUC"
+  )) |> 
+  ggplot(aes(x = .metric, y = .estimate)) +
+  geom_jitter(width = 0.1, size = 3, alpha = 0.6, color = "skyblue2") +
+  stat_summary(
+    fun = mean,
+    geom = "crossbar",
+    width = 0.5,
+    color = "coral2",
+    linewidth = 0.5
+  ) +
+  scale_y_continuous(limits = c(0.8, 1.1), labels = scales::percent) +
+  labs(
+    title = "Cross-Validation Performance",
+    subtitle = "Individual folds with mean (red line)",
+    x = NULL,
+    y = "Metric Value"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-cv-lineplot
+#| fig-cap: "Cross-validation metrics across folds"
+#| fig-width: 7
+#| fig-height: 4
+
+cv_fold_metrics |> 
+  mutate(.metric = case_when(
+    .metric == "accuracy" ~ "Accuracy",
+    .metric == "roc_auc" ~ "ROC AUC"
+  )) |> 
+  ggplot(aes(x = id, y = .estimate, color = .metric, group = .metric)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 3) +
+  scale_color_brewer(palette = "Set2") +
+  scale_y_continuous(limits = c(0.8, 1), labels = scales::percent) +
+  labs(
+    title = "Cross-Validation Performance Across Folds",
+    x = "Fold",
+    y = "Metric Value",
+    color = "Metric"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+::: {.callout-note collapse="true"}
+## The Complete ML Workflow
+
+Here's the full machine learning workflow in context:
+
+1. **Prepare data**: Select relevant columns, remove missing values.
+
+2. **Split data**: Separate into training (for learning) and testing (for evaluation).
+
+3. **Define the model**: Specify what algorithm to use and its parameters.
+
+4. **Create a recipe**: Define preprocessing steps (like normalisation).
+
+5. **Build a workflow**: Combine recipe and model into one object.
+
+6. **Train**: Fit the workflow on training data.
+
+7. **Predict**: Apply the trained workflow to test data.
+
+8. **Evaluate**: Calculate metrics to assess performance.
+
+9. **Cross-validate**: Get robust performance estimates with uncertainty.
+
+This workflow, enabled by the tidymodels framework, is modular and reproducible. You can easily substitute different models, add preprocessing steps, or change evaluation metrics---all while maintaining the same overall structure.
+:::
+
+::: {.callout-note collapse="true"}
+## Glossary of Key ML Terms
+
+| Term | Definition |
+|------|------------|
+| **Classification** | Predicting which category an observation belongs to |
+| **Training set** | Data used to fit the model |
+| **Test set** | Data held out to evaluate model performance |
+| **Overfitting** | When a model memorises training data but fails on new data |
+| **Random Forest** | An ensemble of decision trees that vote on predictions |
+| **Recipe** | A blueprint for preprocessing steps |
+| **Workflow** | A container bundling preprocessing and modelling |
+| **Cross-validation** | Repeated train/test splits for robust evaluation |
+| **Accuracy** | Proportion of correct predictions |
+| **Confusion matrix** | Table showing prediction errors by class |
+| **ROC AUC** | Metric measuring class separation quality |
+:::
+
+
+## Using the Classifier with New Data
+
+Once we have a trained model, the real value comes from using it to classify new observations. This section shows how to predict the species of penguins based on their measurements.
+
+### Predicting a single observation
+
+To classify a new penguin, we create a data frame with the same columns used for training, then pass it to the `predict()` function:
+
+
+```{r}
+#| label: predict-new-single
+
+# Create a new observation
+new_penguin <- tibble(
+
+  bill_length_mm = 45.0,
+  bill_depth_mm = 15.0,
+  flipper_length_mm = 215,
+  body_mass_g = 5000
+)
+
+# Predict the species
+predict(rf_fit, new_penguin)
+```
+
+### Getting prediction probabilities
+
+Often we want to know not just the predicted class, but how confident the model is. We can request class probabilities:
+
+```{r}
+#| label: predict-new-probs
+
+# Get prediction probabilities for each species
+predict(rf_fit, new_penguin, type = "prob")
+```
+
+We can combine the predicted class with probabilities for a complete picture:
+
+
+```{r}
+#| label: predict-new-combined
+
+# Combine class prediction with probabilities
+new_penguin |> 
+  bind_cols(predict(rf_fit, new_penguin)) |> 
+  bind_cols(predict(rf_fit, new_penguin, type = "prob"))
+```
+
+### Predicting multiple observations
+
+The same approach works for multiple penguins at once:
+
+```{r}
+#| label: predict-new-multiple
+
+# Create several new observations
+new_penguins <- tibble(
+  bill_length_mm = c(39.0, 48.5, 52.0),
+  bill_depth_mm = c(18.5, 14.0, 19.0),
+  flipper_length_mm = c(185, 220, 195),
+  body_mass_g = c(3600, 5400, 3800)
+)
+
+# Predict all at once
+new_penguins |> 
+  bind_cols(predict(rf_fit, new_penguins)) |> 
+  bind_cols(predict(rf_fit, new_penguins, type = "prob")) |> 
+  mutate(across(where(is.numeric) & starts_with(".pred_"), ~ round(., 3)))
+```
+
+### A helper function for classification
+
+For convenience, we can wrap the prediction logic into a reusable function:
+
+```{r}
+#| label: classify-function
+
+classify_penguin <- function(bill_length, bill_depth, flipper_length, body_mass,
+                             model = rf_fit) {
+  
+ # Create the input data frame (works with single values or vectors)
+  new_data <- tibble(
+    bill_length_mm = bill_length,
+    bill_depth_mm = bill_depth,
+    flipper_length_mm = flipper_length,
+    body_mass_g = body_mass
+  )
+  
+  # Get predictions
+  predictions <- new_data |> 
+    bind_cols(predict(model, new_data)) |> 
+    bind_cols(predict(model, new_data, type = "prob")) |> 
+    rename(predicted_species = .pred_class) |> 
+    mutate(across(where(is.numeric) & starts_with(".pred_"), ~ round(., 3)))
+  
+  return(predictions)
+}
+```
+
+Now we can classify penguins with a simple function call:
+
+```{r}
+#| label: classify-examples
+
+# Single penguin
+classify_penguin(
+  bill_length = 38.5,
+  bill_depth = 18.0,
+  flipper_length = 190,
+  body_mass = 3500
+)
+
+# Multiple penguins using vectors
+classify_penguin(
+  bill_length = c(38.5, 47.0, 49.0),
+  bill_depth = c(18.0, 14.5, 18.5),
+  flipper_length = c(190, 215, 195),
+  body_mass = c(3500, 5200, 3700)
+)
+```
+
+
+### Visualising prediction confidence
+
+We can visualise the prediction probabilities to better understand model confidence:
+
+```{r}
+#| label: fig-prediction-confidence
+#| fig-cap: "Prediction probabilities for new observations"
+#| fig-width: 8
+#| fig-height: 4
+
+# Define test cases
+test_ids <- c("Penguin A", "Penguin B", "Penguin C")
+bill_lengths <- c(38.5, 47.0, 45.0)
+bill_depths <- c(18.0, 14.5, 17.0)
+flipper_lengths <- c(190, 215, 200)
+body_masses <- c(3500, 5200, 4000)
+
+# Get predictions using the classify function
+test_predictions <- classify_penguin(
+  bill_length = bill_lengths,
+  bill_depth = bill_depths,
+  flipper_length = flipper_lengths,
+  body_mass = body_masses
+) |> 
+  mutate(id = test_ids, .before = 1)
+
+# Reshape for plotting
+test_predictions |> 
+  select(id, predicted_species, starts_with(".pred_")) |> 
+  pivot_longer(
+    cols = c(.pred_Adelie, .pred_Chinstrap, .pred_Gentoo),
+    names_to = "species",
+    values_to = "probability",
+    names_prefix = ".pred_"
+  ) |> 
+  ggplot(aes(x = species, y = probability, fill = species)) +
+  geom_col(alpha = 0.8) +
+  geom_text(aes(label = scales::percent(probability, accuracy = 1)), 
+            vjust = -0.5, size = 3) +
+  facet_wrap(~ id) +
+  scale_fill_brewer(palette = "Set2") +
+  scale_y_continuous(limits = c(0, 1.1), labels = scales::percent) +
+  labs(
+    title = "Prediction Confidence for New Observations",
+    subtitle = "Higher bars indicate greater model confidence",
+    x = "Species",
+    y = "Probability"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+```
+
+
+---
+
+## Summary and Conclusions
+
+In this mini-project, you practiced the complete workflow of reproducible data analysis:
+
+1. **Project organization**: Created a logical folder structure separating raw data, processed data, scripts, and outputs.
+
+2. **Data import**: Read messy data with explicit parameters, handling multiple representations of missing values.
+
+3. **Data cleaning**: Applied systematic cleaning steps using tidyverse functions, documenting each transformation.
+
+4. **Exploratory analysis**: Computed descriptive statistics and identified patterns in the data.
+
+5. **Visualization**: Created informative plots following the grammar of graphics.
+
+6. **Dimensionality reduction**: Applied PCA to understand the multivariate structure of the data.
+
+7. **Machine learning**: Built and evaluated a classification model using the tidymodels framework.
+
+::: {.callout-tip}
+## Best Practices Learned
+
+- Always keep raw data unmodified
+- Document every data transformation
+- Use consistent naming conventions
+- Set random seeds for reproducibility
+- Validate data at each step
+- Split data before any model training
+- Use cross-validation for robust estimates
+:::
+
+---
+
+## Exercises
+
+Try these extensions to deepen your understanding:
+
+1. **Data cleaning**: What other data quality issues might exist? How would you handle outliers?
+
+2. **Visualization**: Create a plot showing the relationship between flipper length and body mass, with separate panels for each island.
+
+3. **PCA**: Re-run PCA on each species separately. How do the loadings differ?
+
+4. **Machine learning**: Try a different model (logistic regression, decision tree) and compare performance. Which features are most important?
+
+5. **Reproducibility**: Create a separate R script that runs the entire analysis from raw data to final model, with no manual intervention required.
+
+---
+
+## Session Info
+
+For reproducibility, always record the versions of R and packages used:
+```{r}
+#| label: session-info
+
+sessionInfo()
+```

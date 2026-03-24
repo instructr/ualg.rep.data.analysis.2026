@@ -22,6 +22,7 @@ website:
         menu:
           - classes/class1.qmd
           - classes/class2.qmd
+          - classes/class2_advanced_r.qmd
       - text: "Contact me"
         menu:
           - contact_me.qmd

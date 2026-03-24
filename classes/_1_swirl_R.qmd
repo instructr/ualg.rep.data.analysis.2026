@@ -1,6 +1,6 @@
-## **R for Absolute Beginners**
+# **Learn R**
 
-#### **1. Using RStudio**
+### **1. Using RStudio**
 
 The practical classes for this course require R and RStudio.
 
@@ -18,7 +18,7 @@ The friendliest way to learn R is to use **RStudio** which is an Integrated Deve
 
 <br>
 
-#### **2. Load the *swirl* package & Follow the guided course**
+### **2. Load the *swirl* package & Follow the guided course**
 
 After you become familiarized with RStudio, we shall progress to the **interactive, self-paced, hands-on tutorial** provided by the *swirl* package. You will *learn R inside R*. 
 For more info about this package, visit: <https://swirlstats.com/>

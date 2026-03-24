@@ -8,8 +8,6 @@ title: "Topic 2 | Introduction to R"
 📖 **Synopsis:** Brief introduction to R 
 :::
 
-</br>
-
 ### **R Intro**
 
 - First, we will discuss the purpose of learning to program in R. 
@@ -34,7 +32,7 @@ title: "Topic 2 | Introduction to R"
 :::{.panel-tabset}
 
 {{< include _1_swirl_R.qmd >}}
-{{< include _2_recap_R.qmd >}}
+{{< include _2_new_r4ab_tutorial.qmd >}}
 {{< include _3_practice_R.qmd >}}
 {{< include _4_advanced_R.qmd >}}
 

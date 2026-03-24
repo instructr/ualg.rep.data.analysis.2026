@@ -1,7 +1,8 @@
-## **Advanced R**
+# **Advanced R**
 
-#### **Advanced mini-project**
+### **Advanced mini-project**
 
-To up your R skills, this mini-project provides ...
+The [Topic 2 | Advanced R](class2_advanced_r.qmd) mini-project is a hands-on tutorial that walks you through the complete workflow of **reproducible data analysis in R**, from organizing your project, and cleaning/tidying your dataset, to applying machine learning to your data. 
 
+Enjoy!
 

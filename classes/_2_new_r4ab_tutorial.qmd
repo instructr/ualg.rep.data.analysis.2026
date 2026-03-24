@@ -1,0 +1,947 @@
+# **Review R: Hands-on tutorial**
+
+If you already have some knowledge of R, but need to refresh your memory, your are in the right place!
+
+## **Hands-on Tutorial**
+
+**Welcome**
+
+Learning a programming language is much like learning a spoken language: you need to understand the grammar before you can write good sentences, and **fluency comes with practice**. R is no different. This tutorial introduces you to the foundational concepts of R one step at a time, building each new idea on the previous one.
+
+By the end of this tutorial you will be comfortable with:
+
+- Setting up a reproducible working environment in RStudio
+- Understanding R's core syntax and operators
+- Working with R's five fundamental data structures
+- Controlling the flow of a program with loops and conditionals
+- Writing your own functions
+- Loading data from files and saving results
+- Using a selection of R's most useful built-in functions
+
+::: {.callout-note}
+This tutorial assumes you have used R before at a basic level - you know what a variable is and have run at least a few commands. If you have never opened R or RStudio, go to the learn R tab first, and follow the `swirl` course.
+:::
+
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(
+  eval = FALSE,
+  echo = TRUE
+)
+```
+
+
+### Setting up Your Workspace
+
+#### **RStudio as Your R Environment**
+
+RStudio is an **Integrated Development Environment** (IDE) built specifically for R. It organises your work into four panes:
+
+1. **Source editor** - where you write and save R scripts.
+2. **Console** - where R executes commands and shows output.
+3. **Environment / History** - shows all objects currently in memory and your command history.
+4. **Files / Plots / Packages / Help** - a multi-purpose panel for browsing files, viewing plots, managing packages, and reading documentation.
+
+![Figure 1: RStudio Graphical User Interface (GUI)](../pics/rstudio-ide-2018.png){width="600px"}
+
+You will spend most of your time in the source editor and the console.
+
+#### **Creating an RStudio Project**
+
+Projects are one of the most useful features in RStudio. They keep all files related to an analysis - data, scripts, and outputs - in one self-contained folder, and they automatically set that folder as your working directory whenever you open the project.
+
+To create a new project:
+
+```
+File > New Project... > New Directory > New Project
+Directory name:  r_tutorial
+Create project as subdirectory of:  ~/   (or wherever you prefer)
+Create Project
+```
+
+Once created, open the project options in the upper-right corner of RStudio and set the following in **R General**:
+
+```
+Restore .RData at startup   ->  No
+Save .RData on exit         ->  Ask
+Always save history         ->  Yes
+```
+
+![Figure 2: Customize Project](../pics/projOptions1_2.png){width="400px"}
+
+Setting "Restore .RData" to **No** is important: it forces your scripts to be self-contained and reproducible, rather than relying on objects left over from a previous session.
+
+#### **Your Working Directory**
+
+The working directory is the folder R treats as its "home base" - it is where R looks for files you want to load, and where it saves files you write. Since you are using a project, this is already set for you, but these commands are useful to know:
+
+```{r}
+getwd()        # print the current working directory path
+dir()          # list all files in the working directory
+setwd("~/r_tutorial")  # manually set the working directory (rarely needed with projects)
+```
+
+#### **Saving and Quitting**
+
+R automatically tracks everything you type in `.Rhistory`, and can save all objects in memory to `.RData`. When you quit RStudio (via `q()` or the window close button), it will ask whether to save the workspace:
+
+```{r}
+q()
+# Save workspace image to ~/path/to/project/.RData? [y/n/c]:
+```
+
+For day-to-day work, it is usually better to answer **n**o and rely on your script to recreate everything. The `.RData` file is mainly valuable when a computation takes a very long time and you want to preserve the result.
+
+::: {.callout-tip collapse="true"}
+Get into the habit of writing your analysis in a script from the start - not just typing in the console. A good script *is* your analysis: it documents every step and lets you re-run everything from scratch at any time.
+:::
+
+<br>
+
+### Packages: Extending What R Can Do
+
+#### **What Is a Package?**
+
+Base R is powerful, but its real strength comes from its ecosystem of **packages** - collections of functions, data, and documentation contributed by the R community. There are currently (in March 2026):
+
+- **23,291 packages** on [CRAN](https://cran.r-project.org/), the main general-purpose repository.
+- **2,361 packages** on [Bioconductor](https://www.bioconductor.org/), focused on bioinformatics and genomics.
+
+#### **Installing and Loading Packages**
+
+You install a package once (it is saved to your computer), and load it at the start of each session (it is read into memory):
+
+```{r}
+# Install a package from CRAN (only needs to be done once)
+install.packages("ggplot2")
+
+# Load the package so its functions are available in this session
+library(ggplot2)
+
+# You can also use a single function without loading the whole package
+ggplot2::qplot(1:10, 1:10)
+```
+
+Other installation sources and their functions:
+
+| Source      | Function                          |
+|-------------|-----------------------------------|
+| CRAN        | `install.packages("pkg")`         |
+| Bioconductor| `BiocManager::install("pkg")`     |
+| GitHub      | `remotes::install_github("u/pkg")`|
+| Any of above| `pak::pkg_install("pkg")`         |
+
+#### **Getting Help**
+
+R has thorough built-in documentation. Learning to use it is one of the best investments you can make early on:
+
+```{r}
+?mean                    # help page for a specific function
+help(mean)               # same as above
+help(package = "ggplot2")  # overview of an entire package
+vignette("ggplot2")      # longer worked examples (called vignettes)
+```
+
+::: {.callout-tip collapse="true"}
+When you encounter a function you do not recognise, your first instinct should be `?function_name`. The **Examples** section at the bottom of each help page is usually the fastest way to understand what a function does.
+:::
+
+<br>
+
+### Operators
+
+Operators are the building blocks of R expressions. Before working with complex data structures, you need to understand how R evaluates expressions.
+
+#### **Arithmetic Operators**
+
+R works as a very capable calculator:
+
+| Operator | Meaning        | Example   | Result |
+|----------|----------------|-----------|--------|
+| `+`      | Addition       | `3 + 4`   | `7`    |
+| `-`      | Subtraction    | `10 - 3`  | `7`    |
+| `*`      | Multiplication | `3 * 4`   | `12`   |
+| `/`      | Division       | `7 / 2`   | `3.5`  |
+| `^`      | Exponentiation | `2 ^ 8`   | `256`  |
+
+```{r}
+3 + 4
+10 - 3
+3 * 4
+7 / 2
+2 ^ 8
+```
+
+#### **Assignment Operators**
+
+In R, you store values in named objects using the **assignment operator** `<-`. Think of it as the arrow pointing a value into a container you are labelling:
+
+```{r}
+x <- 7      # store the number 7 in an object called x
+x           # typing the name prints its value
+
+y <- 9
+z <- 3
+
+42 -> lue   # right-pointing arrow: value goes to the right
+x ->  xx    # x (which holds 7) is copied into xx
+
+my_variable <- 5
+```
+
+::: {.callout-note collapse="true"}
+You will also see `=` used for assignment. It works in most situations, but `<-` is the conventional R style and is unambiguous. This tutorial uses `<-` throughout.
+:::
+
+#### **Comparison Operators**
+
+These compare two values and always return `TRUE` or `FALSE`:
+
+| Operator | Meaning          |
+|----------|------------------|
+| `==`     | Equal to         |
+| `!=`     | Not equal to     |
+| `<`      | Less than        |
+| `>`      | Greater than     |
+| `<=`     | Less than or equal |
+| `>=`     | Greater than or equal |
+
+```{r}
+1 == 1           # TRUE
+1 != 1           # FALSE
+x > 3            # TRUE  (x is 7)
+y <= 9           # TRUE  (y is 9)
+my_variable < z  # FALSE (5 is not less than 3)
+```
+
+#### **Logical Operators**
+
+Logical operators combine `TRUE`/`FALSE` values:
+
+| Operator | Meaning                                   |
+|----------|-------------------------------------------|
+| `&`      | AND (vectorised - checks every element) |
+| `&&`     | AND (checks only the first element)       |
+| `|`      | OR (vectorised)                           |
+| `||`     | OR (checks only the first element)        |
+| `!`      | NOT (negation)                            |
+
+```{r}
+# AND: both conditions must be TRUE
+7 < 9 & 7 > 10    # 7 < 9 is TRUE, but 7 > 10 is FALSE -> result is FALSE
+
+# OR: at least one condition must be TRUE
+7 < 9 | 7 > 10    # 7 < 9 is TRUE -> therefore the result is TRUE even if 7 > 10 is FALSE
+
+# NOT inverts the result
+!(x != y & my_variable <= y)   # x is 7; y is 9; my_variable is 3
+```
+
+Work through each expression carefully. The ability to combine conditions is essential for filtering data later.
+
+#### **The Pipe Operator**
+
+The pipe `|>` passes the result of one expression as the first argument to the next. It makes a chain of operations much easier to read:
+
+```{r}
+# Without the pipe: you read from the inside out
+round(sqrt(mean(c(5, 10, 15))), digits = 2)
+
+# With the pipe: you read left to right
+c(5, 10, 15) |> mean() |> sqrt() |> round(digits = 2)
+```
+
+Both produce the same result. The pipe version reads like a sentence: "take this vector, compute its mean, take the square root, then round to 2 decimal places."
+
+::: {.callout-note collapse="true"}
+The native pipe `|>` was introduced in R 4.1. You may also encounter `%>%` from the `magrittr` package, which works similarly. This tutorial uses `|>`.
+:::
+
+<br>
+
+### R's Five Core Data Structures
+
+Everything in R is an object, and objects have a **type** (what they store) and a **structure** (how they are organised). The five structures below cover almost everything you will need:
+
+| Structure  | Dimensions | Same data type? | Typical use |
+|------------|------------|-----------------|-------------|
+| Vector     | 1D         | Yes             | A column of numbers or text |
+| Matrix     | 2D         | Yes             | Numerical grids, linear algebra  |
+| Array      | n-D        | Yes             | Multi-dimensional numerical data |
+| Data frame | 2D         | No (yes by column) | Tabular datasets |
+| List       | Any        | No              | Mixed, nested objects |
+| Factor*    | 1D         | Yes (levels)    | Categorical variables |
+
+
+*Factors are a class built on integer vectors, not a distinct data structure. They are included here because their behaviour differs meaningfully from plain vectors in modelling and plotting contexts.
+
+![Figure 3: Basic R data structures.](../pics/r-dataStructures.png){width="600px"}
+
+#### **Vectors**
+
+A vector is the fundamental building block of R. Every scalar value (a single number or string) is actually a vector of length one.
+
+**Creating vectors:**
+
+```{r}
+# c() combines values into a vector
+x <- c(1, 2, 3, 4, 5, 6)
+x
+class(x)   # "numeric"
+
+y <- "a string"
+class(y)   # "character"
+
+# Sequences
+seq(1, 6)                        # 1 2 3 4 5 6
+seq(from = 100, by = 1, length = 5)  # 100 101 102 103 104
+1:6                              # shorthand for seq(1, 6)
+10:1                             # counts backwards
+
+# Repetition
+rep(1:2, times = 3)   # 1 2 1 2 1 2
+rep(1:2, each = 3)    # 1 1 1 2 2 2  (different behaviour -- try it)
+```
+
+**Vectorised arithmetic:**
+
+One of R's greatest strengths is that operations apply to all elements of a vector simultaneously - no loops needed:
+
+```{r}
+1:3 + 10:12   # element-wise: 11 13 15
+
+x <- c(1, 2, 3, 4, 5, 6)
+x + 10        # 10 is recycled to match x's length: 11 12 13 14 15 16
+c(70, 80) + x # 70 80 are recycled: 71 82 73 84 75 86
+```
+
+::: {.callout-warning collapse="true"}
+When vectors of different lengths are combined, R **recycles** the shorter one. If the longer vector's length is not a multiple of the shorter one's length, R completes the operation but also prints a warning. The warning is not an error - the result is still returned - but it signals that the recycling may not be intentional.
+:::
+
+**Subsetting vectors:**
+
+You extract elements from a vector using square brackets `[]`. R uses **1-based indexing** (this means that the first element is at position 1, not 0):
+
+```{r}
+myVec <- 1:26
+myVec[1]      # first element
+myVec[6:9]    # elements 6 through 9
+
+# LETTERS is a built-in vector of the 26 uppercase letters
+myUni <- LETTERS
+myUni[c(21, 1, 12, 7)]   # U A L G
+
+# Logical subsetting: extract only elements where the condition is TRUE
+myLogical <- myVec > 10
+myVec[myLogical]   # returns 11 through 26
+
+# More compactly (same result)
+myVec[myVec > 10]
+```
+
+**Naming vector elements:**
+
+```{r}
+joe <- c(24, 1.70)
+names(joe) <- c("age", "height")
+joe["age"] == joe[1]   # TRUE (both refer to the same element)
+
+names(myVec) <- LETTERS
+myVec[c("A", "A", "B", "C", "E", "H", "M")]   # The Fibonacci series
+```
+
+**Excluding elements with `-`:**
+
+```{r}
+alphabet <- LETTERS
+vowel_positions <- c(1, 5, 9, 15, 21)
+alphabet[vowel_positions]    # the vowels
+
+consonants <- alphabet[-vowel_positions]  # everything except the vowels
+consonants
+```
+
+#### **Matrices**
+
+A matrix is a two-dimensional vector: it has rows and columns but, like a vector, all elements must be the same type.
+
+::: {.callout-note collapse="true"}
+R stores matrices in **column-major order**: it fills column 1 first, then column 2, and so on. This is the default (`byrow = FALSE`). Set `byrow = TRUE` to fill row by row instead.
+:::
+
+```{r}
+my_matrix <- matrix(1:12, nrow = 3, byrow = FALSE)
+dim(my_matrix)   # 3 rows, 4 columns
+my_matrix
+
+xx <- matrix(1:12, nrow = 3, byrow = TRUE)
+xx   # compare with my_matrix to see the difference
+```
+
+**Subsetting matrices:**
+
+Matrices use two-dimensional indexing: `[row, column]`. Leaving either blank means "all":
+
+```{r}
+my_matrix <- matrix(LETTERS, nrow = 4, byrow = TRUE)
+
+my_matrix[, 2]          # all rows, column 2 (returns a vector)
+my_matrix[3, ]          # row 3, all columns (returns a vector)
+my_matrix[1:3, c(4, 2)] # rows 1-3, columns 4 and 2 (in that order)
+```
+
+
+**Arrays**
+
+An array is essentially the generalisation of a matrix to any number of dimensions. 
+A matrix is just a 2D array, and a vector is a 1D array - so the three form a natural hierarchy.
+In practice you encounter arrays most often in image analysis (height × width × colour channel), genomics (genes × samples × time points), and any situation where data naturally lives in a cube or hypercube rather than a flat table.
+
+
+#### **Data Frames**
+
+Data frames are the workhorse of data analysis in R. Think of them as spreadsheets: rows are observations, columns are variables. Unlike matrices, each column can be a different type - one column can hold numbers while another holds text.
+
+```{r}
+df <- data.frame(
+  type = rep(c("case", "control"), c(2, 3)),
+  time = rnorm(5)
+)
+class(df)  # "data.frame"
+df
+```
+
+**Subsetting data frames:**
+
+Data frames support the same `[row, column]` indexing as matrices, plus named access with `$`:
+
+```{r}
+# The iris dataset is built in -- a classic for learning data manipulation
+iris[, 3]               # all rows, column 3 (Petal.Length)
+iris[1, ]               # first row, all columns
+iris[1:9, c(3, 4, 1, 2)]  # rows 1-9, reordered columns
+
+# Column access by name
+iris$Species
+iris[, "Sepal.Length"]
+```
+
+::: {.callout-tip collapse="true"}
+Prefer `df$column_name` for interactive exploration and `df[, "column_name"]` when writing functions - the latter is easier to generalise.
+:::
+
+#### **Lists**
+
+Lists are R's most flexible data structure. Each element can be anything - a vector, a data frame, another list, or even a function:
+
+```{r}
+lst <- list(a = 1:3, b = "hello", fn = sqrt)
+lst
+
+lst$fn(49)   # calls sqrt(49) -> 7
+```
+
+**Single vs double brackets:**
+
+This is a nuance that trips up many beginners. Remember this rule:
+
+- `lst[1]` returns a **list** containing the first element.
+- `lst[[1]]` returns the **element itself** in its native type.
+
+```{r}
+lst[1]       # a list of length 1
+class(lst[1])   # "list"
+
+lst[[1]]     # the vector 1:3 itself
+class(lst[[1]])  # "integer"
+
+lst$b        # same as lst[["b"]] -- returns the element, not a list
+```
+
+Think of `[ ]` as taking a slice of the list (the result is still a list), and `[[ ]]` as reaching inside and pulling out the contents.
+
+#### **Factors**
+
+A factor represents a **categorical variable** - one that takes a limited set of distinct values called **levels**. Factors look like character vectors but are stored as integers with labels, making them memory-efficient and ensuring that statistical models treat them correctly.
+
+```{r}
+my_fdata <- c(1, 2, 2, 3, 1, 2, 3, 3, 1, 2, 3, 3, 1)
+
+# Convert to factor
+factor_data <- factor(my_fdata)
+factor_data
+levels(factor_data)   # "1" "2" "3"
+
+# Add meaningful labels
+labeled_data <- factor(my_fdata, labels = c("I", "II", "III"))
+labeled_data
+levels(labeled_data)  # "I" "II" "III"
+```
+
+::: {.callout-note collapse="true"}
+Factors matter in modelling: R uses them to set up treatment contrasts automatically. If your categorical variable is stored as a plain character vector, functions like `lm()` still convert it internally, but controlling the levels and their order requires explicit factors.
+:::
+
+#### **Converting Between Data Structures**
+
+Sometimes you receive data in one structure but need it in another. R provides a family of `as.*()` functions for this:
+
+```{r}
+class(lst)   # inspect the type of an object
+str(lst)     # compact summary of any object's structure
+
+as.matrix(df)         # data frame -> matrix (all columns coerced to same type)
+as.data.frame(my_matrix)  # matrix -> data frame
+as.numeric("3.14")    # character -> number
+as.character(42)      # number -> character
+```
+
+::: {.callout-warning collapse="true"}
+Converting a data frame with mixed types to a matrix forces all columns to the same type. A data frame with numeric and character columns will become an all-character matrix, since character is the "broader" type.
+:::
+
+<br>
+
+### Control Flow: Loops and Conditionals
+
+Until now, every command has been executed once, in order. Control flow lets you repeat actions and make decisions - the ingredients of real programs.
+
+#### `for` **Loops**
+
+A `for` loop repeats a block of code for each value in a sequence:
+
+```{r}
+# Compute the first 12 terms of the Fibonacci sequence
+fib <- c(1, 1)
+for (i in 1:10) {
+  next_val <- fib[i] + fib[i + 1]
+  fib <- c(fib, next_val)
+}
+fib
+```
+
+The loop variable `i` takes each value in `1:10` in turn. On each iteration, the code inside `{ }` runs with that value of `i`.
+
+#### `while` **Loops**
+
+A `while` loop keeps running as long as its condition is `TRUE`:
+
+```{r}
+x <- 3
+while (x < 9) {
+  cat("Number", x, "is smaller than 9.\n")
+  x <- x + 1
+}
+# Note: x is now 9, so the loop stopped
+```
+
+::: {.callout-warning collapse="true"}
+Always ensure that something inside a `while` loop will eventually make the condition `FALSE`. If the condition never becomes `FALSE`, the loop runs forever.
+:::
+
+#### `if` / `else` **Conditionals**
+
+Conditionals run a block of code only when a condition is `TRUE`:
+
+```{r}
+x <- -5
+if (x >= 0) {
+  print("Non-negative number")
+} else {
+  print("Negative number")
+}
+```
+
+You can chain conditions with `else if`:
+
+```{r}
+x <- 0
+if (x > 0) {
+  print("Positive")
+} else if (x < 0) {
+  print("Negative")
+} else {
+  print("Zero")
+}
+```
+
+Combining a `for` loop with an `if` statement lets you process each element differently:
+
+```{r}
+x <- -5:5
+for (i in seq_along(x)) {
+  if (x[i] > 0) {
+    print(x[i])
+  } else {
+    print("negative or zero")
+  }
+}
+```
+
+#### `ifelse()` - **Vectorised Conditionals**
+
+The `ifelse()` function applies a condition element-wise across a vector, returning one value where the condition is `TRUE` and another where it is `FALSE`:
+
+```{r}
+gender <- c(1, 1, 1, 2, 2, 1, 2, 1, 2, 1, 1, 1, 2, 2, 2, 2, 2)
+ifelse(gender == 1, "F", "M")   # This reads: If gender equals 1, then F, else M.
+```
+
+This is far more efficient than looping over each element with a `for` loop.
+
+
+
+#### **The** `apply()` **Family of Functions**
+
+Loops work, but in R there is often a cleaner alternative: the **apply family of functions**.
+
+These functions apply a given function repeatedly across the elements of a data structure (rows, columns, or list elements) and return the results in a convenient form. They tend to produce more readable code than explicit loops, and in some cases are faster.
+
+The family has several members. The three you will use most often as a beginner are `apply()`, `lapply()`, and `sapply()`.
+
+| Function   | Input         | Output          | Typical use |
+|------------|---------------|-----------------|-------------|
+| `apply()`  | Matrix / data frame | Vector or matrix | Summaries across rows or columns |
+| `lapply()` | List or vector | List            | Transform every element of a list |
+| `sapply()` | List or vector | Vector, matrix, or list | Like `lapply()` with automatic simplification |
+
+
+::: {.callout-tip collapse="true"}
+Three more members of the family are worth knowing once you are comfortable with the three above. 
+`tapply()` applies a function to subsets of a vector defined by a grouping factor (useful for group-wise summaries). 
+`mapply()` is a multivariate version that applies a function to multiple vectors in parallel.
+`vapply()` works like `sapply()` but requires you to declare the expected output type, making it safer to use inside your own functions.
+:::
+
+
+##### `apply()` - **Over Rows or Columns of a Matrix or Data Frame**
+
+`apply(X, MARGIN, FUN)` applies a function `FUN` to either every row (`MARGIN = 1`) or every column (`MARGIN = 2`) of a matrix or data frame `X`:
+
+```{r}
+m <- matrix(1:12, nrow = 3)
+m
+
+apply(m, 1, sum)   # sum of each row:    6 22 38 (try it and see)
+apply(m, 2, sum)   # sum of each column: 6 15 24 33... (try it)
+
+# Works equally well with the iris data frame (numeric columns only)
+apply(iris[, 1:4], 2, mean)   # column means
+apply(iris[, 1:4], 2, sd)     # column standard deviations
+```
+
+A useful memory aid: `MARGIN = 1` collapses **across columns** to give one result **per row**; `MARGIN = 2` collapses **across rows** to give one result **per column**.
+
+::: {.callout-note collapse="true"}
+`apply()` always coerces a data frame to a matrix first. This is fine when all columns are numeric, but will silently convert everything to character if any column is not (i.e. the same behaviour as `as.matrix()` on a mixed data frame).
+:::
+
+##### `lapply()` - **Over a List, Always Returns a List**
+
+`lapply(X, FUN)` applies `FUN` to each element of list (or vector) `X` and returns the results as a list of the same length:
+
+```{r}
+lst <- list(a = 1:5, b = c(2.1, 3.7, 0.4), c = 10:1)
+
+lapply(lst, mean)    # mean of each element; result is a list
+lapply(lst, length)  # length of each element; result is a list
+```
+
+The returned list is always the same length as the input, and each element corresponds to the result of applying `FUN` to the matching input element. Because the output is always a list, `lapply()` is the safe, predictable choice: it never surprises you with an unexpected output type.
+
+##### `sapply()` **is like** `lapply()`, **but Simplifies the Result**
+
+`sapply()` calls `lapply()` internally, then tries to **simplify** the result to a vector or matrix if possible:
+
+```{r}
+sapply(lst, mean)    # returns a named numeric vector, not a list
+sapply(lst, length)  # returns a named integer vector
+```
+
+When all results are scalars of the same type, `sapply()` collapses them into a named vector, which is usually what you want for interactive exploration. When results cannot be simplified (for example because each element is a vector of different length), `sapply()` falls back to returning a list, just like `lapply()`.
+
+::: {.callout-tip collapse="true"}
+A practical rule of thumb: use `lapply()` when writing functions or packages (predictable output type), and `sapply()` when exploring data interactively (convenient output). If `sapply()` behaves unexpectedly, switch to `lapply()` and inspect the raw list.
+:::
+
+##### **Comparison: Loop vs Apply**
+
+To make the equivalence concrete, here is the same computation written three ways:
+
+```{r}
+# Compute the mean of each numeric column in iris using a for loop
+result_loop <- numeric(4)
+for (i in 1:4) {
+  result_loop[i] <- mean(iris[, i])
+}
+names(result_loop) <- colnames(iris)[1:4]
+result_loop
+
+# Using apply
+result_apply <- apply(iris[, 1:4], 2, mean)
+result_apply
+
+# Using colMeans (a specialised shortcut worth knowing)
+colMeans(iris[, 1:4])
+```
+
+All three produce the same result. The apply version is more concise; `colMeans()` is even more so for this specific case.
+
+::: {.callout-note collapse="true"}
+`colSums()`, `rowSums()`, `colMeans()`, and `rowMeans()` (included in the *useful built-in functions* section below) are specialised shortcuts for the most common **apply-over-margins operations**. They are faster than the equivalent `apply()` calls and more readable when the intent is simply summing or averaging rows or columns.
+:::
+
+<br>
+
+### Writing Your Own Functions
+
+As your scripts grow, you will find yourself repeating the same sequence of steps. The solution is to wrap those steps in a **function** - a reusable, named block of code.
+
+#### **Function Syntax**
+
+```r
+my_function <- function(argument1, argument2, ...) {
+  # body: computation goes here
+  result <- argument1 + argument2
+  return(result)
+}
+```
+
+The `return()` call specifies what the function produces. If you omit it, R returns the value of the last expression in the body.
+
+#### **A Worked Example**
+
+Let's write a function that computes the mean of a numeric vector, to understand what R's built-in `mean()` is actually doing:
+
+```{r}
+my_average <- function(x) {
+  total   <- sum(x)
+  n       <- length(x)
+  average <- total / n
+  return(average)
+}
+
+my_data <- c(10, 20, 30)
+my_average(my_data)   # 20
+mean(my_data)         # 20 -- same result
+```
+
+#### **Default Argument Values**
+
+Functions can have default values for arguments, which are used when the caller does not supply them:
+
+```{r}
+greet <- function(name, greeting = "Hello") {
+  cat(greeting, name, "\n")
+}
+
+greet("Alice")           # Hello Alice
+greet("Alice", "Hi")     # Hi Alice
+```
+
+::: {.callout-tip collapse="true"}
+Functions should do one thing well. If a function is getting long or hard to describe in a single sentence, consider splitting it into smaller functions.
+:::
+
+<br>
+
+### Loading Data and Saving Results
+
+Real analyses begin by reading in data and end by writing out results.
+
+#### **Writing Data to Files**
+
+```{r}
+# Inspect the built-in esoph dataset
+esoph
+dim(esoph)
+colnames(esoph)
+
+# Save as comma-separated values
+write.table(esoph, file = "esophData.csv", sep = ",", quote = FALSE, row.names = FALSE)
+
+# Save as tab-separated values
+write.table(esoph, file = "esophData.tab", sep = "\t", quote = FALSE, row.names = FALSE)
+```
+
+#### **Reading Data from Files**
+
+```{r}
+# Read the tab-separated file back into R
+my_data_tab <- read.table("esophData.tab", sep = "\t", header = TRUE)
+
+# Read the CSV file
+my_data_csv <- read.csv("esophData.csv", header = TRUE)
+```
+
+::: {.callout-note collapse="true"}
+To read or write files outside your working directory, provide the full path:
+`read.csv("/home/user/data/my_file.csv")`.
+
+On Windows, use forward slashes `/` or double backslashes `\\` in paths - a single backslash `\` is a special character in R strings.
+:::
+
+#### **Modern Alternatives**
+
+The `readr` package (part of the tidyverse) provides faster, more robust functions:
+
+```{r}
+# install.packages("readr")
+library(readr)
+
+write_csv(esoph, "esophData.csv")
+my_data <- read_csv("esophData.csv")
+```
+
+`readr` functions are generally faster, produce more informative messages, and never silently convert strings to factors.
+
+<br>
+
+### A Tour of Useful Built-in Functions
+
+This final section introduces a selection of functions you will reach for repeatedly. The `iris` and `esoph` built-in datasets are used throughout.
+
+#### **Exploring a Dataset**
+
+```{r}
+head(iris)        # first 6 rows
+tail(iris)        # last 6 rows
+dim(iris)         # number of rows and columns
+str(iris)         # compact structural overview
+summary(iris)     # descriptive statistics for each column
+colnames(iris)    # column names
+```
+
+#### **Descriptive Statistics**
+
+```{r}
+mean(iris[, 2])     # mean of the second column
+sd(iris[, 2])       # standard deviation
+var(iris[, 2])      # variance
+median(iris[, 2])   # median
+
+min(iris[, 1])      # minimum
+max(iris[, 1])      # maximum
+range(iris[, 1])    # minimum and maximum together
+```
+
+#### **Counting, Grouping and Summarising**
+
+```{r}
+# unique() removes duplicates
+unique(iris$Sepal.Length)
+length(unique(iris$Sepal.Length))   # how many distinct values?
+
+# table() counts occurrences
+table(iris$Species)
+
+# colSums, rowSums, colMeans, rowMeans operate on an entire matrix or data frame
+colSums(iris[, 1:4])    # sum of each column
+rowSums(iris[, 1:4])    # sum of each row
+colMeans(iris[, 1:4])   # mean of each column
+rowMeans(iris[, 1:4])   # mean of each row
+
+# aggregate() computes group-level summaries
+aggregate(iris[, 1:4], by = list(species = iris$Species), FUN = mean)
+```
+
+
+#### **Filtering and Selecting**
+
+```{r}
+# subset() with conditions
+subset(iris,
+       Petal.Length >= 3 & Sepal.Length >= 6.5,
+       select = c(Petal.Length, Sepal.Length, Species))
+
+# %in% tests membership
+month.name[month.name %in% c("May", "July", "September")]
+```
+
+#### **Sorting and Ordering**
+
+```{r}
+sort(iris[1, 1:4])    # values in ascending order
+order(iris[1, 1:4])   # indices that would sort the vector
+rank(iris[1, 1:4])    # rank of each element
+rev(LETTERS)          # reverse a vector
+```
+
+#### **Logical Tests on Vectors**
+
+```{r}
+any(iris[1, 1:4] > 2)    # is at least one value greater than 2?
+all(iris[1, 1:4] > 2)    # are all values greater than 2?
+which(iris[1, 1:4] > 2)  # which positions satisfy the condition?
+which.max(iris[1, 1:4])  # position of the maximum value
+```
+
+#### **Combining Data Frames**
+
+```{r}
+df1 <- data.frame(x = 1:5, y = LETTERS[1:5])
+df2 <- data.frame(x = c("E", "B", "C"), z = 101:103)
+
+# merge() joins on a common key
+merge(df1, df2, by.x = "y", by.y = "x")
+
+# cbind() and rbind() stick data frames side-by-side or on top of each other
+cbind(df1, extra = 6:10)  # column bind
+rbind(df1, data.frame(x = 6:7, y = c("F", "G"))) # row bind
+```
+
+#### **Mathematical Functions**
+
+```{r}
+sum(1:50)
+cumsum(1:10)    # cumulative sum
+prod(1:5)       # product (5! = 120)
+cumprod(1:5)    # cumulative product
+
+exp(1)          # Euler's number e
+log(exp(1))     # natural log (base e)
+log10(100)      # log base 10
+log2(8)         # log base 2
+
+sqrt(144)       # square root
+abs(-7)         # absolute value
+```
+
+#### **Working with Categorical Data:** `cut()`
+
+`cut()` converts a continuous numeric variable into a categorical factor by dividing the range into intervals - useful any time you want to group data by thresholds:
+
+```{r}
+summary(esoph)
+
+# How many cancer cases in patients consuming more than 30 g/day of tobacco?
+subset(esoph$ncases, esoph$tobgp == "30+")
+
+# Total cases in patients older than 75
+sum(subset(esoph$ncases, esoph$agegp == "75+"))
+
+# Classify ncases as rare / medium / frequent (3 equal-width bins)
+esoph$cat_ncases <- cut(esoph$ncases, breaks = 3, labels = c("rare", "med", "freq"))
+summary(esoph)
+```
+
+<br>
+
+### Where to Go From Here
+
+You now have a solid grounding in the fundamentals of R. Some natural next steps:
+
+- **Data manipulation:** the `dplyr` and `tidyr` packages (part of the tidyverse) provide a clean, consistent grammar for transforming data frames.
+- **Visualisation:** `ggplot2` is the de facto standard for producing publication-quality plots in R.
+- **Reporting:** this document itself is a Quarto file. Quarto lets you weave R code and prose into reproducible HTML, PDF, or Word reports - a natural evolution from what you have been doing in scripts.
+- **Statistics:** once you are comfortable with data manipulation, explore `lm()` for linear models, `glm()` for generalised linear models, and the `survival` package for time-to-event data.
+
+The key to fluency is practice on real problems. Whenever you find yourself repeating a manual step, ask whether R could do it for you - it almost certainly can.
+
+---
+
+*End of tutorial.*
