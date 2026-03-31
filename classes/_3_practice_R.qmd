@@ -47,7 +47,7 @@ We propose the following **minimal** structure inside a folder that identifies t
     ├── output/    
     └── docs/   
 
-+ **project_nickname**: root folder for the Rproject (for example: r_comp_biol)    
++ **project_nickname**: root folder for the Rproject (for example: r_rep_data_analysis)    
 + **data/raw**: original, unmodified data   
 + **data/processed**: cleaned or transformed data ready for analysis
 + **data/metadata**: description of the contents in the data folder (learn more about [metadata](https://rdmkit.elixir-europe.org/metadata_management))
@@ -62,7 +62,7 @@ We propose the following **minimal** structure inside a folder that identifies t
 RStudio Projects are a great functionality, easing the transition between dataset analyses, and allowing a fast navigation to your analysis/working directory. To create a new project:
 
     File > New Project... > New Directory > New Project
-    Directory name: comp_biol_r
+    Directory name: rep_data_analysis_r
     Create a project as a subdirectory of: ~/
                                Browse... (folder that you created for the computational biology classes)
     Create Project
@@ -80,7 +80,7 @@ Projects should be personalized by clicking on the menu in the right upper corne
 
 **3. Create a new R script file** 
 
-In order to save your work, you must create a new R script file. Go to `File > New File > R Script`. A blank text file will appear above the console. Save it to your project folder with the name `comp_biol_mice.R`
+In order to save your work, you must create a new R script file. Go to `File > New File > R Script`. A blank text file will appear above the console. Save it to your project folder with the name `rep_data_analysis_mice.R`
 
 ::: {.callout-note collapse="true" title="Why do we need scripts?"}
 
