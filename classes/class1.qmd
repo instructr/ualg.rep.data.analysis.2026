@@ -10,4 +10,4 @@ title: "Topic 1 | Tidy data"
 
 </br>
 
-{{< include _tidy_data_intro.qmd >}}
+{{< include _class1_tidy_data_intro.qmd >}}

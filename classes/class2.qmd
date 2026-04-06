@@ -31,10 +31,10 @@ title: "Topic 2 | Introduction to R"
 
 :::{.panel-tabset}
 
-{{< include _1_swirl_R.qmd >}}
-{{< include _2_new_r4ab_tutorial.qmd >}}
-{{< include _3_practice_R.qmd >}}
-{{< include _4_advanced_R.qmd >}}
+{{< include _class2_1_swirl_R.qmd >}}
+{{< include _class2_2_new_r4ab_tutorial.qmd >}}
+{{< include _class2_3_practice_R.qmd >}}
+{{< include _class2_4_advanced_R.qmd >}}
 
 :::
 
