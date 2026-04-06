@@ -204,19 +204,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#sec-install" id="toc-sec-install" class="nav-link" data-scroll-target="#sec-install">Installing the Toolchain</a>
   <ul class="collapse">
-  <li><a href="#sec-install-r" id="toc-sec-install-r" class="nav-link" data-scroll-target="#sec-install-r">Install R</a></li>
-  <li><a href="#sec-install-rstudio" id="toc-sec-install-rstudio" class="nav-link" data-scroll-target="#sec-install-rstudio">Install RStudio Desktop</a></li>
-  <li><a href="#sec-install-git" id="toc-sec-install-git" class="nav-link" data-scroll-target="#sec-install-git">Install Git</a>
+  <li><a href="#sec-install-r" id="toc-sec-install-r" class="nav-link" data-scroll-target="#sec-install-r">1. Install R</a></li>
+  <li><a href="#sec-install-rstudio" id="toc-sec-install-rstudio" class="nav-link" data-scroll-target="#sec-install-rstudio">2. Install RStudio Desktop</a></li>
+  <li><a href="#sec-install-git" id="toc-sec-install-git" class="nav-link" data-scroll-target="#sec-install-git">3. Install Git</a>
   <ul class="collapse">
   <li><a href="#verify-the-installation" id="toc-verify-the-installation" class="nav-link" data-scroll-target="#verify-the-installation">Verify the installation</a></li>
   </ul></li>
-  <li><a href="#sec-git-config" id="toc-sec-git-config" class="nav-link" data-scroll-target="#sec-git-config">Configure your Git identity</a></li>
-  </ul></li>
-  <li><a href="#sec-github" id="toc-sec-github" class="nav-link" data-scroll-target="#sec-github">GitHub Account and SSH Authentication</a>
+  <li><a href="#sec-git-config" id="toc-sec-git-config" class="nav-link" data-scroll-target="#sec-git-config">4. Configure your Git identity</a></li>
+  <li><a href="#sec-github" id="toc-sec-github" class="nav-link" data-scroll-target="#sec-github">5. GitHub Account and SSH Authentication</a>
   <ul class="collapse">
   <li><a href="#sec-github-account" id="toc-sec-github-account" class="nav-link" data-scroll-target="#sec-github-account">Create a GitHub account</a></li>
-  <li><a href="#sec-ssh" id="toc-sec-ssh" class="nav-link" data-scroll-target="#sec-ssh">Set up SSH authentication</a>
-  <ul class="collapse">
+  <li><a href="#sec-ssh" id="toc-sec-ssh" class="nav-link" data-scroll-target="#sec-ssh">Set up SSH authentication</a></li>
   <li><a href="#generate-the-key-pair" id="toc-generate-the-key-pair" class="nav-link" data-scroll-target="#generate-the-key-pair">Generate the key pair</a></li>
   <li><a href="#copy-the-public-key" id="toc-copy-the-public-key" class="nav-link" data-scroll-target="#copy-the-public-key">Copy the public key</a></li>
   <li><a href="#add-the-key-to-github" id="toc-add-the-key-to-github" class="nav-link" data-scroll-target="#add-the-key-to-github">Add the key to GitHub</a></li>
@@ -346,14 +344,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Subset `iris` to only rows where Species is "setosa"</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#    and Petal.Length is greater than 1.5.</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Write a function that takes a numeric vector and returns</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#    a named list with its mean, median, and sd.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Using base R or dplyr (your choice), compute the mean Sepal.Length</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#    grouped by Species.</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Using base R or dplyr (your choice), compute the mean Sepal.Length</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#    grouped by Species.</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Make a scatter plot of Sepal.Length vs Petal.Length,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#    coloured by Species, using either base R or ggplot2.</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Make a scatter plot of Sepal.Length vs Petal.Length,</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#    coloured by Species, using either base R or ggplot2.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Advanced users:</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Write a function that takes a numeric vector and returns</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#    a named list with its mean, median, and sd.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
@@ -370,7 +369,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Installing the Toolchain</h1>
 <p>We are now going to make sure every personal computer has the same foundation. This is itself an act of reproducibility: We want our computational environment to be as explicit and intentional as our analysis.</p>
 <section id="sec-install-r" class="level2">
-<h2 class="anchored" data-anchor-id="sec-install-r">Install R</h2>
+<h2 class="anchored" data-anchor-id="sec-install-r">1. Install R</h2>
 <p>Go to <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a> and download the installer for your operating system.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">macOS</a></li></ul>
@@ -388,7 +387,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You should see <code>R version 4.x.x</code>.</p>
 </section>
 <section id="sec-install-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="sec-install-rstudio">Install RStudio Desktop</h2>
+<h2 class="anchored" data-anchor-id="sec-install-rstudio">2. Install RStudio Desktop</h2>
 <p>Go to <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a> — the page auto-detects your OS and recommends the right download.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">macOS</a></li></ul>
@@ -404,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Open RStudio and confirm that the R version shown in the Console pane matches the one you just installed.</p>
 </section>
 <section id="sec-install-git" class="level2">
-<h2 class="anchored" data-anchor-id="sec-install-git">Install Git</h2>
+<h2 class="anchored" data-anchor-id="sec-install-git">3. Install Git</h2>
 <div class="callout callout-style-default callout-note callout-titled" title="Install Git | Extra detailed instructions">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -448,7 +447,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="sec-git-config" class="level2">
-<h2 class="anchored" data-anchor-id="sec-git-config">Configure your Git identity</h2>
+<h2 class="anchored" data-anchor-id="sec-git-config">4. Configure your Git identity</h2>
 <p>In the RStudio Terminal (or any terminal), run the following with your own details:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Firstname Lastname"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"your.email@example.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -467,13 +466,11 @@ Important
 </div>
 <p>Verify:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
 </section>
-</section>
-<section id="sec-github" class="level1">
-<h1>GitHub Account and SSH Authentication</h1>
-<section id="sec-github-account" class="level2">
-<h2 class="anchored" data-anchor-id="sec-github-account">Create a GitHub account</h2>
+<section id="sec-github" class="level2">
+<h2 class="anchored" data-anchor-id="sec-github">5. GitHub Account and SSH Authentication</h2>
+<section id="sec-github-account" class="level3">
+<h3 class="anchored" data-anchor-id="sec-github-account">Create a GitHub account</h3>
 <p>Go to <a href="https://github.com/join" class="uri">https://github.com/join</a> and create a free account.</p>
 <p>A few things worth considering when choosing a username:</p>
 <ul>
@@ -483,9 +480,10 @@ Important
 </ul>
 <p>The free tier is sufficient for everything in this course.</p>
 </section>
-<section id="sec-ssh" class="level2">
-<h2 class="anchored" data-anchor-id="sec-ssh">Set up SSH authentication</h2>
+<section id="sec-ssh" class="level3">
+<h3 class="anchored" data-anchor-id="sec-ssh">Set up SSH authentication</h3>
 <p>We will use SSH keys so that RStudio can push to GitHub without you typing a password every time. This is the standard approach in professional settings.</p>
+</section>
 <section id="generate-the-key-pair" class="level3">
 <h3 class="anchored" data-anchor-id="generate-the-key-pair">Generate the key pair</h3>
 <p>In the RStudio Terminal:</p>
@@ -572,11 +570,12 @@ Warning
 </section>
 <section id="start-documenting-your-project" class="level2">
 <h2 class="anchored" data-anchor-id="start-documenting-your-project">Start documenting your project</h2>
-<p>Open the <code>README.md</code> file and add a few sentences describing what the project is about. You will expand this as the project develops.</p>
+<p>Create and open a <code>README.md</code> file and add a few sentences describing what the project is about. You will expand this as the project develops.</p>
 </section>
 <section id="sec-gitignore" class="level2">
 <h2 class="anchored" data-anchor-id="sec-gitignore">Update .gitignore</h2>
-<p>Open <code>.gitignore</code> and add entries for things that should never be version controled:</p>
+<p>The <code>.gitignore</code> file, as the name implies, specifies which files and folders Git should ignore, so they are not tracked or included in commits (or in other words, it tells Git which files to leave out).</p>
+<p>Now, open <code>.gitignore</code> and add entries for files or folders that should never be version controlled:</p>
 <pre><code># R artefacts
 .Rhistory
 .RData
@@ -609,7 +608,7 @@ Note
 <ol type="1">
 <li>Click the <strong>Staged</strong> checkbox next to all changed files (<code>.gitignore</code>, <code>README.md</code>). Note that empty folders do not appear here (Git does not track empty directories).</li>
 <li>Click <strong>Commit</strong>.</li>
-<li>Write a commit message: <code>First commit</code>.</li>
+<li>Write a commit message, for example: <code>First commit</code>.</li>
 <li>Click <strong>Commit</strong>.</li>
 </ol>
 </section>
@@ -626,11 +625,11 @@ Note
 <li>Click <strong>Create repository</strong>.</li>
 </ol>
 <p>GitHub will show you a page with setup instructions. Copy the SSH URL, it looks like:</p>
-<pre><code>git@github.com:username/my-data-analysis.git</code></pre>
+<p><code>git@github.com:username/my-data-analysis.git</code></p>
 <p>Now go back to RStudio and open the Terminal (<strong>Tools &gt; Terminal &gt; New Terminal</strong>). Run the following, replacing the URL with your own:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin git@github.com:username/my-data-analysis.git</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-M</span> main</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin git@github.com:username/my-data-analysis.git</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-M</span> main</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -723,7 +722,7 @@ Note
 </tr>
 <tr class="even">
 <td>Errors on paths with spaces (Windows)</td>
-<td>Project cloned into a path like <code>C:\Users\Ana Sofia\...</code></td>
+<td>Project cloned into a path like <code>C:\Users\Jane Doe\...</code></td>
 <td>Move the project to a path without spaces or accented characters</td>
 </tr>
 </tbody>
@@ -732,13 +731,13 @@ Note
 <section id="suggested-reading" class="level2">
 <h2 class="anchored" data-anchor-id="suggested-reading">Suggested reading</h2>
 <ul>
-<li>Jenny Bryan’s <em>Happy Git with R</em> — <a href="https://happygitwithr.com" class="uri">https://happygitwithr.com</a>. Focus on chapters 1-4 for now, particularly the mental model of a repository and the commit/diff/push cycle.</li>
+<li>Jenny Bryan’s <em>Happy Git and GitHubfor the useR</em> — <a href="https://happygitwithr.com" class="uri">https://happygitwithr.com</a>. Focus on chapters 1-4 for now, particularly the mental model of a repository and the commit/diff/push cycle.</li>
 </ul>
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>
 <ul>
-<li>Add a sentence to your <code>README.md</code> describing the data source you plan to use for the mini-project.</li>
+<li>Add a paragraph to your <code>README.md</code> describing the data source you plan to use for the mini-project.</li>
 <li>Commit and push that change.</li>
 <li>Browse the commit history on GitHub and confirm your name and email appear correctly.</li>
 </ul>

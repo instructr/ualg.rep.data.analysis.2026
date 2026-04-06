@@ -39,14 +39,15 @@ Work through the following prompts in RStudio. There are no right or wrong appro
 # 3. Subset `iris` to only rows where Species is "setosa"
 #    and Petal.Length is greater than 1.5.
 
-# 4. Write a function that takes a numeric vector and returns
-#    a named list with its mean, median, and sd.
-
-# 5. Using base R or dplyr (your choice), compute the mean Sepal.Length
+# 4. Using base R or dplyr (your choice), compute the mean Sepal.Length
 #    grouped by Species.
 
-# 6. Make a scatter plot of Sepal.Length vs Petal.Length,
+# 5. Make a scatter plot of Sepal.Length vs Petal.Length,
 #    coloured by Species, using either base R or ggplot2.
+
+# Advanced users:
+# 6. Write a function that takes a numeric vector and returns
+#    a named list with its mean, median, and sd.
 ```
 
 ## Discussion
@@ -63,7 +64,7 @@ We will share and compare solutions as a group. Key things to reflect on:
 
 We are now going to make sure every personal computer has the same foundation. This is itself an act of reproducibility: We want our computational environment to be as explicit and intentional as our analysis.
 
-## Install R {#sec-install-r}
+## 1. Install R {#sec-install-r}
 
 Go to <https://cran.r-project.org> and download the installer for your operating system.
 
@@ -87,7 +88,7 @@ R --version
 
 You should see `R version 4.x.x`.
 
-## Install RStudio Desktop {#sec-install-rstudio}
+## 2. Install RStudio Desktop {#sec-install-rstudio}
 
 Go to <https://posit.co/download/rstudio-desktop/> --- the page auto-detects your OS and recommends the right download.
 
@@ -105,7 +106,7 @@ Open the `.dmg` file and drag RStudio to your Applications folder.
 
 Open RStudio and confirm that the R version shown in the Console pane matches the one you just installed.
 
-## Install Git {#sec-install-git}
+## 3. Install Git {#sec-install-git}
 
 ::: {.callout-note collapse="true" title="Install Git | Extra detailed instructions"}
 If you need extra detailed instructions for each Operating System (Linux, Mac, Windows), check [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
@@ -145,7 +146,7 @@ git --version
 
 You should see `git version 2.x.x`.
 
-## Configure your Git identity {#sec-git-config}
+## 4. Configure your Git identity {#sec-git-config}
 
 In the RStudio Terminal (or any terminal), run the following with your own details:
 
@@ -164,11 +165,10 @@ Verify:
 git config --global --list
 ```
 
----
 
-# GitHub Account and SSH Authentication {#sec-github}
+## 5. GitHub Account and SSH Authentication {#sec-github}
 
-## Create a GitHub account {#sec-github-account}
+### Create a GitHub account {#sec-github-account}
 
 Go to <https://github.com/join> and create a free account.
 
@@ -180,7 +180,7 @@ A few things worth considering when choosing a username:
 
 The free tier is sufficient for everything in this course.
 
-## Set up SSH authentication {#sec-ssh}
+### Set up SSH authentication {#sec-ssh}
 
 We will use SSH keys so that RStudio can push to GitHub without you typing a password every time. This is the standard approach in professional settings.
 
@@ -284,11 +284,13 @@ problems on Windows. For example, prefer `C:\projects\my_data_analysis` over
 
 ## Start documenting your project
 
-Open the `README.md` file and add a few sentences describing what the project is about. You will expand this as the project develops.
+Create and open a `README.md` file and add a few sentences describing what the project is about. You will expand this as the project develops.
 
 ## Update .gitignore {#sec-gitignore}
 
-Open `.gitignore` and add entries for things that should never be version controled:
+The `.gitignore` file, as the name implies, specifies which files and folders Git should ignore, so they are not tracked or included in commits (or in other words, it tells Git which files to leave out). 
+
+Now, open `.gitignore` and add entries for files or folders that should never be version controlled:
 
 ```
 # R artefacts
@@ -315,7 +317,7 @@ In the **Git pane** in RStudio:
 
 1. Click the **Staged** checkbox next to all changed files (`.gitignore`, `README.md`). Note that empty folders do not appear here (Git does not track empty directories).
 2. Click **Commit**.
-3. Write a commit message: `First commit`.
+3. Write a commit message, for example: `First commit`.
 4. Click **Commit**.
 
 
@@ -335,9 +337,7 @@ On GitHub:
 
 GitHub will show you a page with setup instructions. Copy the SSH URL, it looks like:
 
-```
-git@github.com:username/my-data-analysis.git
-```
+`git@github.com:username/my-data-analysis.git`
 
 Now go back to RStudio and open the Terminal (**Tools > Terminal > New Terminal**).
 Run the following, replacing the URL with your own:
@@ -394,15 +394,15 @@ Everything you do: data import, transformation, visualisation, and discussion, w
 | `ssh -T git@github.com` fails | Public key not saved correctly on GitHub, or wrong email | Re-check the key on GitHub under Settings > SSH keys |
 | RStudio does not find Git | Git executable not on PATH | Tools > Global Options > Git/SVN and set the path. On Windows: `C:\Program Files\Git\bin\git.exe` |
 | Push rejected | Cloned via HTTPS instead of SSH | Switch the remote: `git remote set-url origin git@github.com:username/repo.git` |
-| Errors on paths with spaces (Windows) | Project cloned into a path like `C:\Users\Ana Sofia\...` | Move the project to a path without spaces or accented characters |
+| Errors on paths with spaces (Windows) | Project cloned into a path like `C:\Users\Jane Doe\...` | Move the project to a path without spaces or accented characters |
 
 ## Suggested reading
 
-- Jenny Bryan's *Happy Git with R* --- <https://happygitwithr.com>. Focus on chapters 1-4 for now, particularly the mental model of a repository and the commit/diff/push cycle.
+- Jenny Bryan's *Happy Git and GitHubfor the useR* --- <https://happygitwithr.com>. Focus on chapters 1-4 for now, particularly the mental model of a repository and the commit/diff/push cycle.
 
 ## Homework
 
-- Add a sentence to your `README.md` describing the data source you plan to use for the mini-project.
+- Add a paragraph to your `README.md` describing the data source you plan to use for the mini-project.
 - Commit and push that change.
 - Browse the commit history on GitHub and confirm your name and email appear correctly.
 

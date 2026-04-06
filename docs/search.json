@@ -171,43 +171,36 @@
     "objectID": "classes/class3.html#sec-install-r",
     "href": "classes/class3.html#sec-install-r",
     "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
-    "section": "Install R",
-    "text": "Install R\nGo to https://cran.r-project.org and download the installer for your operating system.\n\nWindowsmacOS\n\n\nDownload and run the .exe installer. Accept all defaults.\n\n\nDownload and run the .pkg installer. If you are on Apple Silicon (M1/M2/M3/M4), make sure you choose the arm64 build (it will be clearly labelled on the download page).\n\n\n\nVerify the installation by opening a terminal and running:\nR --version\nYou should see R version 4.x.x."
+    "section": "1. Install R",
+    "text": "1. Install R\nGo to https://cran.r-project.org and download the installer for your operating system.\n\nWindowsmacOS\n\n\nDownload and run the .exe installer. Accept all defaults.\n\n\nDownload and run the .pkg installer. If you are on Apple Silicon (M1/M2/M3/M4), make sure you choose the arm64 build (it will be clearly labelled on the download page).\n\n\n\nVerify the installation by opening a terminal and running:\nR --version\nYou should see R version 4.x.x."
   },
   {
     "objectID": "classes/class3.html#sec-install-rstudio",
     "href": "classes/class3.html#sec-install-rstudio",
     "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
-    "section": "Install RStudio Desktop",
-    "text": "Install RStudio Desktop\nGo to https://posit.co/download/rstudio-desktop/ — the page auto-detects your OS and recommends the right download.\n\nWindowsmacOS\n\n\nRun the .exe installer and accept all defaults.\n\n\nOpen the .dmg file and drag RStudio to your Applications folder.\n\n\n\nOpen RStudio and confirm that the R version shown in the Console pane matches the one you just installed."
+    "section": "2. Install RStudio Desktop",
+    "text": "2. Install RStudio Desktop\nGo to https://posit.co/download/rstudio-desktop/ — the page auto-detects your OS and recommends the right download.\n\nWindowsmacOS\n\n\nRun the .exe installer and accept all defaults.\n\n\nOpen the .dmg file and drag RStudio to your Applications folder.\n\n\n\nOpen RStudio and confirm that the R version shown in the Console pane matches the one you just installed."
   },
   {
     "objectID": "classes/class3.html#sec-install-git",
     "href": "classes/class3.html#sec-install-git",
     "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
-    "section": "Install Git",
-    "text": "Install Git\n\n\n\n\n\n\nNoteInstall Git | Extra detailed instructions\n\n\n\n\n\nIf you need extra detailed instructions for each Operating System (Linux, Mac, Windows), check here.\n\n\n\n\nWindowsmacOS\n\n\nDownload Git for Windows from https://git-scm.com/download/win and run the installer.\nDuring installation, pay attention to these two prompts:\n\nAdjusting your PATH environment: choose “Git from the command line and also from 3rd-party software” (the recommended option).\nChoosing the default editor used by Git: change from Vim to whatever you are comfortable with. Notepad is fine for now since we will drive Git from RStudio.\nEverything else: accept the defaults.\n\n\n\nOpen Terminal and run:\ngit --version\nIf Git is not present, macOS will prompt you to install the Xcode Command Line Tools. Accept and let it run (this may take a few minutes).\n\n\n\n\nVerify the installation\nIn RStudio, open a terminal via Tools &gt; Terminal &gt; New Terminal and run:\ngit --version\nYou should see git version 2.x.x."
+    "section": "3. Install Git",
+    "text": "3. Install Git\n\n\n\n\n\n\nNoteInstall Git | Extra detailed instructions\n\n\n\n\n\nIf you need extra detailed instructions for each Operating System (Linux, Mac, Windows), check here.\n\n\n\n\nWindowsmacOS\n\n\nDownload Git for Windows from https://git-scm.com/download/win and run the installer.\nDuring installation, pay attention to these two prompts:\n\nAdjusting your PATH environment: choose “Git from the command line and also from 3rd-party software” (the recommended option).\nChoosing the default editor used by Git: change from Vim to whatever you are comfortable with. Notepad is fine for now since we will drive Git from RStudio.\nEverything else: accept the defaults.\n\n\n\nOpen Terminal and run:\ngit --version\nIf Git is not present, macOS will prompt you to install the Xcode Command Line Tools. Accept and let it run (this may take a few minutes).\n\n\n\n\nVerify the installation\nIn RStudio, open a terminal via Tools &gt; Terminal &gt; New Terminal and run:\ngit --version\nYou should see git version 2.x.x."
   },
   {
     "objectID": "classes/class3.html#sec-git-config",
     "href": "classes/class3.html#sec-git-config",
     "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
-    "section": "Configure your Git identity",
-    "text": "Configure your Git identity\nIn the RStudio Terminal (or any terminal), run the following with your own details:\ngit config --global user.name \"Firstname Lastname\"\ngit config --global user.email \"your.email@example.com\"\n\n\n\n\n\n\nImportant\n\n\n\nGit records who made every change. This name and email will appear in every commit you make, including in your project repository on GitHub. Use the same email you will register with on GitHub.\n\n\nVerify:\ngit config --global --list"
+    "section": "4. Configure your Git identity",
+    "text": "4. Configure your Git identity\nIn the RStudio Terminal (or any terminal), run the following with your own details:\ngit config --global user.name \"Firstname Lastname\"\ngit config --global user.email \"your.email@example.com\"\n\n\n\n\n\n\nImportant\n\n\n\nGit records who made every change. This name and email will appear in every commit you make, including in your project repository on GitHub. Use the same email you will register with on GitHub.\n\n\nVerify:\ngit config --global --list"
   },
   {
-    "objectID": "classes/class3.html#sec-github-account",
-    "href": "classes/class3.html#sec-github-account",
+    "objectID": "classes/class3.html#sec-github",
+    "href": "classes/class3.html#sec-github",
     "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
-    "section": "Create a GitHub account",
-    "text": "Create a GitHub account\nGo to https://github.com/join and create a free account.\nA few things worth considering when choosing a username:\n\nThis will appear on your CV, in shared links, and potentially in publications. Choose something professional.\nSomething like firstnamelastname or f-lastname works well.\nUse the same email you configured in Git above.\n\nThe free tier is sufficient for everything in this course."
-  },
-  {
-    "objectID": "classes/class3.html#sec-ssh",
-    "href": "classes/class3.html#sec-ssh",
-    "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
-    "section": "Set up SSH authentication",
-    "text": "Set up SSH authentication\nWe will use SSH keys so that RStudio can push to GitHub without you typing a password every time. This is the standard approach in professional settings.\n\nGenerate the key pair\nIn the RStudio Terminal:\nssh-keygen -t ed25519 -C \"your.email@example.com\"\nAccept the default file location (~/.ssh/id_ed25519). You can leave the passphrase empty for simplicity in this course, or set one if you prefer.\n\n\nCopy the public key\n\nmacOSWindows\n\n\ncat ~/.ssh/id_ed25519.pub | pbcopy\n\n\ncat ~/.ssh/id_ed25519.pub | clip\nOr print and copy manually:\ncat ~/.ssh/id_ed25519.pub\n\n\n\n\n\nAdd the key to GitHub\n\nOn GitHub, click your avatar (top right) &gt; Settings &gt; SSH and GPG keys &gt; New SSH key.\nGive it a descriptive title, e.g. personal_laptop_2026.\nPaste the public key into the Key field.\nClick Add SSH key.\n\n\n\nTest the connection\nssh -T git@github.com\nExpected response:\nHi username! You've successfully authenticated, but GitHub does not provide shell access."
+    "section": "5. GitHub Account and SSH Authentication",
+    "text": "5. GitHub Account and SSH Authentication\n\nCreate a GitHub account\nGo to https://github.com/join and create a free account.\nA few things worth considering when choosing a username:\n\nThis will appear on your CV, in shared links, and potentially in publications. Choose something professional.\nSomething like firstnamelastname or f-lastname works well.\nUse the same email you configured in Git above.\n\nThe free tier is sufficient for everything in this course.\n\n\nSet up SSH authentication\nWe will use SSH keys so that RStudio can push to GitHub without you typing a password every time. This is the standard approach in professional settings.\n\n\nGenerate the key pair\nIn the RStudio Terminal:\nssh-keygen -t ed25519 -C \"your.email@example.com\"\nAccept the default file location (~/.ssh/id_ed25519). You can leave the passphrase empty for simplicity in this course, or set one if you prefer.\n\n\nCopy the public key\n\nmacOSWindows\n\n\ncat ~/.ssh/id_ed25519.pub | pbcopy\n\n\ncat ~/.ssh/id_ed25519.pub | clip\nOr print and copy manually:\ncat ~/.ssh/id_ed25519.pub\n\n\n\n\n\nAdd the key to GitHub\n\nOn GitHub, click your avatar (top right) &gt; Settings &gt; SSH and GPG keys &gt; New SSH key.\nGive it a descriptive title, e.g. personal_laptop_2026.\nPaste the public key into the Key field.\nClick Add SSH key.\n\n\n\nTest the connection\nssh -T git@github.com\nExpected response:\nHi username! You've successfully authenticated, but GitHub does not provide shell access."
   },
   {
     "objectID": "classes/class3.html#sec-dir-structure",
@@ -228,21 +221,21 @@
     "href": "classes/class3.html#start-documenting-your-project",
     "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
     "section": "Start documenting your project",
-    "text": "Start documenting your project\nOpen the README.md file and add a few sentences describing what the project is about. You will expand this as the project develops."
+    "text": "Start documenting your project\nCreate and open a README.md file and add a few sentences describing what the project is about. You will expand this as the project develops."
   },
   {
     "objectID": "classes/class3.html#sec-gitignore",
     "href": "classes/class3.html#sec-gitignore",
     "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
     "section": "Update .gitignore",
-    "text": "Update .gitignore\nOpen .gitignore and add entries for things that should never be version controled:\n# R artefacts\n.Rhistory\n.RData\n.Rproj.user/\n\n# Large data files -- adjust extensions to match your data\ndata/raw/*.csv\ndata/raw/*.xlsx\n\n# Rendered outputs that can be regenerated\n*.html\n*.pdf\n\n\n\n\n\n\nNote\n\n\n\nRaw data files are often excluded from version control due to size or confidentiality constraints. The standard practice is to document where the data came from in the README, so that anyone with appropriate access can reproduce the starting point of the analysis."
+    "text": "Update .gitignore\nThe .gitignore file, as the name implies, specifies which files and folders Git should ignore, so they are not tracked or included in commits (or in other words, it tells Git which files to leave out).\nNow, open .gitignore and add entries for files or folders that should never be version controlled:\n# R artefacts\n.Rhistory\n.RData\n.Rproj.user/\n\n# Large data files -- adjust extensions to match your data\ndata/raw/*.csv\ndata/raw/*.xlsx\n\n# Rendered outputs that can be regenerated\n*.html\n*.pdf\n\n\n\n\n\n\nNote\n\n\n\nRaw data files are often excluded from version control due to size or confidentiality constraints. The standard practice is to document where the data came from in the README, so that anyone with appropriate access can reproduce the starting point of the analysis."
   },
   {
     "objectID": "classes/class3.html#sec-first-commit",
     "href": "classes/class3.html#sec-first-commit",
     "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
     "section": "Make your first commit",
-    "text": "Make your first commit\nIn the Git pane in RStudio:\n\nClick the Staged checkbox next to all changed files (.gitignore, README.md). Note that empty folders do not appear here (Git does not track empty directories).\nClick Commit.\nWrite a commit message: First commit.\nClick Commit."
+    "text": "Make your first commit\nIn the Git pane in RStudio:\n\nClick the Staged checkbox next to all changed files (.gitignore, README.md). Note that empty folders do not appear here (Git does not track empty directories).\nClick Commit.\nWrite a commit message, for example: First commit.\nClick Commit."
   },
   {
     "objectID": "classes/class3.html#sec-create-repo",
@@ -270,20 +263,20 @@
     "href": "classes/class3.html#sec-troubleshooting",
     "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
     "section": "Common problems and fixes",
-    "text": "Common problems and fixes\n\n\n\n\n\n\n\n\nProblem\nLikely cause\nFix\n\n\n\n\nssh -T git@github.com fails\nPublic key not saved correctly on GitHub, or wrong email\nRe-check the key on GitHub under Settings &gt; SSH keys\n\n\nRStudio does not find Git\nGit executable not on PATH\nTools &gt; Global Options &gt; Git/SVN and set the path. On Windows: C:\\Program Files\\Git\\bin\\git.exe\n\n\nPush rejected\nCloned via HTTPS instead of SSH\nSwitch the remote: git remote set-url origin git@github.com:username/repo.git\n\n\nErrors on paths with spaces (Windows)\nProject cloned into a path like C:\\Users\\Ana Sofia\\...\nMove the project to a path without spaces or accented characters"
+    "text": "Common problems and fixes\n\n\n\n\n\n\n\n\nProblem\nLikely cause\nFix\n\n\n\n\nssh -T git@github.com fails\nPublic key not saved correctly on GitHub, or wrong email\nRe-check the key on GitHub under Settings &gt; SSH keys\n\n\nRStudio does not find Git\nGit executable not on PATH\nTools &gt; Global Options &gt; Git/SVN and set the path. On Windows: C:\\Program Files\\Git\\bin\\git.exe\n\n\nPush rejected\nCloned via HTTPS instead of SSH\nSwitch the remote: git remote set-url origin git@github.com:username/repo.git\n\n\nErrors on paths with spaces (Windows)\nProject cloned into a path like C:\\Users\\Jane Doe\\...\nMove the project to a path without spaces or accented characters"
   },
   {
     "objectID": "classes/class3.html#suggested-reading",
     "href": "classes/class3.html#suggested-reading",
     "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
     "section": "Suggested reading",
-    "text": "Suggested reading\n\nJenny Bryan’s Happy Git with R — https://happygitwithr.com. Focus on chapters 1-4 for now, particularly the mental model of a repository and the commit/diff/push cycle."
+    "text": "Suggested reading\n\nJenny Bryan’s Happy Git and GitHubfor the useR — https://happygitwithr.com. Focus on chapters 1-4 for now, particularly the mental model of a repository and the commit/diff/push cycle."
   },
   {
     "objectID": "classes/class3.html#homework",
     "href": "classes/class3.html#homework",
     "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
     "section": "Homework",
-    "text": "Homework\n\nAdd a sentence to your README.md describing the data source you plan to use for the mini-project.\nCommit and push that change.\nBrowse the commit history on GitHub and confirm your name and email appear correctly."
+    "text": "Homework\n\nAdd a paragraph to your README.md describing the data source you plan to use for the mini-project.\nCommit and push that change.\nBrowse the commit history on GitHub and confirm your name and email appear correctly."
   }
 ]
