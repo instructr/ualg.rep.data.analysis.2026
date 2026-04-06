@@ -1,0 +1,117 @@
+#------------------ Class 1 ------------------#
+
+Learning Objectives
+
+By the end of this session, students should be able to:
+
+- Define reproducibility in the context of data analysis
+- State the three rules of tidy data
+- Identify common violations of tidy data principles
+- Transform untidy data into tidy format
+
+Content Covered
+
+1. Introduction to Reproducibility
+
+Reproducibility means that given the same data and code, another person (or the original analyst at a later time) can obtain exactly the same results. This requires organized data, code-based analysis, documentation, and accessible files.
+
+The session used the Reinhart-Rogoff case (2010/2013) to illustrate how opaque analytical workflows can lead to consequential errors that go undetected.
+
+
+2. Tidy Data Principles
+
+Based on Wickham (2014), tidy data follows three rules:
+- Each variable forms a column
+- Each observation forms a row
+- Each type of observational unit forms a table
+
+Common violations include: column headers that are values rather than variable names; multiple variables stored in a single column; variables stored in both rows and columns; and observational units spread across multiple tables without clear linkage.
+
+Tidy data enables direct use of analytical tools without error-prone reformatting steps.
+
+
+3. Practical Activity: Dice Exercise
+
+Students worked in small groups to generate, record, and tidy a dataset by hand using dice rolls. The activity had four phases: designing a recording sheet, collecting data, restructuring the data into tidy format, and producing a hand-drawn visualization. The exercise demonstrated how implicit recording conventions can produce untidy data and highlighted the importance of deliberate data organization from the point of collection.
+
+
+
+#------------------ Class 2 ------------------#
+
+--- Learning Objectives ---
+
+By the end of this session, students should be able to:
+
+- Explain why programming is essential for reproducible data analysis and justify the choice of R
+- Navigate the RStudio IDE and configure a project for reproducible work
+- Assess their own R proficiency and select the appropriate learning pathway
+
+Depending on the pathway followed:
+
+- Beginners: learn R interactively via `swirl`, covering vectors, sequences, missing values, subsetting, matrices, data frames, logic, and base graphics.
+
+- Intermediate: load and inspect a biology dataset, compute descriptive statistics, produce visualisations with ggplot2, and conduct a two-sample t-test.
+
+- Advanced: clean a messy dataset, perform exploratory analysis and PCA, and build and evaluate a machine learning classifier with tidymodels.
+
+--- Content Covered ---
+
+1. Why R and Why Program
+
+The session opened with a discussion on why scripted, code-based workflows are preferable to manual or spreadsheet-based approaches, and why R was chosen over alternatives such as Python and Julia, highlighting its statistical ecosystem, reproducibility support, and active development community for biomedical and biology sciences.
+
+2. The RStudio Environment
+
+Students were introduced to the four panes of the RStudio IDE (source editor, console, environment/history, and files/plots/packages/help) and to project creation. 
+
+3. Differentiated Practical Tutorials
+
+Students followed one of three self-paced tutorials according to their prior experience with R.
+
+- Beginners used the `swirl` package to learn R interactively from within the R console, covering basic building blocks, sequences, vectors, missing values, subsetting, matrices and data frames, logic, and base graphics.
+
+- Intermediate students analysed a mice weight dataset to explore the effect of a high-fat diet on body weight, covering experimental design discussion, data loading and inspection, descriptive statistics, ggplot2 visualisations, Pearson correlation, linear modelling, and a two-sample t-test with group discussion on results interpretation.
+
+- Advanced students completed a mini-project taking a messy version of the Palmer Penguins dataset from raw input to a trained classifier, comprising seven stages: project setup; data loading with explicit parsing; cleaning with janitor and tidyverse to resolve capitalisation inconsistencies, mixed missing value formats, and incorrect column types; grouped descriptive statistics and correlation analysis; visualisation with histograms, boxplots, pairs plots, and a correlation heatmap; PCA with scree plot and biplot; and random forest classification with tidymodels, evaluated using accuracy, a confusion matrix, and 5-fold cross-validation. The tutorial closed with a demonstration of classifying new observations and a set of extension exercises.
+
+
+
+
+#------------------ Class 3 ------------------#
+
+Learning Objectives
+
+By the end of this session, students should be able to:
+
+- Assess their current R programming proficiency across core tasks
+- Install and configure R, RStudio, and Git on a personal computer
+- Create and secure a GitHub account using SSH key authentication
+- Create an R Project with version control initialised locally
+- Design a principled directory structure for a data analysis project
+- Connect a local Git repository to a remote GitHub repository and perform an initial commit and push
+
+Content Covered
+
+1. R Proficiency Calibration
+
+Students worked through a set of hands-on prompts in RStudio covering the construction and manipulation of vectors, exploration of built-in datasets, subsetting with logical conditions, writing functions that return named lists, grouped summaries using base R or dplyr, and data visualisation with base R or ggplot2. The exercise was framed as a calibration rather than an assessment, with group discussion used to surface different approaches and establish a shared vocabulary for the remainder of the course.
+
+2. Toolchain Installation
+
+R was installed from CRAN and RStudio Desktop from the Posit website. Platform-specific considerations were addressed for Windows and macOS, including the choice of the `arm64` build for Apple Silicon machines. Git was installed and configured with a global user identity, establishing the name and email that will be recorded in every subsequent commit.
+
+3. GitHub Account and SSH Authentication
+
+Students created a GitHub account and generated an `ed25519` SSH key pair. The public key was registered on GitHub, enabling passwordless authentication between the local machine and the remote repository. The connection was verified with `ssh -T git@github.com`.
+
+4. Project Creation and Directory Structure
+
+Students created a new R Project in RStudio with Git initialised locally, then structured it according to a principled directory layout separating raw data, processed data, R scripts, outputs, figures, and documentation. The rationale for separating raw from processed data and for excluding large or sensitive files via `.gitignore` was discussed in the context of reproducibility.
+
+5. Connecting to GitHub and First Push
+
+An empty repository was created on GitHub and linked to the local project using `git remote add origin` followed by `git push -u origin main`. Students staged their initial files, wrote a commit message, and pushed to GitHub, confirming the workflow through the RStudio Git pane and the GitHub web interface.
+
+
+#------------------ Class 4 ------------------#
+
