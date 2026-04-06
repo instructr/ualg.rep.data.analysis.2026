@@ -270,7 +270,7 @@
     "href": "classes/class3.html#suggested-reading",
     "title": "Topic 3 | Setting Up for Reproducible Data Analysis",
     "section": "Suggested reading",
-    "text": "Suggested reading\n\nJenny Bryan’s Happy Git and GitHubfor the useR — https://happygitwithr.com. Focus on chapters 1-4 for now, particularly the mental model of a repository and the commit/diff/push cycle."
+    "text": "Suggested reading\n\nJenny Bryan’s Happy Git and GitHubfor the useR — https://happygitwithr.com. Focus particularly on the mental model of a repository and the commit/diff/push cycle."
   },
   {
     "objectID": "classes/class3.html#homework",

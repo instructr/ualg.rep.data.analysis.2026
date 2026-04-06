@@ -398,7 +398,7 @@ Everything you do: data import, transformation, visualisation, and discussion, w
 
 ## Suggested reading
 
-- Jenny Bryan's *Happy Git and GitHubfor the useR* --- <https://happygitwithr.com>. Focus on chapters 1-4 for now, particularly the mental model of a repository and the commit/diff/push cycle.
+- Jenny Bryan's *Happy Git and GitHubfor the useR* --- <https://happygitwithr.com>. Focus particularly on the mental model of a repository and the *commit/diff/push* cycle.
 
 ## Homework
 
