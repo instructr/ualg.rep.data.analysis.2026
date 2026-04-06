@@ -1,0 +1,409 @@
+---
+title: "Topic 3 | Setting Up for Reproducible Data Analysis"
+---
+
+::: {.callout-note}
+## Class Details
+📅 **Date:** April, 2026  
+📖 **Synopsis:** Installing the toolchain, creating a GitHub account, and connecting your project.
+
+**Class overview**
+By the end of this class you will have: assessed your current R skills, installed R, RStudio, and Git on your personal computer, created a GitHub account with SSH authentication, created a structured project directory, and connected your local project to GitHub.
+:::
+
+---
+
+::: {.callout-note collapse="true" title="Timing guide"}
+| Segment | Duration |
+|---|---|
+| R confidence check + discussion | 30 min |
+| Install R, RStudio, Git | 60 min |
+| GitHub account + SSH key | 40 min |
+| Project creation + structure + first push | 50 min |
+| Wrap-up + mini-project introduction | 20 min |
+| Buffer / troubleshooting | 20 min |
+| **Total** | **~220 min (~4 h)** |
+:::
+
+
+# R Confidence Check {#sec-confidence}
+
+Work through the following prompts in RStudio. There are no right or wrong approaches: The goal is to see how you currently think in R.
+
+```{r}
+# 1. Create a numeric vector of 10 values and compute its mean and sd.
+
+# 2. Load the built-in dataset `iris`. How many rows and columns does it have?
+#    What are the column names?
+
+# 3. Subset `iris` to only rows where Species is "setosa"
+#    and Petal.Length is greater than 1.5.
+
+# 4. Write a function that takes a numeric vector and returns
+#    a named list with its mean, median, and sd.
+
+# 5. Using base R or dplyr (your choice), compute the mean Sepal.Length
+#    grouped by Species.
+
+# 6. Make a scatter plot of Sepal.Length vs Petal.Length,
+#    coloured by Species, using either base R or ggplot2.
+```
+
+## Discussion
+
+We will share and compare solutions as a group. Key things to reflect on:
+
+- Did you use `<-` or `=` for assignment? (discuss conventions).
+- Did anyone already reach for the native pipe `|>` or the magrittr pipe `%>%`?
+- Who has used R Markdown or Quarto before?
+
+---
+
+# Installing the Toolchain {#sec-install}
+
+We are now going to make sure every personal computer has the same foundation. This is itself an act of reproducibility: We want our computational environment to be as explicit and intentional as our analysis.
+
+## Install R {#sec-install-r}
+
+Go to <https://cran.r-project.org> and download the installer for your operating system.
+
+::: {.panel-tabset}
+
+### Windows
+
+Download and run the `.exe` installer. Accept all defaults.
+
+### macOS
+
+Download and run the `.pkg` installer. If you are on Apple Silicon (M1/M2/M3/M4), make sure you choose the `arm64` build (it will be clearly labelled on the download page).
+
+:::
+
+Verify the installation by opening a terminal and running:
+
+```bash
+R --version
+```
+
+You should see `R version 4.x.x`.
+
+## Install RStudio Desktop {#sec-install-rstudio}
+
+Go to <https://posit.co/download/rstudio-desktop/> --- the page auto-detects your OS and recommends the right download.
+
+::: {.panel-tabset}
+
+### Windows
+
+Run the `.exe` installer and accept all defaults.
+
+### macOS
+
+Open the `.dmg` file and drag RStudio to your Applications folder.
+
+:::
+
+Open RStudio and confirm that the R version shown in the Console pane matches the one you just installed.
+
+## Install Git {#sec-install-git}
+
+::: {.callout-note collapse="true" title="Install Git | Extra detailed instructions"}
+If you need extra detailed instructions for each Operating System (Linux, Mac, Windows), check [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+:::
+
+::: {.panel-tabset}
+
+### Windows
+
+Download Git for Windows from <https://git-scm.com/download/win> and run the installer.
+
+During installation, pay attention to these two prompts:
+
+- **Adjusting your PATH environment:** choose *"Git from the command line and also from 3rd-party software"* (the recommended option).
+- **Choosing the default editor used by Git:** change from Vim to whatever you are comfortable with. Notepad is fine for now since we will drive Git from RStudio.
+- Everything else: accept the defaults.
+
+### macOS
+
+Open Terminal and run:
+
+```bash
+git --version
+```
+
+If Git is not present, macOS will prompt you to install the **Xcode Command Line Tools**. Accept and let it run (this may take a few minutes).
+
+:::
+
+### Verify the installation
+
+In RStudio, open a terminal via **Tools > Terminal > New Terminal** and run:
+
+```bash
+git --version
+```
+
+You should see `git version 2.x.x`.
+
+## Configure your Git identity {#sec-git-config}
+
+In the RStudio Terminal (or any terminal), run the following with your own details:
+
+```bash
+git config --global user.name "Firstname Lastname"
+git config --global user.email "your.email@example.com"
+```
+
+::: {.callout-important}
+Git records who made every change. This name and email will appear in every commit you make, including in your project repository on GitHub. Use the **same email** you will register with on **GitHub**.
+:::
+
+Verify:
+
+```bash
+git config --global --list
+```
+
+---
+
+# GitHub Account and SSH Authentication {#sec-github}
+
+## Create a GitHub account {#sec-github-account}
+
+Go to <https://github.com/join> and create a free account.
+
+A few things worth considering when choosing a username:
+
+- This will appear on your CV, in shared links, and potentially in publications. Choose something professional.
+- Something like `firstnamelastname` or `f-lastname` works well.
+- Use the **same email you configured in Git** above.
+
+The free tier is sufficient for everything in this course.
+
+## Set up SSH authentication {#sec-ssh}
+
+We will use SSH keys so that RStudio can push to GitHub without you typing a password every time. This is the standard approach in professional settings.
+
+### Generate the key pair
+
+In the RStudio Terminal:
+
+```bash
+ssh-keygen -t ed25519 -C "your.email@example.com"
+```
+
+Accept the default file location (`~/.ssh/id_ed25519`). You can leave the passphrase empty for simplicity in this course, or set one if you prefer.
+
+### Copy the public key
+
+::: {.panel-tabset}
+
+#### macOS
+
+```bash
+cat ~/.ssh/id_ed25519.pub | pbcopy
+```
+
+#### Windows
+
+```bash
+cat ~/.ssh/id_ed25519.pub | clip
+```
+
+Or print and copy manually:
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+:::
+
+### Add the key to GitHub
+
+1. On GitHub, click your avatar (top right) > **Settings** > **SSH and GPG keys** > **New SSH key**.
+2. Give it a descriptive title, e.g. `personal_laptop_2026`.
+3. Paste the public key into the Key field.
+4. Click **Add SSH key**.
+
+### Test the connection
+
+```bash
+ssh -T git@github.com
+```
+
+Expected response:
+
+```
+Hi username! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+---
+
+# Creating and Structuring the Project {#sec-project}
+
+## Set up a clean directory structure {#sec-dir-structure}
+
+A reproducible analysis depends on a consistent, self-explanatory folder structure. Here is a minimal but solid starting layout.
+
+In RStudio:
+
+  1. Navigate to the folder where you want to create the data analysis project folder.
+Call it something meaningful, like `rep_data_analysis_project`.
+
+  2. Create the following folders through the Files pane: `data  data/raw  data/processed  scripts outputs  docs`. The folder (or directory) structure should look like this:
+
+```
+my-data-analysis/
+├── data/
+│   ├── raw/          # original, never-edited data files
+│   └── processed/    # cleaned or derived data
+├── scripts/                # reusable functions and scripts
+├── outputs/          # plots, tables, model outputs
+├── docs/             # reports, notes
+```
+
+## Create an R Project with Git {#sec-create-project}
+
+In RStudio:
+
+1. Go to **File > New Project > Existing Directory**.
+3. Choose where on your local disk the project folder has been created.
+3. Click **Create Project**.
+4. Go to **Tools > Project Options > Git/SVN > Version control system: Git** 
+5. Confirm **New Git Repository:** *Yes*; 
+6. Restart R and RStudio: *Yes*. 
+
+RStudio will create the project and open it. The **Git pane** (top right panel) should
+now be visible, confirming that Git is tracking this directory.
+
+::: {.callout-warning}
+Avoid paths that contain spaces or accented characters - this is a common source of
+problems on Windows. For example, prefer `C:\projects\my_data_analysis` over
+`C:\Users\Jane Doe\Documents\my_data_analysis`.
+:::
+
+## Start documenting your project
+
+Open the `README.md` file and add a few sentences describing what the project is about. You will expand this as the project develops.
+
+## Update .gitignore {#sec-gitignore}
+
+Open `.gitignore` and add entries for things that should never be version controled:
+
+```
+# R artefacts
+.Rhistory
+.RData
+.Rproj.user/
+
+# Large data files -- adjust extensions to match your data
+data/raw/*.csv
+data/raw/*.xlsx
+
+# Rendered outputs that can be regenerated
+*.html
+*.pdf
+```
+
+::: {.callout-note}
+Raw data files are often excluded from version control due to size or confidentiality constraints. The standard practice is to document where the data came from in the README, so that anyone with appropriate access can reproduce the starting point of the analysis.
+:::
+
+## Make your first commit {#sec-first-commit}
+
+In the **Git pane** in RStudio:
+
+1. Click the **Staged** checkbox next to all changed files (`.gitignore`, `README.md`). Note that empty folders do not appear here (Git does not track empty directories).
+2. Click **Commit**.
+3. Write a commit message: `First commit`.
+4. Click **Commit**.
+
+
+## Create a **GitHub** repository and connect it {#sec-create-repo}
+
+Now we create the remote repository on GitHub and link the local project to it.
+
+On GitHub:
+
+1. Logged in in your GitHub account, click the **+** icon in the top right > **New repository**.
+2. Use exactly the same name as your local folder, e.g. `my_data_analysis`.
+3. Add a one-sentence description.
+4. Set it to **Public** or **Private** (Public is fine for this course).
+5. **Do not** initialise the repository with a README, .gitignore, or license. The
+   repository must be empty so it can receive your local project.
+6. Click **Create repository**.
+
+GitHub will show you a page with setup instructions. Copy the SSH URL, it looks like:
+
+```
+git@github.com:username/my-data-analysis.git
+```
+
+Now go back to RStudio and open the Terminal (**Tools > Terminal > New Terminal**).
+Run the following, replacing the URL with your own:
+
+```bash
+git remote add origin git@github.com:username/my-data-analysis.git
+git branch -M main
+git push -u origin main
+```
+
+::: {.callout-note}
+`git remote add origin` tells your local repository where the remote lives.
+`git push -u origin main` pushes your local commits and sets `origin/main` as the
+default tracking branch, so future pushes from RStudio's Git pane need no further
+configuration.
+:::
+
+Refresh your GitHub repository page - it should now show your project files.
+
+::: {.callout-tip title="Clone an existing GitHub repository"}
+If you are joining a project that already exists on GitHub, or if you prefer to start
+from GitHub, the workflow is the reverse: create the repository on GitHub first
+(this time choosing to add a README and a .gitignore file), then in RStudio go to
+**File > New Project > Version Control > Git**, paste the SSH URL, and click
+**Create Project**. Both workflows end up in the same state.
+:::
+
+::: {.callout-tip title="Checkpoint"}
+Every student should have their repository on GitHub showing at least `README.md` and an updated `.gitignore` before we move on.
+:::
+
+---
+
+# Wrap-up and Mini-project Introduction {#sec-wrapup}
+
+## What was accomplished today
+
+Each piece of the toolchain has a specific role in the reproducibility workflow:
+
+- **R and RStudio** | The analysis environment.
+- **Git** | The mechanism for tracking every change and recording why it was made (versionn control).
+- **GitHub** | The remote backup, the collaboration layer, and ultimately the public record of the analysis.
+- **The project directory** | A contract with your future self (and collaborators) about where everything data-analysis-related lives.
+
+## What comes next
+
+In the next class we will write our first analysis inside this project. 
+Everything you do: data import, transformation, visualisation, and discussion, will live in a single reproducible file that renders to HTML or PDF. The project you set up today is where that file will live.
+
+## Common problems and fixes {#sec-troubleshooting}
+
+| Problem | Likely cause | Fix |
+|---|---|---|
+| `ssh -T git@github.com` fails | Public key not saved correctly on GitHub, or wrong email | Re-check the key on GitHub under Settings > SSH keys |
+| RStudio does not find Git | Git executable not on PATH | Tools > Global Options > Git/SVN and set the path. On Windows: `C:\Program Files\Git\bin\git.exe` |
+| Push rejected | Cloned via HTTPS instead of SSH | Switch the remote: `git remote set-url origin git@github.com:username/repo.git` |
+| Errors on paths with spaces (Windows) | Project cloned into a path like `C:\Users\Ana Sofia\...` | Move the project to a path without spaces or accented characters |
+
+## Suggested reading
+
+- Jenny Bryan's *Happy Git with R* --- <https://happygitwithr.com>. Focus on chapters 1-4 for now, particularly the mental model of a repository and the commit/diff/push cycle.
+
+## Homework
+
+- Add a sentence to your `README.md` describing the data source you plan to use for the mini-project.
+- Commit and push that change.
+- Browse the commit history on GitHub and confirm your name and email appear correctly.
+
+---

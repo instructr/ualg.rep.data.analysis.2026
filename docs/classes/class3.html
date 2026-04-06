@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Topic 3 | Setting Up for Reproducible Data Analysis – Reproducible Data Analysis Course</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-d1093b427563c242ab1e79c4a257efb3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Reproducible Data Analysis Course</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../system_setup.html"> 
+<span class="menu-text">General information</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../calendar.html"> 
+<span class="menu-text">Calendar</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-classes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Classes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-classes">    
+        <li>
+    <a class="dropdown-item" href="../classes/class1.html">
+ <span class="dropdown-text">Topic 1 | Tidy data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../classes/class2.html">
+ <span class="dropdown-text">Topic 2 | Introduction to R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../classes/class2_advanced_r.html">
+ <span class="dropdown-text">Topic 2 | Advanced R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../classes/class3.html">
+ <span class="dropdown-text">Topic 3 | Setting Up for Reproducible Data Analysis</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-contact-me" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Contact me</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-contact-me">    
+        <li>
+    <a class="dropdown-item" href="../contact_me.html">
+ <span class="dropdown-text">Contact me</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-house-heart-fill"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://www.ualg.pt/">
+            Universidade do Algarve
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-confidence" id="toc-sec-confidence" class="nav-link active" data-scroll-target="#sec-confidence">R Confidence Check</a>
+  <ul class="collapse">
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
+  </ul></li>
+  <li><a href="#sec-install" id="toc-sec-install" class="nav-link" data-scroll-target="#sec-install">Installing the Toolchain</a>
+  <ul class="collapse">
+  <li><a href="#sec-install-r" id="toc-sec-install-r" class="nav-link" data-scroll-target="#sec-install-r">Install R</a></li>
+  <li><a href="#sec-install-rstudio" id="toc-sec-install-rstudio" class="nav-link" data-scroll-target="#sec-install-rstudio">Install RStudio Desktop</a></li>
+  <li><a href="#sec-install-git" id="toc-sec-install-git" class="nav-link" data-scroll-target="#sec-install-git">Install Git</a>
+  <ul class="collapse">
+  <li><a href="#verify-the-installation" id="toc-verify-the-installation" class="nav-link" data-scroll-target="#verify-the-installation">Verify the installation</a></li>
+  </ul></li>
+  <li><a href="#sec-git-config" id="toc-sec-git-config" class="nav-link" data-scroll-target="#sec-git-config">Configure your Git identity</a></li>
+  </ul></li>
+  <li><a href="#sec-github" id="toc-sec-github" class="nav-link" data-scroll-target="#sec-github">GitHub Account and SSH Authentication</a>
+  <ul class="collapse">
+  <li><a href="#sec-github-account" id="toc-sec-github-account" class="nav-link" data-scroll-target="#sec-github-account">Create a GitHub account</a></li>
+  <li><a href="#sec-ssh" id="toc-sec-ssh" class="nav-link" data-scroll-target="#sec-ssh">Set up SSH authentication</a>
+  <ul class="collapse">
+  <li><a href="#generate-the-key-pair" id="toc-generate-the-key-pair" class="nav-link" data-scroll-target="#generate-the-key-pair">Generate the key pair</a></li>
+  <li><a href="#copy-the-public-key" id="toc-copy-the-public-key" class="nav-link" data-scroll-target="#copy-the-public-key">Copy the public key</a></li>
+  <li><a href="#add-the-key-to-github" id="toc-add-the-key-to-github" class="nav-link" data-scroll-target="#add-the-key-to-github">Add the key to GitHub</a></li>
+  <li><a href="#test-the-connection" id="toc-test-the-connection" class="nav-link" data-scroll-target="#test-the-connection">Test the connection</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-project" id="toc-sec-project" class="nav-link" data-scroll-target="#sec-project">Creating and Structuring the Project</a>
+  <ul class="collapse">
+  <li><a href="#sec-dir-structure" id="toc-sec-dir-structure" class="nav-link" data-scroll-target="#sec-dir-structure">Set up a clean directory structure</a></li>
+  <li><a href="#sec-create-project" id="toc-sec-create-project" class="nav-link" data-scroll-target="#sec-create-project">Create an R Project with Git</a></li>
+  <li><a href="#start-documenting-your-project" id="toc-start-documenting-your-project" class="nav-link" data-scroll-target="#start-documenting-your-project">Start documenting your project</a></li>
+  <li><a href="#sec-gitignore" id="toc-sec-gitignore" class="nav-link" data-scroll-target="#sec-gitignore">Update .gitignore</a></li>
+  <li><a href="#sec-first-commit" id="toc-sec-first-commit" class="nav-link" data-scroll-target="#sec-first-commit">Make your first commit</a></li>
+  <li><a href="#sec-create-repo" id="toc-sec-create-repo" class="nav-link" data-scroll-target="#sec-create-repo">Create a <strong>GitHub</strong> repository and connect it</a></li>
+  </ul></li>
+  <li><a href="#sec-wrapup" id="toc-sec-wrapup" class="nav-link" data-scroll-target="#sec-wrapup">Wrap-up and Mini-project Introduction</a>
+  <ul class="collapse">
+  <li><a href="#what-was-accomplished-today" id="toc-what-was-accomplished-today" class="nav-link" data-scroll-target="#what-was-accomplished-today">What was accomplished today</a></li>
+  <li><a href="#what-comes-next" id="toc-what-comes-next" class="nav-link" data-scroll-target="#what-comes-next">What comes next</a></li>
+  <li><a href="#sec-troubleshooting" id="toc-sec-troubleshooting" class="nav-link" data-scroll-target="#sec-troubleshooting">Common problems and fixes</a></li>
+  <li><a href="#suggested-reading" id="toc-suggested-reading" class="nav-link" data-scroll-target="#suggested-reading">Suggested reading</a></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Topic 3 | Setting Up for Reproducible Data Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Class Details
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>📅 <strong>Date:</strong> April, 2026<br>
+📖 <strong>Synopsis:</strong> Installing the toolchain, creating a GitHub account, and connecting your project.</p>
+<p><strong>Class overview</strong> By the end of this class you will have: assessed your current R skills, installed R, RStudio, and Git on your personal computer, created a GitHub account with SSH authentication, created a structured project directory, and connected your local project to GitHub.</p>
+</div>
+</div>
+<hr>
+<div class="callout callout-style-default callout-note callout-titled" title="Timing guide">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Timing guide
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Segment</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R confidence check + discussion</td>
+<td>30 min</td>
+</tr>
+<tr class="even">
+<td>Install R, RStudio, Git</td>
+<td>60 min</td>
+</tr>
+<tr class="odd">
+<td>GitHub account + SSH key</td>
+<td>40 min</td>
+</tr>
+<tr class="even">
+<td>Project creation + structure + first push</td>
+<td>50 min</td>
+</tr>
+<tr class="odd">
+<td>Wrap-up + mini-project introduction</td>
+<td>20 min</td>
+</tr>
+<tr class="even">
+<td>Buffer / troubleshooting</td>
+<td>20 min</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td><strong>~220 min (~4 h)</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<section id="sec-confidence" class="level1">
+<h1>R Confidence Check</h1>
+<p>Work through the following prompts in RStudio. There are no right or wrong approaches: The goal is to see how you currently think in R.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create a numeric vector of 10 values and compute its mean and sd.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Load the built-in dataset `iris`. How many rows and columns does it have?</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#    What are the column names?</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Subset `iris` to only rows where Species is "setosa"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#    and Petal.Length is greater than 1.5.</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Write a function that takes a numeric vector and returns</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#    a named list with its mean, median, and sd.</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Using base R or dplyr (your choice), compute the mean Sepal.Length</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#    grouped by Species.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Make a scatter plot of Sepal.Length vs Petal.Length,</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#    coloured by Species, using either base R or ggplot2.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<p>We will share and compare solutions as a group. Key things to reflect on:</p>
+<ul>
+<li>Did you use <code>&lt;-</code> or <code>=</code> for assignment? (discuss conventions).</li>
+<li>Did anyone already reach for the native pipe <code>|&gt;</code> or the magrittr pipe <code>%&gt;%</code>?</li>
+<li>Who has used R Markdown or Quarto before?</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="sec-install" class="level1">
+<h1>Installing the Toolchain</h1>
+<p>We are now going to make sure every personal computer has the same foundation. This is itself an act of reproducibility: We want our computational environment to be as explicit and intentional as our analysis.</p>
+<section id="sec-install-r" class="level2">
+<h2 class="anchored" data-anchor-id="sec-install-r">Install R</h2>
+<p>Go to <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a> and download the installer for your operating system.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">macOS</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Download and run the <code>.exe</code> installer. Accept all defaults.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Download and run the <code>.pkg</code> installer. If you are on Apple Silicon (M1/M2/M3/M4), make sure you choose the <code>arm64</code> build (it will be clearly labelled on the download page).</p>
+</div>
+</div>
+</div>
+<p>Verify the installation by opening a terminal and running:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You should see <code>R version 4.x.x</code>.</p>
+</section>
+<section id="sec-install-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="sec-install-rstudio">Install RStudio Desktop</h2>
+<p>Go to <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a> — the page auto-detects your OS and recommends the right download.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">macOS</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Run the <code>.exe</code> installer and accept all defaults.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Open the <code>.dmg</code> file and drag RStudio to your Applications folder.</p>
+</div>
+</div>
+</div>
+<p>Open RStudio and confirm that the R version shown in the Console pane matches the one you just installed.</p>
+</section>
+<section id="sec-install-git" class="level2">
+<h2 class="anchored" data-anchor-id="sec-install-git">Install Git</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Install Git | Extra detailed instructions">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Install Git | Extra detailed instructions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If you need extra detailed instructions for each Operating System (Linux, Mac, Windows), check <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">macOS</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>Download Git for Windows from <a href="https://git-scm.com/download/win" class="uri">https://git-scm.com/download/win</a> and run the installer.</p>
+<p>During installation, pay attention to these two prompts:</p>
+<ul>
+<li><strong>Adjusting your PATH environment:</strong> choose <em>“Git from the command line and also from 3rd-party software”</em> (the recommended option).</li>
+<li><strong>Choosing the default editor used by Git:</strong> change from Vim to whatever you are comfortable with. Notepad is fine for now since we will drive Git from RStudio.</li>
+<li>Everything else: accept the defaults.</li>
+</ul>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>Open Terminal and run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If Git is not present, macOS will prompt you to install the <strong>Xcode Command Line Tools</strong>. Accept and let it run (this may take a few minutes).</p>
+</div>
+</div>
+</div>
+<section id="verify-the-installation" class="level3">
+<h3 class="anchored" data-anchor-id="verify-the-installation">Verify the installation</h3>
+<p>In RStudio, open a terminal via <strong>Tools &gt; Terminal &gt; New Terminal</strong> and run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You should see <code>git version 2.x.x</code>.</p>
+</section>
+</section>
+<section id="sec-git-config" class="level2">
+<h2 class="anchored" data-anchor-id="sec-git-config">Configure your Git identity</h2>
+<p>In the RStudio Terminal (or any terminal), run the following with your own details:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Firstname Lastname"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"your.email@example.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Git records who made every change. This name and email will appear in every commit you make, including in your project repository on GitHub. Use the <strong>same email</strong> you will register with on <strong>GitHub</strong>.</p>
+</div>
+</div>
+<p>Verify:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="sec-github" class="level1">
+<h1>GitHub Account and SSH Authentication</h1>
+<section id="sec-github-account" class="level2">
+<h2 class="anchored" data-anchor-id="sec-github-account">Create a GitHub account</h2>
+<p>Go to <a href="https://github.com/join" class="uri">https://github.com/join</a> and create a free account.</p>
+<p>A few things worth considering when choosing a username:</p>
+<ul>
+<li>This will appear on your CV, in shared links, and potentially in publications. Choose something professional.</li>
+<li>Something like <code>firstnamelastname</code> or <code>f-lastname</code> works well.</li>
+<li>Use the <strong>same email you configured in Git</strong> above.</li>
+</ul>
+<p>The free tier is sufficient for everything in this course.</p>
+</section>
+<section id="sec-ssh" class="level2">
+<h2 class="anchored" data-anchor-id="sec-ssh">Set up SSH authentication</h2>
+<p>We will use SSH keys so that RStudio can push to GitHub without you typing a password every time. This is the standard approach in professional settings.</p>
+<section id="generate-the-key-pair" class="level3">
+<h3 class="anchored" data-anchor-id="generate-the-key-pair">Generate the key pair</h3>
+<p>In the RStudio Terminal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-t</span> ed25519 <span class="at">-C</span> <span class="st">"your.email@example.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Accept the default file location (<code>~/.ssh/id_ed25519</code>). You can leave the passphrase empty for simplicity in this course, or set one if you prefer.</p>
+</section>
+<section id="copy-the-public-key" class="level3">
+<h3 class="anchored" data-anchor-id="copy-the-public-key">Copy the public key</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">macOS</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Windows</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.ssh/id_ed25519.pub <span class="kw">|</span> <span class="ex">pbcopy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.ssh/id_ed25519.pub <span class="kw">|</span> <span class="ex">clip</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Or print and copy manually:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.ssh/id_ed25519.pub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="add-the-key-to-github" class="level3">
+<h3 class="anchored" data-anchor-id="add-the-key-to-github">Add the key to GitHub</h3>
+<ol type="1">
+<li>On GitHub, click your avatar (top right) &gt; <strong>Settings</strong> &gt; <strong>SSH and GPG keys</strong> &gt; <strong>New SSH key</strong>.</li>
+<li>Give it a descriptive title, e.g.&nbsp;<code>personal_laptop_2026</code>.</li>
+<li>Paste the public key into the Key field.</li>
+<li>Click <strong>Add SSH key</strong>.</li>
+</ol>
+</section>
+<section id="test-the-connection" class="level3">
+<h3 class="anchored" data-anchor-id="test-the-connection">Test the connection</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-T</span> git@github.com</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Expected response:</p>
+<pre><code>Hi username! You've successfully authenticated, but GitHub does not provide shell access.</code></pre>
+<hr>
+</section>
+</section>
+</section>
+<section id="sec-project" class="level1">
+<h1>Creating and Structuring the Project</h1>
+<section id="sec-dir-structure" class="level2">
+<h2 class="anchored" data-anchor-id="sec-dir-structure">Set up a clean directory structure</h2>
+<p>A reproducible analysis depends on a consistent, self-explanatory folder structure. Here is a minimal but solid starting layout.</p>
+<p>In RStudio:</p>
+<ol type="1">
+<li><p>Navigate to the folder where you want to create the data analysis project folder. Call it something meaningful, like <code>rep_data_analysis_project</code>.</p></li>
+<li><p>Create the following folders through the Files pane: <code>data  data/raw  data/processed  scripts outputs  docs</code>. The folder (or directory) structure should look like this:</p></li>
+</ol>
+<pre><code>my-data-analysis/
+├── data/
+│   ├── raw/          # original, never-edited data files
+│   └── processed/    # cleaned or derived data
+├── scripts/                # reusable functions and scripts
+├── outputs/          # plots, tables, model outputs
+├── docs/             # reports, notes</code></pre>
+</section>
+<section id="sec-create-project" class="level2">
+<h2 class="anchored" data-anchor-id="sec-create-project">Create an R Project with Git</h2>
+<p>In RStudio:</p>
+<ol type="1">
+<li>Go to <strong>File &gt; New Project &gt; Existing Directory</strong>.</li>
+<li>Choose where on your local disk the project folder has been created.</li>
+<li>Click <strong>Create Project</strong>.</li>
+<li>Go to <strong>Tools &gt; Project Options &gt; Git/SVN &gt; Version control system: Git</strong></li>
+<li>Confirm <strong>New Git Repository:</strong> <em>Yes</em>;</li>
+<li>Restart R and RStudio: <em>Yes</em>.</li>
+</ol>
+<p>RStudio will create the project and open it. The <strong>Git pane</strong> (top right panel) should now be visible, confirming that Git is tracking this directory.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Avoid paths that contain spaces or accented characters - this is a common source of problems on Windows. For example, prefer <code>C:\projects\my_data_analysis</code> over <code>C:\Users\Jane Doe\Documents\my_data_analysis</code>.</p>
+</div>
+</div>
+</section>
+<section id="start-documenting-your-project" class="level2">
+<h2 class="anchored" data-anchor-id="start-documenting-your-project">Start documenting your project</h2>
+<p>Open the <code>README.md</code> file and add a few sentences describing what the project is about. You will expand this as the project develops.</p>
+</section>
+<section id="sec-gitignore" class="level2">
+<h2 class="anchored" data-anchor-id="sec-gitignore">Update .gitignore</h2>
+<p>Open <code>.gitignore</code> and add entries for things that should never be version controled:</p>
+<pre><code># R artefacts
+.Rhistory
+.RData
+.Rproj.user/
+
+# Large data files -- adjust extensions to match your data
+data/raw/*.csv
+data/raw/*.xlsx
+
+# Rendered outputs that can be regenerated
+*.html
+*.pdf</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Raw data files are often excluded from version control due to size or confidentiality constraints. The standard practice is to document where the data came from in the README, so that anyone with appropriate access can reproduce the starting point of the analysis.</p>
+</div>
+</div>
+</section>
+<section id="sec-first-commit" class="level2">
+<h2 class="anchored" data-anchor-id="sec-first-commit">Make your first commit</h2>
+<p>In the <strong>Git pane</strong> in RStudio:</p>
+<ol type="1">
+<li>Click the <strong>Staged</strong> checkbox next to all changed files (<code>.gitignore</code>, <code>README.md</code>). Note that empty folders do not appear here (Git does not track empty directories).</li>
+<li>Click <strong>Commit</strong>.</li>
+<li>Write a commit message: <code>First commit</code>.</li>
+<li>Click <strong>Commit</strong>.</li>
+</ol>
+</section>
+<section id="sec-create-repo" class="level2">
+<h2 class="anchored" data-anchor-id="sec-create-repo">Create a <strong>GitHub</strong> repository and connect it</h2>
+<p>Now we create the remote repository on GitHub and link the local project to it.</p>
+<p>On GitHub:</p>
+<ol type="1">
+<li>Logged in in your GitHub account, click the <strong>+</strong> icon in the top right &gt; <strong>New repository</strong>.</li>
+<li>Use exactly the same name as your local folder, e.g.&nbsp;<code>my_data_analysis</code>.</li>
+<li>Add a one-sentence description.</li>
+<li>Set it to <strong>Public</strong> or <strong>Private</strong> (Public is fine for this course).</li>
+<li><strong>Do not</strong> initialise the repository with a README, .gitignore, or license. The repository must be empty so it can receive your local project.</li>
+<li>Click <strong>Create repository</strong>.</li>
+</ol>
+<p>GitHub will show you a page with setup instructions. Copy the SSH URL, it looks like:</p>
+<pre><code>git@github.com:username/my-data-analysis.git</code></pre>
+<p>Now go back to RStudio and open the Terminal (<strong>Tools &gt; Terminal &gt; New Terminal</strong>). Run the following, replacing the URL with your own:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin git@github.com:username/my-data-analysis.git</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-M</span> main</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>git remote add origin</code> tells your local repository where the remote lives. <code>git push -u origin main</code> pushes your local commits and sets <code>origin/main</code> as the default tracking branch, so future pushes from RStudio’s Git pane need no further configuration.</p>
+</div>
+</div>
+<p>Refresh your GitHub repository page - it should now show your project files.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Clone an existing GitHub repository">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Clone an existing GitHub repository
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you are joining a project that already exists on GitHub, or if you prefer to start from GitHub, the workflow is the reverse: create the repository on GitHub first (this time choosing to add a README and a .gitignore file), then in RStudio go to <strong>File &gt; New Project &gt; Version Control &gt; Git</strong>, paste the SSH URL, and click <strong>Create Project</strong>. Both workflows end up in the same state.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Checkpoint">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Checkpoint
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every student should have their repository on GitHub showing at least <code>README.md</code> and an updated <code>.gitignore</code> before we move on.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="sec-wrapup" class="level1">
+<h1>Wrap-up and Mini-project Introduction</h1>
+<section id="what-was-accomplished-today" class="level2">
+<h2 class="anchored" data-anchor-id="what-was-accomplished-today">What was accomplished today</h2>
+<p>Each piece of the toolchain has a specific role in the reproducibility workflow:</p>
+<ul>
+<li><strong>R and RStudio</strong> | The analysis environment.</li>
+<li><strong>Git</strong> | The mechanism for tracking every change and recording why it was made (versionn control).</li>
+<li><strong>GitHub</strong> | The remote backup, the collaboration layer, and ultimately the public record of the analysis.</li>
+<li><strong>The project directory</strong> | A contract with your future self (and collaborators) about where everything data-analysis-related lives.</li>
+</ul>
+</section>
+<section id="what-comes-next" class="level2">
+<h2 class="anchored" data-anchor-id="what-comes-next">What comes next</h2>
+<p>In the next class we will write our first analysis inside this project. Everything you do: data import, transformation, visualisation, and discussion, will live in a single reproducible file that renders to HTML or PDF. The project you set up today is where that file will live.</p>
+</section>
+<section id="sec-troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="sec-troubleshooting">Common problems and fixes</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Problem</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ssh -T git@github.com</code> fails</td>
+<td>Public key not saved correctly on GitHub, or wrong email</td>
+<td>Re-check the key on GitHub under Settings &gt; SSH keys</td>
+</tr>
+<tr class="even">
+<td>RStudio does not find Git</td>
+<td>Git executable not on PATH</td>
+<td>Tools &gt; Global Options &gt; Git/SVN and set the path. On Windows: <code>C:\Program Files\Git\bin\git.exe</code></td>
+</tr>
+<tr class="odd">
+<td>Push rejected</td>
+<td>Cloned via HTTPS instead of SSH</td>
+<td>Switch the remote: <code>git remote set-url origin git@github.com:username/repo.git</code></td>
+</tr>
+<tr class="even">
+<td>Errors on paths with spaces (Windows)</td>
+<td>Project cloned into a path like <code>C:\Users\Ana Sofia\...</code></td>
+<td>Move the project to a path without spaces or accented characters</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="suggested-reading" class="level2">
+<h2 class="anchored" data-anchor-id="suggested-reading">Suggested reading</h2>
+<ul>
+<li>Jenny Bryan’s <em>Happy Git with R</em> — <a href="https://happygitwithr.com" class="uri">https://happygitwithr.com</a>. Focus on chapters 1-4 for now, particularly the mental model of a repository and the commit/diff/push cycle.</li>
+</ul>
+</section>
+<section id="homework" class="level2">
+<h2 class="anchored" data-anchor-id="homework">Homework</h2>
+<ul>
+<li>Add a sentence to your <code>README.md</code> describing the data source you plan to use for the mini-project.</li>
+<li>Commit and push that change.</li>
+<li>Browse the commit history on GitHub and confirm your name and email appear correctly.</li>
+</ul>
+<hr>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2026, Isabel Duarte</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/instructr/ualg.rep.data.analysis.2026">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
