@@ -348,13 +348,13 @@ In the **Git pane** in RStudio:
 
 Now we create the remote repository on GitHub and link the local project to it.
 
-On GitHub:
+**On GitHub:**
 
 1. Logged in in your GitHub account, click the **+** icon in the top right > **New repository**.
 2. Use exactly the same name as your local folder, e.g. `my_data_analysis`.
 3. Add a one-sentence description.
 4. Set it to **Public** or **Private** (Public is fine for this course).
-5. **Do not** initialise the repository with a README, .gitignore, or license. The
+5. **Do NOT** initialise the repository with a README, .gitignore, or license. The
    repository must be empty so it can receive your local project.
 6. Click **Create repository**.
 
@@ -378,7 +378,9 @@ default tracking branch, so future pushes from RStudio's Git pane need no furthe
 configuration.
 :::
 
-Refresh your GitHub repository page - it should now show your project files.
+Refresh your GitHub repository page - it should now show your project files. 
+
+NOTE: Sometimes it takes a minute to display the newly added changes to your GitHub repository.
 
 ::: {.callout-tip title="Clone an existing GitHub repository"}
 If you are joining a project that already exists on GitHub, or if you prefer to start
