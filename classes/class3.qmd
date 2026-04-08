@@ -60,9 +60,10 @@ We will share and compare solutions as a group. Key things to reflect on:
 
 ---
 
+
 # Installing the Toolchain {#sec-install}
 
-We are now going to make sure every personal computer has the same foundation. This is itself an act of reproducibility: We want our computational environment to be as explicit and intentional as our analysis.
+We are now going to make sure every personal computer has the same foundation. This is itself an act of reproducibility: we want our computational environment to be as explicit and intentional as our analysis.
 
 ## 1. Install R {#sec-install-r}
 
@@ -88,9 +89,33 @@ R --version
 
 You should see `R version 4.x.x`.
 
-## 2. Install RStudio Desktop {#sec-install-rstudio}
+## 2. Install Coding tools {#sec-install-rtools}
 
-Go to <https://posit.co/download/rstudio-desktop/> --- the page auto-detects your OS and recommends the right download.
+::: {.panel-tabset}
+
+### Windows
+
+Windows users need to install Rtools, a collection of build tools required to compile R packages from source. Many packages on CRAN and GitHub are distributed as source code and will fail to install without it.
+
+Go to <https://cran.r-project.org/bin/windows/Rtools/> and download the version of Rtools that matches your R version - the page makes this explicit. Run the `.exe` installer and accept all defaults.
+
+Once installed, verify that R can find Rtools by running this in the R console:
+
+```r
+pkgbuild::has_build_tools(debug = TRUE)
+```
+
+You should see `TRUE`. If the `pkgbuild` package is not yet installed, run `install.packages("pkgbuild")` first.
+
+### macOS
+
+No action needed. macOS uses the **Xcode Command Line Tools** (installed alongside Git in a later step) to compile packages from source.
+
+:::
+
+## 3. Install RStudio Desktop {#sec-install-rstudio}
+
+Go to <https://posit.co/download/rstudio-desktop/> - the page auto-detects your OS and recommends the right download.
 
 ::: {.panel-tabset}
 
@@ -106,7 +131,8 @@ Open the `.dmg` file and drag RStudio to your Applications folder.
 
 Open RStudio and confirm that the R version shown in the Console pane matches the one you just installed.
 
-## 3. Install Git {#sec-install-git}
+
+## 4. Install Git {#sec-install-git}
 
 ::: {.callout-note collapse="true" title="Install Git | Extra detailed instructions"}
 If you need extra detailed instructions for each Operating System (Linux, Mac, Windows), check [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
@@ -146,7 +172,7 @@ git --version
 
 You should see `git version 2.x.x`.
 
-## 4. Configure your Git identity {#sec-git-config}
+## 5. Configure your Git identity {#sec-git-config}
 
 In the RStudio Terminal (or any terminal), run the following with your own details:
 
@@ -166,7 +192,7 @@ git config --global --list
 ```
 
 
-## 5. GitHub Account and SSH Authentication {#sec-github}
+## 6. GitHub Account and SSH Authentication {#sec-github}
 
 ### Create a GitHub account {#sec-github-account}
 
@@ -196,26 +222,21 @@ Accept the default file location (`~/.ssh/id_ed25519`). You can leave the passph
 
 ### Copy the public key
 
+Write the following in RStudio Terminal, and copy the output using the right mouse button "copy" option.
+
 ::: {.panel-tabset}
 
-#### macOS
-
-```bash
-cat ~/.ssh/id_ed25519.pub | pbcopy
-```
-
-#### Windows
-
-```bash
-cat ~/.ssh/id_ed25519.pub | clip
-```
-
-Or print and copy manually:
+#### Windows 
 
 ```bash
 cat ~/.ssh/id_ed25519.pub
 ```
 
+#### macOS
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
 :::
 
 ### Add the key to GitHub
@@ -226,6 +247,8 @@ cat ~/.ssh/id_ed25519.pub
 4. Click **Add SSH key**.
 
 ### Test the connection
+
+In the RStudio Terminal run:
 
 ```bash
 ssh -T git@github.com
@@ -298,7 +321,7 @@ Now, open `.gitignore` and add entries for files or folders that should never be
 .RData
 .Rproj.user/
 
-# Large data files -- adjust extensions to match your data
+# Large data files: adjust extensions to match your data
 data/raw/*.csv
 data/raw/*.xlsx
 

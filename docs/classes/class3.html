@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-d1093b427563c242ab1e79c4a257efb3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-91903e51b979062d4d184304d30a9be9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -205,13 +205,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-install" id="toc-sec-install" class="nav-link" data-scroll-target="#sec-install">Installing the Toolchain</a>
   <ul class="collapse">
   <li><a href="#sec-install-r" id="toc-sec-install-r" class="nav-link" data-scroll-target="#sec-install-r">1. Install R</a></li>
-  <li><a href="#sec-install-rstudio" id="toc-sec-install-rstudio" class="nav-link" data-scroll-target="#sec-install-rstudio">2. Install RStudio Desktop</a></li>
-  <li><a href="#sec-install-git" id="toc-sec-install-git" class="nav-link" data-scroll-target="#sec-install-git">3. Install Git</a>
+  <li><a href="#sec-install-rtools" id="toc-sec-install-rtools" class="nav-link" data-scroll-target="#sec-install-rtools">2. Install Coding tools</a></li>
+  <li><a href="#sec-install-rstudio" id="toc-sec-install-rstudio" class="nav-link" data-scroll-target="#sec-install-rstudio">3. Install RStudio Desktop</a></li>
+  <li><a href="#sec-install-git" id="toc-sec-install-git" class="nav-link" data-scroll-target="#sec-install-git">4. Install Git</a>
   <ul class="collapse">
   <li><a href="#verify-the-installation" id="toc-verify-the-installation" class="nav-link" data-scroll-target="#verify-the-installation">Verify the installation</a></li>
   </ul></li>
-  <li><a href="#sec-git-config" id="toc-sec-git-config" class="nav-link" data-scroll-target="#sec-git-config">4. Configure your Git identity</a></li>
-  <li><a href="#sec-github" id="toc-sec-github" class="nav-link" data-scroll-target="#sec-github">5. GitHub Account and SSH Authentication</a>
+  <li><a href="#sec-git-config" id="toc-sec-git-config" class="nav-link" data-scroll-target="#sec-git-config">5. Configure your Git identity</a></li>
+  <li><a href="#sec-github" id="toc-sec-github" class="nav-link" data-scroll-target="#sec-github">6. GitHub Account and SSH Authentication</a>
   <ul class="collapse">
   <li><a href="#sec-github-account" id="toc-sec-github-account" class="nav-link" data-scroll-target="#sec-github-account">Create a GitHub account</a></li>
   <li><a href="#sec-ssh" id="toc-sec-ssh" class="nav-link" data-scroll-target="#sec-ssh">Set up SSH authentication</a></li>
@@ -367,7 +368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="sec-install" class="level1">
 <h1>Installing the Toolchain</h1>
-<p>We are now going to make sure every personal computer has the same foundation. This is itself an act of reproducibility: We want our computational environment to be as explicit and intentional as our analysis.</p>
+<p>We are now going to make sure every personal computer has the same foundation. This is itself an act of reproducibility: we want our computational environment to be as explicit and intentional as our analysis.</p>
 <section id="sec-install-r" class="level2">
 <h2 class="anchored" data-anchor-id="sec-install-r">1. Install R</h2>
 <p>Go to <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a> and download the installer for your operating system.</p>
@@ -386,16 +387,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You should see <code>R version 4.x.x</code>.</p>
 </section>
-<section id="sec-install-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="sec-install-rstudio">2. Install RStudio Desktop</h2>
-<p>Go to <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a> — the page auto-detects your OS and recommends the right download.</p>
+<section id="sec-install-rtools" class="level2">
+<h2 class="anchored" data-anchor-id="sec-install-rtools">2. Install Coding tools</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">macOS</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>Run the <code>.exe</code> installer and accept all defaults.</p>
+<p>Windows users need to install Rtools, a collection of build tools required to compile R packages from source. Many packages on CRAN and GitHub are distributed as source code and will fail to install without it.</p>
+<p>Go to <a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">https://cran.r-project.org/bin/windows/Rtools/</a> and download the version of Rtools that matches your R version - the page makes this explicit. Run the <code>.exe</code> installer and accept all defaults.</p>
+<p>Once installed, verify that R can find Rtools by running this in the R console:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pkgbuild<span class="sc">::</span><span class="fu">has_build_tools</span>(<span class="at">debug =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You should see <code>TRUE</code>. If the <code>pkgbuild</code> package is not yet installed, run <code>install.packages("pkgbuild")</code> first.</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>No action needed. macOS uses the <strong>Xcode Command Line Tools</strong> (installed alongside Git in a later step) to compile packages from source.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-install-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="sec-install-rstudio">3. Install RStudio Desktop</h2>
+<p>Go to <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a> - the page auto-detects your OS and recommends the right download.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">macOS</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>Run the <code>.exe</code> installer and accept all defaults.</p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <p>Open the <code>.dmg</code> file and drag RStudio to your Applications folder.</p>
 </div>
 </div>
@@ -403,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Open RStudio and confirm that the R version shown in the Console pane matches the one you just installed.</p>
 </section>
 <section id="sec-install-git" class="level2">
-<h2 class="anchored" data-anchor-id="sec-install-git">3. Install Git</h2>
+<h2 class="anchored" data-anchor-id="sec-install-git">4. Install Git</h2>
 <div class="callout callout-style-default callout-note callout-titled" title="Install Git | Extra detailed instructions">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -421,9 +440,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">macOS</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">macOS</a></li></ul>
 <div class="tab-content">
-<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <p>Download Git for Windows from <a href="https://git-scm.com/download/win" class="uri">https://git-scm.com/download/win</a> and run the installer.</p>
 <p>During installation, pay attention to these two prompts:</p>
 <ul>
@@ -432,9 +451,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Everything else: accept the defaults.</li>
 </ul>
 </div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <p>Open Terminal and run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If Git is not present, macOS will prompt you to install the <strong>Xcode Command Line Tools</strong>. Accept and let it run (this may take a few minutes).</p>
 </div>
 </div>
@@ -442,15 +461,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="verify-the-installation" class="level3">
 <h3 class="anchored" data-anchor-id="verify-the-installation">Verify the installation</h3>
 <p>In RStudio, open a terminal via <strong>Tools &gt; Terminal &gt; New Terminal</strong> and run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You should see <code>git version 2.x.x</code>.</p>
 </section>
 </section>
 <section id="sec-git-config" class="level2">
-<h2 class="anchored" data-anchor-id="sec-git-config">4. Configure your Git identity</h2>
+<h2 class="anchored" data-anchor-id="sec-git-config">5. Configure your Git identity</h2>
 <p>In the RStudio Terminal (or any terminal), run the following with your own details:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Firstname Lastname"</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"your.email@example.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Firstname Lastname"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"your.email@example.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -465,10 +484,10 @@ Important
 </div>
 </div>
 <p>Verify:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sec-github" class="level2">
-<h2 class="anchored" data-anchor-id="sec-github">5. GitHub Account and SSH Authentication</h2>
+<h2 class="anchored" data-anchor-id="sec-github">6. GitHub Account and SSH Authentication</h2>
 <section id="sec-github-account" class="level3">
 <h3 class="anchored" data-anchor-id="sec-github-account">Create a GitHub account</h3>
 <p>Go to <a href="https://github.com/join" class="uri">https://github.com/join</a> and create a free account.</p>
@@ -487,20 +506,19 @@ Important
 <section id="generate-the-key-pair" class="level3">
 <h3 class="anchored" data-anchor-id="generate-the-key-pair">Generate the key pair</h3>
 <p>In the RStudio Terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-t</span> ed25519 <span class="at">-C</span> <span class="st">"your.email@example.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-t</span> ed25519 <span class="at">-C</span> <span class="st">"your.email@example.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Accept the default file location (<code>~/.ssh/id_ed25519</code>). You can leave the passphrase empty for simplicity in this course, or set one if you prefer.</p>
 </section>
 <section id="copy-the-public-key" class="level3">
 <h3 class="anchored" data-anchor-id="copy-the-public-key">Copy the public key</h3>
+<p>Write the following in RStudio Terminal, and copy the output using the right mouse button “copy” option.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">macOS</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Windows</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">macOS</a></li></ul>
 <div class="tab-content">
-<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.ssh/id_ed25519.pub <span class="kw">|</span> <span class="ex">pbcopy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.ssh/id_ed25519.pub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.ssh/id_ed25519.pub <span class="kw">|</span> <span class="ex">clip</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Or print and copy manually:</p>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.ssh/id_ed25519.pub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
@@ -517,6 +535,7 @@ Important
 </section>
 <section id="test-the-connection" class="level3">
 <h3 class="anchored" data-anchor-id="test-the-connection">Test the connection</h3>
+<p>In the RStudio Terminal run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-T</span> git@github.com</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Expected response:</p>
 <pre><code>Hi username! You've successfully authenticated, but GitHub does not provide shell access.</code></pre>
@@ -581,7 +600,7 @@ Warning
 .RData
 .Rproj.user/
 
-# Large data files -- adjust extensions to match your data
+# Large data files: adjust extensions to match your data
 data/raw/*.csv
 data/raw/*.xlsx
 
