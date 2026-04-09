@@ -47,4 +47,25 @@ By combining these tools, researchers can streamline their workflows, ensure rep
   4. Create an account in GitHub: <https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github>
 
 
+### **Bibliography**
+
+- **Online resources and Bibliography (for future learning)**
+
+  - **Websites**
+
+    - [R Project](http://www.r-project.org) (The developers of R.)   
+    - [Quick-R](http://www.statmethods.net) (Roadmap and R code to quickly use R.)  
+    - [R-bloggers](https://www.r-bloggers.com/) (Great resource for posts related to alternative ways to do the same thing in R.)
+    - [Bioconductor workflows](http://bioconductor.org/packages/release/BiocViews.html#___Workflow) (R code for pipelines of genomic analyses.)
+
+
+  - **Free Online Books**
+
+    - [R for Data Science](https://r4ds.hadley.nz/) (Hadley Wickham, Mine Cetinkaya-Rundel & Garrett Grolemund. A great book for **structured learning** of R for data science, starting from simple concepts and building up step by step.)
+    - [Modern Statistics for Modern Biology](https://www.huber.embl.de/msmb/) (Wolfgang Huber and Susan P. Holmes. Great book to **learn Biostatistics using R**.)
+    - [Introduction to Data Science: Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/) (Rafael A. Irizarry. High-quality R code, with clear and rigorous explanations, demonstrating **how to format data and visualise** it using `ggplot2`.)
+    - [Introduction to Data Science: Statistics and Prediction Algorithms Through Case Studies](https://rafalab.dfci.harvard.edu/dsbook-part-2/) (Rafael A. Irizarry. Hands-on tutorials focused on learning how to use **R for data analysis** using carefully chosen case studies, where data analysis brings information to light.)
+    - [Cookbook for R](http://www.cookbook-r.com/) (Winston Chang. Well-structured R scripts (practical “recipes”) for common programming tasks.)
+
+
 
