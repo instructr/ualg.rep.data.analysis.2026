@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Topic 4 | Understanding and Structuring Your Dataset – Reproducible Data Analysis Course</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-91903e51b979062d4d184304d30a9be9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Reproducible Data Analysis Course</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../system_setup.html"> 
+<span class="menu-text">General information</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../calendar.html"> 
+<span class="menu-text">Calendar</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-classes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Classes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-classes">    
+        <li>
+    <a class="dropdown-item" href="../classes/class1.html">
+ <span class="dropdown-text">Topic 1 | Tidy data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../classes/class2.html">
+ <span class="dropdown-text">Topic 2 | Introduction to R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../classes/class2_advanced_r.html">
+ <span class="dropdown-text">Topic 2 | Advanced R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../classes/class3.html">
+ <span class="dropdown-text">Topic 3 | Setting Up for Reproducible Data Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../classes/class4.html">
+ <span class="dropdown-text">Topic 4 | Understanding and Structuring Your Dataset</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-contact-me" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Contact me</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-contact-me">    
+        <li>
+    <a class="dropdown-item" href="../contact_me.html">
+ <span class="dropdown-text">Contact me</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-house-heart-fill"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://www.ualg.pt/">
+            Universidade do Algarve
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-warmup" id="toc-sec-warmup" class="nav-link active" data-scroll-target="#sec-warmup">Warm-up and Homework Review</a></li>
+  <li><a href="#sec-present" id="toc-sec-present" class="nav-link" data-scroll-target="#sec-present">Present Your Dataset</a>
+  <ul class="collapse">
+  <li><a href="#what-to-pay-attention-to-during-the-dataset-presentations" id="toc-what-to-pay-attention-to-during-the-dataset-presentations" class="nav-link" data-scroll-target="#what-to-pay-attention-to-during-the-dataset-presentations">What to pay attention to during the dataset presentations</a></li>
+  </ul></li>
+  <li><a href="#sec-scientific-data" id="toc-sec-scientific-data" class="nav-link" data-scroll-target="#sec-scientific-data">Browse Nature Scientific Data</a>
+  <ul class="collapse">
+  <li><a href="#the-task" id="toc-the-task" class="nav-link" data-scroll-target="#the-task">The task</a></li>
+  <li><a href="#group-discussion" id="toc-group-discussion" class="nav-link" data-scroll-target="#group-discussion">Group discussion</a></li>
+  </ul></li>
+  <li><a href="#sec-tidy" id="toc-sec-tidy" class="nav-link" data-scroll-target="#sec-tidy">From Experimental Design to Tidy Format</a>
+  <ul class="collapse">
+  <li><a href="#sketch-your-tidy-table" id="toc-sketch-your-tidy-table" class="nav-link" data-scroll-target="#sketch-your-tidy-table">Sketch your tidy table</a></li>
+  <li><a href="#common-issues-to-look-for" id="toc-common-issues-to-look-for" class="nav-link" data-scroll-target="#common-issues-to-look-for">Common issues to look for</a></li>
+  </ul></li>
+  <li><a href="#sec-hands-on" id="toc-sec-hands-on" class="nav-link" data-scroll-target="#sec-hands-on">Hands-on: Import, Inspect, and Tidy</a>
+  <ul class="collapse">
+  <li><a href="#place-your-raw-data" id="toc-place-your-raw-data" class="nav-link" data-scroll-target="#place-your-raw-data">Place your raw data</a></li>
+  <li><a href="#create-a-script" id="toc-create-a-script" class="nav-link" data-scroll-target="#create-a-script">Create a script</a></li>
+  <li><a href="#inspect-the-data" id="toc-inspect-the-data" class="nav-link" data-scroll-target="#inspect-the-data">Inspect the data</a></li>
+  <li><a href="#tidy-the-data" id="toc-tidy-the-data" class="nav-link" data-scroll-target="#tidy-the-data">Tidy the data</a></li>
+  <li><a href="#save-the-tidy-data" id="toc-save-the-tidy-data" class="nav-link" data-scroll-target="#save-the-tidy-data">Save the tidy data</a></li>
+  </ul></li>
+  <li><a href="#sec-wrapup" id="toc-sec-wrapup" class="nav-link" data-scroll-target="#sec-wrapup">Commit, Push, and Wrap-up</a>
+  <ul class="collapse">
+  <li><a href="#commit-your-work" id="toc-commit-your-work" class="nav-link" data-scroll-target="#commit-your-work">Commit your work</a></li>
+  <li><a href="#what-was-accomplished-today" id="toc-what-was-accomplished-today" class="nav-link" data-scroll-target="#what-was-accomplished-today">What was accomplished today</a></li>
+  <li><a href="#what-comes-next" id="toc-what-comes-next" class="nav-link" data-scroll-target="#what-comes-next">What comes next</a></li>
+  <li><a href="#sec-homework" id="toc-sec-homework" class="nav-link" data-scroll-target="#sec-homework">Homework</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Topic 4 | Understanding and Structuring Your Dataset</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Class Details
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>📅 Date: April, 2026<br>
+📖 Synopsis: Presenting your data, learning from professional dataset descriptions, and reshaping your data into tidy format.</p>
+<p>Class overview: By the end of this class you will have: presented your dataset and identified its key variables, explored how professionals describe and publish datasets, mapped your experimental design onto a tidy structure, and imported and begun tidying your data in R.</p>
+</div>
+</div>
+<hr>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Timing guide
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Segment</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Warm-up and homework review</td>
+<td>20 min</td>
+</tr>
+<tr class="even">
+<td>Present your dataset</td>
+<td>50 min</td>
+</tr>
+<tr class="odd">
+<td>Browse Nature Scientific Data + discussion</td>
+<td>50 min</td>
+</tr>
+<tr class="even">
+<td>Break</td>
+<td>20 min</td>
+</tr>
+<tr class="odd">
+<td>From experimental design to tidy format</td>
+<td>40 min</td>
+</tr>
+<tr class="even">
+<td>Hands-on: import, inspect, and tidy</td>
+<td>60 min</td>
+</tr>
+<tr class="odd">
+<td>Commit, push, and wrap-up</td>
+<td>15 min</td>
+</tr>
+<tr class="even">
+<td>Buffer / troubleshooting</td>
+<td>10 min</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td><strong>~260 min (~4 h)</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<section id="sec-warmup" class="level1">
+<h1>Warm-up and Homework Review</h1>
+<p>In class 3, you set up your entire toolchain: R, RStudio, Git, and GitHub, and created a structured project with a first commit. Your homework was to add a paragraph to <code>README.md</code> describing the data source you plan to use.</p>
+<p>Let us verify that everything is in working order:</p>
+<ol type="1">
+<li>Open your project in RStudio.</li>
+<li>In the RStudio, pull the latest changes: Press <code>Pull</code> in the Git tab in RStudio, or, use the Terminal and run: <code>git pull origin main</code>.</li>
+<li>Confirm you can see your updated <code>README.md</code> with the data description.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Checkpoint
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every student should be able to open their project, pull from GitHub, and show the README with a data description before we move on. If you have trouble, flag it now (this is exactly the kind of issue that is easier to solve in class).</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="sec-present" class="level1">
+<h1>Present Your Dataset</h1>
+<p>Each student will briefly present their dataset to the group. This is not a formal presentation: think of it as explaining your data to a colleague over coffee. The goal is twofold:</p>
+<ul>
+<li>You sharpen your own understanding by explaining it out loud, and</li>
+<li>Your classmates learn to ask the right questions about data.</li>
+</ul>
+<p>For each dataset, we will identify in class:</p>
+<ul>
+<li><ol type="1">
+<li>What is the observational unit? (What does one row represent: a patient, a mouse, a time point?)</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>What are the response variables? (What was measured or observed?)</li>
+</ol></li>
+<li><ol start="3" type="1">
+<li>What are the explanatory or grouping variables? (Treatment, species, site, time, condition…)</li>
+</ol></li>
+<li><ol start="4" type="1">
+<li>Is there any nesting or repeated-measures structure? (Multiple measurements per subject (replicates), time series on the same units?)</li>
+</ol></li>
+</ul>
+<p>These questions come directly from <strong>experimental design</strong>, and answering them is not optional: they determine the shape your tidy data will eventually take.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you cannot clearly state what your <strong>observational unit</strong> is, that is a signal that the dataset needs more thought before any analysis begins.</p>
+<p>Do not worry: This is a <em>normal and valuable realisation</em>, not a problem.</p>
+</div>
+</div>
+<section id="what-to-pay-attention-to-during-the-dataset-presentations" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-pay-attention-to-during-the-dataset-presentations">What to pay attention to during the dataset presentations</h2>
+<p>As your classmates present, listen actively and ask yourself:</p>
+<ul>
+<li><ol type="1">
+<li>Could I describe what one row of their tidy table should look like?</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>Are there variables hiding inside column names? (A common sign of data that needs pivoting.)</li>
+</ol></li>
+<li><ol start="3" type="1">
+<li>Is the same variable stored across multiple columns?</li>
+</ol></li>
+<li><ol start="4" type="1">
+<li>Are there multiple types of observational units mixed in one table?</li>
+</ol></li>
+</ul>
+<p>These are exactly the patterns that Hadley Wickham describes in the tidy data paper presented to you in Class 1. You will now start seeing them in real data, including your own.</p>
+<hr>
+</section>
+</section>
+<section id="sec-scientific-data" class="level1">
+<h1>Browse Nature Scientific Data</h1>
+<p>Before we go any further with structuring your own data, let us look at how published scientists do it. <a href="https://www.nature.com/sdata/">Nature Scientific Data</a> is a peer-reviewed journal dedicated entirely to describing datasets. Each article of the type <strong>data descriptor</strong> documents a dataset in enough detail that someone who has never seen it can understand, evaluate, and reuse it.</p>
+<p>This matters for you because a reproducible analysis is only as good as the documentation of the data that feeds it. Writing <strong>code that runs is necessary</strong>; writing <strong>code that someone else can understand and trust</strong> requires the <strong>data</strong> itself to be <strong>well described</strong>.</p>
+<section id="the-task" class="level2">
+<h2 class="anchored" data-anchor-id="the-task">The task</h2>
+<ol type="1">
+<li><p>Go to <a href="https://www.nature.com/sdata/">nature.com/sdata</a>.</p></li>
+<li><p>Use the search or browse function to find one data descriptor paper relevant to your field of study. Spend a few minutes choosing: pick a paper whose data structure feels related to yours, not just the topic.</p></li>
+<li><p>Read it, paying attention to the following elements:</p>
+<ul>
+<li>How do the authors describe the study design and data collection?</li>
+<li>How are the variables documented? Is there a data dictionary or table of variable definitions?</li>
+<li>How is the dataset structured (what are the files, what are the columns, what are the relationships between tables)?</li>
+<li>How do they handle metadata, units, and missing values?</li>
+<li>Is there a <strong>validation or quality-control</strong> section?</li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You do not need to read every word, instead focus on the <strong>structure of the description</strong>, not the domain-specific details. The point is to <strong>extract a pattern you can adapt</strong> to your own dataset.</p>
+</div>
+</div>
+</section>
+<section id="group-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion">Group discussion</h2>
+<p>After reading, we discuss as a group:</p>
+<ul>
+<li>What elements did you find in the data descriptor that your own project is currently missing?</li>
+<li>Which parts felt immediately applicable to your dataset?</li>
+<li>What would a minimal but honest data description for your own project look like?</li>
+</ul>
+<p>Keep your answers concrete. Vague goals like “better documentation” are less useful than specific ones like “I need a table that lists each variable, its type, its units, and what <code>NA</code> means in context.”</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>A practical takeaway
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>After this discussion, you should have a mental (or written) checklist of what your README or a separate data dictionary file (for example, a <code>metadata.txt</code> file) should contain. You will add this to your project before the end of class.</p>
+</div>
+</div>
+<hr>
+<p><em>Break (20 min)</em></p>
+<hr>
+</section>
+</section>
+<section id="sec-tidy" class="level1">
+<h1>From Experimental Design to Tidy Format</h1>
+<p>You have now presented your data, seen how professionals document datasets, and discussed what good data description looks like. The next step is to take the variables you identified during the presentations and map them onto a concrete tidy table structure.</p>
+<p>Recall the tidy data principles from Class 1:</p>
+<ol type="1">
+<li>Each variable is a column.</li>
+<li>Each observation is a row.</li>
+<li>Each value is a single cell.</li>
+</ol>
+<p>These rules sound simple, but applying them to real data requires decisions. This exercise is where those decisions happen.</p>
+<section id="sketch-your-tidy-table" class="level2">
+<h2 class="anchored" data-anchor-id="sketch-your-tidy-table">Sketch your tidy table</h2>
+<p>On paper preferably (not in R yet) sketch what your target tidy table should look like. Write out:</p>
+<ul>
+<li>The <strong>column names</strong> (one per variable).</li>
+<li>The expected <strong>data type of each column</strong> (numeric, character, factor, date…).</li>
+<li>A few example rows showing what the actual values would look like.</li>
+</ul>
+<p>This sketch is your contract. When you later write R code to reshape the data, you will know exactly what the result should look like, rather than making it up as you go.</p>
+</section>
+<section id="common-issues-to-look-for" class="level2">
+<h2 class="anchored" data-anchor-id="common-issues-to-look-for">Common issues to look for</h2>
+<p>As you sketch, check whether your raw data matches this structure or whether transformations are needed:</p>
+<ul>
+<li>Values stored as column names (e.g., a column per treatment or time point instead of a single <code>treatment</code> or <code>time</code> column). This requires pivoting from wide to long format.</li>
+<li>Multiple variables stored in one column (e.g., a column like <code>site_year</code> that encodes both location and time. This requires separating it into two columns.</li>
+<li>Multiple observational units in one table (e.g., both per-subject summaries and per-measurement rows mixed together). This requires splitting into separate tables.</li>
+<li>Inconsistent coding (e.g., <code>"male"</code>, <code>"Male"</code>, <code>"M"</code> used interchangeably for the same category). This requires uniformization of the values used for the data records.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Checkpoint
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before moving to R, each student should be able to show their sketch and explain why each column is there and what each row represents. If the sketch is unclear, the code will be unclear too.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="sec-hands-on" class="level1">
+<h1>Hands-on: Import, Inspect, and Tidy</h1>
+<p>Now we translate the sketch into R code. Everything you write goes inside your project, in the <code>scripts/</code> folder.</p>
+<section id="place-your-raw-data" class="level2">
+<h2 class="anchored" data-anchor-id="place-your-raw-data">Place your raw data</h2>
+<p>Copy your dataset file(s) into <code>data/raw/</code>. Remember: files in this folder are read-only by convention, which means that <strong>you never edit them</strong>. Whatever cleaning or reshaping is needed happens in code, so it is documented and repeatable.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If your raw data is sensitive or very large, do not commit it to GitHub. Instead, make sure your <code>README.md</code> describes where the data comes from and how to obtain it. Your <code>.gitignore</code> from Class 3 should already exclude common data file extensions in <code>data/raw/</code>.</p>
+</div>
+</div>
+</section>
+<section id="create-a-script" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-script">Create a script</h2>
+<p>Create a new R script in <code>scripts/</code> and call it something descriptive like <code>01_import_and_tidy.R</code>. A few principles for this script:</p>
+<ul>
+<li>Start with library calls at the top.</li>
+<li>Use <code>readr::read_csv()</code>, <code>readxl::read_excel()</code>, or the appropriate function for your file format. Avoid <code>read.csv()</code> from base R — <code>readr</code> is more predictable with column types and encoding.</li>
+<li>After reading the data, inspect it before doing anything else.</li>
+</ul>
+</section>
+<section id="inspect-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-the-data">Inspect the data</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the raw data</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>raw_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/raw/my_data.csv"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(raw_data)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(raw_data)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(raw_data))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ask yourself: Is the output from R match the sketch you made (i.e.&nbsp;what uyou expected)? If not, where are the discrepancies? That is where the tidying work begins.</p>
+</section>
+<section id="tidy-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-the-data">Tidy the data</h2>
+<p>Now apply the transformations needed to get from the raw structure to your tidy sketch. Some common operations:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot from wide to long</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tidy_data <span class="ot">&lt;-</span> raw_data <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"measure_"</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"time_point"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"value"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate a compound column</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>tidy_data <span class="ot">&lt;-</span> tidy_data <span class="sc">|&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(site_year, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"site"</span>, <span class="st">"year"</span>), <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardise and explicitly order factor levels</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>tidy_data <span class="ot">&lt;-</span> tidy_data <span class="sc">|&gt;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">factor</span>(</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_to_lower</span>(treatment),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"control"</span>, <span class="st">"low"</span>, <span class="st">"high"</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>PLEASE NOTE: Your code will look different from this example code: that is the point. The transformations are dictated by your specific data, not by a template.</p>
+</section>
+<section id="save-the-tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="save-the-tidy-data">Save the tidy data</h2>
+<p>Once you are satisfied that the result matches your tidy data sketch, save it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(tidy_data, <span class="st">"data/processed/my_data_tidy.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is the file that your future analysis scripts will read. The chain is explicit: raw data → tidying script → processed data. Anyone can follow it.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You might not finish tidying your data entirely during class, and that is fine. The goal today is to have the structure right and the main transformations in place. You will refine in the homework and in subsequent classes.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="sec-wrapup" class="level1">
+<h1>Commit, Push, and Wrap-up</h1>
+<section id="commit-your-work" class="level2">
+<h2 class="anchored" data-anchor-id="commit-your-work">Commit your work</h2>
+<p>In the Git pane in RStudio:</p>
+<ol type="1">
+<li>Stage your new and changed files: the R script in <code>scripts/</code>, the processed data in <code>data/processed/</code> (if small enough to commit), and any updates to <code>README.md</code>.</li>
+<li>Write a descriptive commit message: not <code>"updates"</code>, but something like <code>"Add import and tidying script; document variables in README"</code>.</li>
+<li>Commit, then push to GitHub.</li>
+</ol>
+</section>
+<section id="what-was-accomplished-today" class="level2">
+<h2 class="anchored" data-anchor-id="what-was-accomplished-today">What was accomplished today</h2>
+<p>Today followed a deliberate sequence:</p>
+<ul>
+<li>You presented your data and identified its variables and structure.</li>
+<li>You saw how professionals describe and publish datasets.</li>
+<li>You used that perspective to sketch a tidy structure for your own data.</li>
+<li>You began implementing that structure in R.</li>
+</ul>
+<p>Each step informed the next. The data descriptor papers gave you a vocabulary and a standard; the tidy sketch gave you a target; the R code gave you the implementation.</p>
+</section>
+<section id="what-comes-next" class="level2">
+<h2 class="anchored" data-anchor-id="what-comes-next">What comes next</h2>
+<p>In the next class, we will work with the tidy data you produced today. The focus will shift from structuring data to exploring and understanding it through summary statistics and visualisation.</p>
+</section>
+<section id="sec-homework" class="level2">
+<h2 class="anchored" data-anchor-id="sec-homework">Homework</h2>
+<ol type="1">
+<li>If your tidying script is not yet complete, finish it. Make sure it runs cleanly from top to bottom on a fresh R session.</li>
+<li>Add a data description section to your <code>README.md</code>. At minimum, include:
+<ul>
+<li>A brief description of the dataset and its source.</li>
+<li>A table or list of variables with their names, types, units, and what missing values mean.</li>
+<li>Inspired by what you read in the Nature Scientific Data paper, add any relevant metadata (collection method, spatial/temporal scope, sample size).</li>
+</ul></li>
+<li>Commit and push.</li>
+</ol>
+<hr>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2026, Isabel Duarte</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/instructr/ualg.rep.data.analysis.2026">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

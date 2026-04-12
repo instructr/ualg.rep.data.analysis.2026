@@ -1,4 +1,4 @@
-#------------------ Class 1 ------------------#
+#------------------ Class 1 (max 3000 chars) ------------------#
 
 Learning Objectives
 
@@ -36,7 +36,7 @@ Students worked in small groups to generate, record, and tidy a dataset by hand 
 
 
 
-#------------------ Class 2 ------------------#
+#------------------ Class 2 (max 3000 chars) ------------------#
 
 --- Learning Objectives ---
 
@@ -77,7 +77,7 @@ Students followed one of three self-paced tutorials according to their prior exp
 
 
 
-#------------------ Class 3 ------------------#
+#------------------ Class 3 (max 3000 chars) ------------------#
 
 Learning Objectives
 
@@ -113,5 +113,40 @@ Students created a new R Project in RStudio with Git initialised locally, then s
 An empty repository was created on GitHub and linked to the local project using `git remote add origin` followed by `git push -u origin main`. Students staged their initial files, wrote a commit message, and pushed to GitHub, confirming the workflow through the RStudio Git pane and the GitHub web interface.
 
 
-#------------------ Class 4 ------------------#
+#------------------ Class 4 (max 3000 chars) ------------------#
+
+Learning Objectives
+
+By the end of this session, students should be able to:
+
+- Present a dataset and identify its observational unit, response variables, explanatory variables, and any nesting or repeated-measures structure
+- Navigate the Nature Scientific Data journal and extract documentation patterns from a data descriptor paper
+- Map an experimental design onto a tidy table layout before writing any code
+- Import raw data into R, inspect its structure, and apply tidyverse transformations to reshape it toward tidy format
+
+Content Covered
+
+1. Dataset Presentations and Variable Identification
+
+Each student presented their dataset to the group, describing its origin and research question. For each dataset, the class collectively identified the observational unit, response and explanatory variables, and any hierarchical or repeated-measures structure. The exercise reinforced that the shape of a tidy table is determined by the experimental design, not by convenience.
+
+2. Browsing Nature Scientific Data
+
+Students searched the Nature Scientific Data journal and selected one data descriptor paper relevant to their field. The reading focused on how professional publications document variables, metadata, provenance, units, and missing-value conventions: extracting a transferable pattern for sufficient dataset documentation.
+
+3. Group Discussion: From Professional Standards to Own Practice
+
+Students identified which elements from the data descriptor were absent from their own project documentation and defined concrete actions such as adding a variable dictionary or documenting the meaning of missing values.
+
+4. From Experimental Design to Tidy Format
+
+Students sketched their target tidy table on paper: column names, expected types, and example rows. Common structural issues were reviewed, including values embedded in column names requiring pivoting, compound columns requiring separation, and inconsistent categorical coding requiring standardisation with explicit factor level ordering.
+
+5. Hands-on: Import, Inspect, and Tidy
+
+Students created an R script in `scripts/` to read, inspect, and begin tidying their data. Inspection covered dimensions, column types, and missingness checked against the sketch. Tidying operations included pivoting, column separation, and factor ordering as appropriate. Processed data was saved to `data/processed/`, maintaining the chain from raw data through tidying script to analysis-ready output.
+
+6. Commit, Push, and Wrap-up
+
+Students committed their work with descriptive messages and pushed to GitHub. The session concluded with a review of the deliberate sequence: presenting data, learning from professional descriptions, sketching a tidy structure, then implementing it, and an introduction to the next class on data exploration and visualisation.
 

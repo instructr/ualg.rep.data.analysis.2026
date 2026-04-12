@@ -1,0 +1,359 @@
+---
+title: "Topic 4 | Understanding and Structuring Your Dataset"
+---
+
+::: {.callout-note appearance="simple"}
+## Class Details
+
+📅 Date: April, 2026\
+📖 Synopsis: Presenting your data, learning from professional dataset descriptions, and reshaping your data into tidy format.
+
+Class overview: By the end of this class you will have: presented your dataset and identified its key variables, explored how professionals describe and publish datasets, mapped your experimental design onto a tidy structure, and imported and begun tidying your data in R.
+:::
+
+---
+
+::: {.callout-note collapse="true"}
+## Timing guide
+
+| Segment                                       | Duration |
+|------------------------------------------------|----------|
+| Warm-up and homework review                    | 20 min   |
+| Present your dataset                           | 50 min   |
+| Browse Nature Scientific Data + discussion     | 50 min   |
+| Break                                          | 20 min   |
+| From experimental design to tidy format        | 40 min   |
+| Hands-on: import, inspect, and tidy            | 60 min   |
+| Commit, push, and wrap-up                      | 15 min   |
+| Buffer / troubleshooting                       | 10 min   |
+| **Total**                                      | **~260 min (~4 h)** |
+:::
+
+
+# Warm-up and Homework Review {#sec-warmup}
+
+In class 3, you set up your entire toolchain: R, RStudio, Git, and GitHub, and created a structured project with a first commit. 
+Your homework was to add a paragraph to `README.md` describing the data source you plan to use.
+
+Let us verify that everything is in working order:
+
+1. Open your project in RStudio.
+2. In the RStudio, pull the latest changes: Press `Pull` in the Git tab in RStudio, or, use the Terminal and run: `git pull origin main`.
+3. Confirm you can see your updated `README.md` with the data description.
+
+::: {.callout-tip}
+## Checkpoint
+Every student should be able to open their project, pull from GitHub, and show
+the README with a data description before we move on. If you have trouble, flag
+it now (this is exactly the kind of issue that is easier to solve in class).
+:::
+
+---
+
+
+# Present Your Dataset {#sec-present}
+
+Each student will briefly present their dataset to the group. This is not a
+formal presentation: think of it as explaining your data to a colleague over
+coffee. The goal is twofold: 
+
+  - You sharpen your own understanding by explaining it
+out loud, and 
+  - Your classmates learn to ask the right questions about data.
+
+For each dataset, we will identify in class:
+
+- 1. What is the observational unit? (What does one row represent: a patient, a
+  mouse, a time point?)
+- 2. What are the response variables? (What was measured or observed?)
+- 3. What are the explanatory or grouping variables? (Treatment, species, site,
+  time, condition...)
+- 4. Is there any nesting or repeated-measures structure? (Multiple measurements
+  per subject (replicates), time series on the same units?)
+
+These questions come directly from **experimental design**, and answering them is
+not optional: they determine the shape your tidy data will eventually take.
+
+::: {.callout-important}
+If you cannot clearly state what your **observational unit** is, that is a signal
+that the dataset needs more thought before any analysis begins.
+
+Do not worry: This is a
+*normal and valuable realisation*, not a problem.
+:::
+
+## What to pay attention to during the dataset presentations
+
+As your classmates present, listen actively and ask yourself:
+
+- 1. Could I describe what one row of their tidy table should look like?
+- 2. Are there variables hiding inside column names? (A common sign of data that
+  needs pivoting.)
+- 3. Is the same variable stored across multiple columns?
+- 4. Are there multiple types of observational units mixed in one table?
+
+These are exactly the patterns that Hadley Wickham describes in the tidy data paper presented to you in Class 1. You will now start seeing them in real data, including your own.
+
+---
+
+
+# Browse Nature Scientific Data {#sec-scientific-data}
+
+Before we go any further with structuring your own data, let us look at how
+published scientists do it. [Nature Scientific Data](https://www.nature.com/sdata/) is
+a peer-reviewed journal dedicated entirely to describing datasets. Each article of the type **data descriptor** documents a dataset in enough detail that someone
+who has never seen it can understand, evaluate, and reuse it.
+
+This matters for you because a reproducible analysis is only as good as the
+documentation of the data that feeds it. Writing **code that runs is necessary**;
+writing **code that someone else can understand and trust** requires the **data** itself
+to be **well described**.
+
+## The task
+
+1. Go to [nature.com/sdata](https://www.nature.com/sdata/).
+2. Use the search or browse function to find one data descriptor paper relevant
+   to your field of study. Spend a few minutes choosing: pick a paper whose data
+   structure feels related to yours, not just the topic.
+3. Read it, paying attention to the following elements:
+
+   - How do the authors describe the study design and data collection?
+   - How are the variables documented? Is there a data dictionary or table of
+     variable definitions?
+   - How is the dataset structured (what are the files, what are the columns,
+     what are the relationships between tables)?
+   - How do they handle metadata, units, and missing values?
+   - Is there a **validation or quality-control** section?
+
+::: {.callout-note}
+You do not need to read every word, instead focus on the **structure of the description**,
+not the domain-specific details. The point is to **extract a pattern you can adapt** to your own dataset.
+:::
+
+## Group discussion
+
+After reading, we discuss as a group:
+
+- What elements did you find in the data descriptor that your own project is
+  currently missing?
+- Which parts felt immediately applicable to your dataset?
+- What would a minimal but honest data description for your own project look
+  like?
+
+Keep your answers concrete. Vague goals like "better documentation" are less
+useful than specific ones like "I need a table that lists each variable, its
+type, its units, and what `NA` means in context."
+
+::: {.callout-tip}
+## A practical takeaway
+After this discussion, you should have a mental (or written) checklist of what
+your README or a separate data dictionary file (for example, a `metadata.txt` file) should contain. You will add this
+to your project before the end of class.
+:::
+
+---
+
+*Break (20 min)*
+
+---
+
+
+# From Experimental Design to Tidy Format {#sec-tidy}
+
+You have now presented your data, seen how professionals document datasets, and
+discussed what good data description looks like. The next step is to take the
+variables you identified during the presentations and map them onto a concrete
+tidy table structure.
+
+Recall the tidy data principles from Class 1:
+
+1. Each variable is a column.
+2. Each observation is a row.
+3. Each value is a single cell.
+
+These rules sound simple, but applying them to real data requires decisions.
+This exercise is where those decisions happen.
+
+## Sketch your tidy table
+
+On paper preferably (not in R yet) sketch what your
+target tidy table should look like. Write out:
+
+- The **column names** (one per variable).
+- The expected **data type of each column** (numeric, character, factor, date...).
+- A few example rows showing what the actual values would look like.
+
+This sketch is your contract. When you later write R code to reshape the data,
+you will know exactly what the result should look like, rather than making it up
+as you go.
+
+## Common issues to look for
+
+As you sketch, check whether your raw data matches this structure or whether
+transformations are needed:
+
+- Values stored as column names (e.g., a column per treatment or time point
+  instead of a single `treatment` or `time` column). This requires pivoting from
+  wide to long format.
+- Multiple variables stored in one column (e.g., a column like `site_year`
+  that encodes both location and time. This requires separating it into two columns.
+- Multiple observational units in one table (e.g., both per-subject summaries
+  and per-measurement rows mixed together). This requires splitting into separate
+  tables.
+- Inconsistent coding (e.g., `"male"`, `"Male"`, `"M"` used interchangeably
+  for the same category). This requires uniformization of the values used for the data records.
+
+::: {.callout-tip}
+## Checkpoint
+Before moving to R, each student should be able to show their sketch and explain
+why each column is there and what each row represents. If the sketch is unclear,
+the code will be unclear too.
+:::
+
+---
+
+
+# Hands-on: Import, Inspect, and Tidy {#sec-hands-on}
+
+Now we translate the sketch into R code. Everything you write goes inside your
+project, in the `scripts/` folder.
+
+## Place your raw data
+
+Copy your dataset file(s) into `data/raw/`. Remember: files in this folder are
+read-only by convention, which means that **you never edit them**. Whatever cleaning or reshaping
+is needed happens in code, so it is documented and repeatable.
+
+::: {.callout-important}
+If your raw data is sensitive or very large, do not commit it to GitHub. Instead,
+make sure your `README.md` describes where the data comes from and how to obtain
+it. Your `.gitignore` from Class 3 should already exclude common data file
+extensions in `data/raw/`.
+:::
+
+## Create a script
+
+Create a new R script in `scripts/` and call it something descriptive like
+`01_import_and_tidy.R`. A few principles for this script:
+
+- Start with library calls at the top.
+- Use `readr::read_csv()`, `readxl::read_excel()`, or the appropriate function
+  for your file format. Avoid `read.csv()` from base R --- `readr` is more
+  predictable with column types and encoding.
+- After reading the data, inspect it before doing anything else.
+
+## Inspect the data
+
+```r
+library(tidyverse)
+
+# Read the raw data
+raw_data <- read_csv("data/raw/my_data.csv")
+
+# Inspect
+glimpse(raw_data)
+summary(raw_data)
+
+# Check for missing values
+colSums(is.na(raw_data))
+```
+
+Ask yourself: Is the output from R match the sketch you made (i.e. what uyou expected)? If not, where
+are the discrepancies? That is where the tidying work begins.
+
+## Tidy the data
+
+Now apply the transformations needed to get from the raw structure to your tidy
+sketch. Some common operations:
+
+```r
+# Pivot from wide to long
+tidy_data <- raw_data |>
+  pivot_longer(
+    cols = starts_with("measure_"),
+    names_to = "time_point",
+    values_to = "value"
+  )
+
+# Separate a compound column
+tidy_data <- tidy_data |>
+  separate(site_year, into = c("site", "year"), sep = "_")
+
+# Standardise and explicitly order factor levels
+tidy_data <- tidy_data |>
+  mutate(
+    treatment = factor(
+      str_to_lower(treatment),
+      levels = c("control", "low", "high")
+    )
+  )
+```
+
+PLEASE NOTE: Your code will look different from this example code: that is the point. The
+transformations are dictated by your specific data, not by a template.
+
+## Save the tidy data
+
+Once you are satisfied that the result matches your tidy data sketch, save it:
+
+```r
+write_csv(tidy_data, "data/processed/my_data_tidy.csv")
+```
+
+This is the file that your future analysis scripts will read. The chain is
+explicit: raw data → tidying script → processed data. Anyone can follow it.
+
+::: {.callout-note}
+You might not finish tidying your data entirely during class, and that is fine.
+The goal today is to have the structure right and the main transformations in
+place. You will refine in the homework and in subsequent classes.
+:::
+
+---
+
+
+# Commit, Push, and Wrap-up {#sec-wrapup}
+
+## Commit your work
+
+In the Git pane in RStudio:
+
+1. Stage your new and changed files: the R script in `scripts/`, the processed
+   data in `data/processed/` (if small enough to commit), and any updates to
+   `README.md`.
+2. Write a descriptive commit message: not `"updates"`, but something like
+   `"Add import and tidying script; document variables in README"`.
+3. Commit, then push to GitHub.
+
+## What was accomplished today
+
+Today followed a deliberate sequence:
+
+- You presented your data and identified its variables and structure.
+- You saw how professionals describe and publish datasets.
+- You used that perspective to sketch a tidy structure for your own data.
+- You began implementing that structure in R.
+
+Each step informed the next. The data descriptor papers gave you a vocabulary
+and a standard; the tidy sketch gave you a target; the R code gave you the
+implementation.
+
+## What comes next
+
+In the next class, we will work with the tidy data you produced today. The focus
+will shift from structuring data to exploring and understanding it through
+summary statistics and visualisation.
+
+## Homework {#sec-homework}
+
+1. If your tidying script is not yet complete, finish it. Make sure it runs
+   cleanly from top to bottom on a fresh R session.
+2. Add a data description section to your `README.md`. At minimum, include:
+   - A brief description of the dataset and its source.
+   - A table or list of variables with their names, types, units, and what
+     missing values mean.
+   - Inspired by what you read in the Nature Scientific Data paper, add any
+     relevant metadata (collection method, spatial/temporal scope, sample size).
+3. Commit and push.
+
+---
