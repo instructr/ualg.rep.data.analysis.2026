@@ -150,3 +150,28 @@ Students created an R script in `scripts/` to read, inspect, and begin tidying t
 
 Students committed their work with descriptive messages and pushed to GitHub. The session concluded with a review of the deliberate sequence: presenting data, learning from professional descriptions, sketching a tidy structure, then implementing it, and an introduction to the next class on data exploration and visualisation.
 
+#------------------ Class 5 (max 3000 chars) ------------------#
+
+Learning Objectives
+By the end of this session, students should be able to:
+- Verify that a tidy dataset is complete, correctly typed, and consistent with the experimental design
+- Compute overall and grouped summary statistics for continuous and categorical variables using tidyverse
+- Select and produce appropriate exploratory visualisations based on data structure and research question
+- Interpret exploratory outputs critically: identifying plausible ranges, group balance, distributional shape, and potential outliers
+
+Content Covered
+
+1. Individual Progress Check
+Each student pulled the latest state of their project, ran their tidying script from top to bottom in a fresh R session, and confirmed the processed file was present in `data/processed/`. The checkpoint required every student to load their tidy data and display it with `glimpse()` before proceeding.
+
+2. Individual Tidy Data Review
+Students showed their tidy dataset to the instructor. Each dataset was reviewed against five criteria: one variable per column, one observation per row, appropriate column types, documented missing values, and a row count consistent with the experimental design. Remaining issues with factor levels or column types were corrected at this stage.
+
+3. Summary Statistics
+Students created an EDA script (`scripts/02_eda.R`) and loaded their tidy data. Overall summaries were computed with `summary()` and a structured `summarise(across())` call covering count, mean, standard deviation, median, minimum, and maximum for all numeric variables. Grouped summaries disaggregated these statistics by the main grouping variable, with explicit attention to sample sizes per group. For datasets with categorical outcomes, counts and proportions were computed with `count()` and `mutate()`.
+
+4. Exploratory Visualisation
+Students selected and produced visualisations matched to their data structure. Covered plot types included: histograms and density plots for distributional shape of continuous variables; box plots with jittered points and violin plots for group comparisons; scatter plots with linear trend lines for relationships between continuous variables; and line plots with standard error ribbons for time series or ordered structures. Each plot type was motivated by the question it answers, and students were asked to annotate each plot in their script with a one-sentence statement of what they were looking for and what they found.
+
+5. Commit, Push, and Wrap-up
+Students committed their EDA script with a descriptive message and pushed to GitHub. 
