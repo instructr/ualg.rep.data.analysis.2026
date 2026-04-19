@@ -1,0 +1,393 @@
+---
+title: "Topic 5 | Exploring Your Data: Summary Statistics and Visualisation"
+---
+
+::: {.callout-note appearance="simple"}
+## Class Details
+
+Date: April, 2026\
+Synopsis: Checking individual progress on tidy data, then exploring your dataset through summary statistics and visualisation.
+
+Class overview: By the end of this class you will have: confirmed your tidy dataset is complete and readable, computed meaningful summary statistics for your key variables, produced exploratory visualisations appropriate for your data structure, and committed a first Exploratory Data Analysis (EDA) script to your project.
+:::
+
+---
+
+::: {.callout-note collapse="true"}
+## Timing guide
+
+Two groups (Master's students and PhD students) run independently, same structure.
+
+| Segment                                       | Duration   |
+|-----------------------------------------------|------------|
+| Individual Progress check                     | 60 min     |
+| Summary statistics                            | 30 min     |
+| Exploratory data visualisation                | 30 min     |
+| **Total**                                     | **~120 min |
+
+:::
+
+
+# Individual Progress Check {#sec-progress}
+
+In class 4, you imported your raw data, applied the tidying transformations identified in your sketch, and **saved a processed file to `data/processed/`**. Your homework was to complete the tidying script and add a data description to your `README.md`.
+
+Start by pulling the latest state of your project and verifying what you have:
+
+1. Open your project in RStudio.
+2. Pull from GitHub: press `Pull` in the Git tab, or run `git pull origin main` in the Terminal.
+3. Open `scripts/01_import_and_tidy.R` and run it from top to bottom in a fresh R session (`Session > Restart R`, then `Source`). It must run without errors.
+4. Check that `data/processed/` contains your tidy file.
+
+::: {.callout-tip}
+## Checkpoint
+Before we proceed, every student must be able to load their tidy data into R
+and show it with `glimpse()`. If the import script fails or the processed file is missing, fix that first - Exploratory Data Analysis (EDA) is not meaningful on data that you are not sure if it is correct.
+:::
+
+---
+
+
+## Individual Tidy Data Review {#sec-review}
+
+Each student briefly shows their tidy dataset to the instructor. The goal is to catch problems early and consolidate everyone's tidy dataset. 
+
+For each dataset, you must check the following points:
+
+1. Does each column contain exactly one variable?
+2. Does each row represent exactly one observation (as defined by the observational unit identified in previous classes)?
+3. Are column types appropriate? (Factors are factors, dates are dates and not character strings.)
+4. Are there missing values (proper NA type)? If so, is there an explanation in the README?
+5. Does the number of rows make sense given the experimental design?
+
+::: {.callout-important}
+If any of these checks fail, note it explicitly. A clean tidy file now avoids
+confusing results later. Small issues with types or levels are normal at this
+stage and quick to fix.
+:::
+
+### Quick self-check in R
+
+Run these before showing your data to the instructor. They expose the most common remaining problems.
+
+```r
+library(tidyverse)
+
+tidy_data <- read_csv("data/processed/my_data_tidy.csv")
+
+# Structure and types
+glimpse(tidy_data)
+
+# Categorical variables: check levels and unexpected values
+tidy_data |>
+  select(where(is.character)) |>
+  map(unique)
+
+# Missing values per column
+colSums(is.na(tidy_data))
+
+# Dimensions sanity check
+nrow(tidy_data)
+ncol(tidy_data)
+```
+
+::: {.callout-note}
+If your categorical variables are stored as character but should be factors,
+convert them now. Factor levels should be set explicitly in the order that is
+meaningful for your analysis (e.g., `"control"` before `"treated"`), not
+alphabetically.
+
+```r
+tidy_data <- tidy_data |>
+  mutate(
+    group = factor(group, levels = c("control", "treated"))
+  )
+```
+:::
+
+---
+
+# Summary Statistics {#sec-summaries}
+
+With a verified tidy dataset, the next step is to understand the distribution
+and central tendency of your key variables before plotting anything. Numbers
+first, then pictures.
+
+The purpose of this section is not to produce a final results table, but to
+ask: does the data behave as expected? Are the ranges plausible? Are groups
+roughly balanced?
+
+Before running any summaries, set up your EDA script:
+
+1. Create a new R script in `scripts/` and call it something like `02_eda.R`.
+2. At the top of the script, load your libraries and read your tidy data:
+
+```r
+library(tidyverse)
+
+tidy_data <- read_csv("data/processed/my_data_tidy.csv")
+```
+
+
+## Overall summaries
+
+Start broad. `summary()` gives a quick overview of every column.
+
+```r
+summary(tidy_data)
+```
+
+For a more readable output of numeric variables:
+
+```r
+tidy_data |>
+  summarise(across(where(is.numeric), list(
+    n      = \(x) sum(!is.na(x)),
+    mean   = mean,
+    sd     = sd,
+    median = median,
+    min    = min,
+    max    = max
+  ), na.rm = TRUE))
+```
+
+## Grouped summaries
+
+Most datasets have a grouping variable (treatment, condition,
+species, time point). Summary statistics computed per group are almost always
+more informative than overall summaries.
+
+```r
+# Summarise a response variable by group
+tidy_data |>
+  group_by(group) |>
+  summarise(
+    n      = n(),
+    mean   = mean(response, na.rm = TRUE),
+    sd     = sd(response, na.rm = TRUE),
+    median = median(response, na.rm = TRUE)
+  )
+```
+
+::: {.callout-tip}
+Pay attention to the `n` column. Unequal group sizes are not necessarily
+a problem, but they affect what analyses are appropriate later. Know your
+sample sizes before proceeding.
+:::
+
+## Counting and proportions for categorical outcomes
+
+If your **response variable is categorical** (e.g., presence/absence, class label), use counts and proportions rather than means.
+
+```r
+tidy_data |>
+  count(group, outcome) |>
+  group_by(group) |>
+  mutate(proportion = n / sum(n))
+```
+
+
+# Exploratory Visualisation {#sec-eda}
+
+Exploratory plots are not for publication: they are for you. The goal is to see patterns, spot outliers, and generate questions. **Resist the urge to polish them.**
+
+Each plot type below answers a specific question. Choose the ones that match
+your data structure and your key variables.
+
+## Distributions of **continuous variables**
+
+The first thing to know about a numeric variable is its shape: is it symmetric, skewed, bimodal? This informs both how to summarise it and what models may be appropriate in future modelling analyses.
+
+### Histogram
+
+```r
+# Histogram: overall distribution
+ggplot(tidy_data, aes(x = response)) +
+  geom_histogram(bins = 30, fill = "steelblue", colour = "white") +
+  labs(
+    title = "Distribution of response variable",
+    x     = "Response",
+    y     = "Count"
+  ) +
+  theme_minimal()
+```
+
+### Density plot
+
+```r
+# Density plot per group: compare shapes across groups
+ggplot(tidy_data, aes(x = response, fill = group)) +
+  geom_density(alpha = 0.4) +
+  labs(
+    title = "Density of response by group",
+    x     = "Response",
+    fill  = "Group"
+  ) +
+  theme_minimal()
+```
+
+::: {.callout-note}
+A histogram shows counts; a density plot shows the relative shape. Use the
+histogram when sample size matters visually, and density when you want to
+compare shapes across groups on the same scale.
+:::
+
+## Comparing groups
+
+Box plots and violin plots show the distribution of a continuous variable
+per group. They make group differences, spread, and outliers visible at a
+glance.
+
+### Boxplot
+
+```r
+# Box plot with individual data points overlaid
+ggplot(tidy_data, aes(x = group, y = response, colour = group)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(width = 0.15, alpha = 0.5, size = 1.5) +
+  labs(
+    title = "Response by group",
+    x     = "Group",
+    y     = "Response"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+The individual points overlaid on the box plot are important when sample sizes are small: the box alone can be misleading with fewer than ~20 observations per group.
+
+### Violin plot
+
+```r
+# Violin plot: better for larger samples (shows full density shape)
+ggplot(tidy_data, aes(x = group, y = response, fill = group)) +
+  geom_violin(trim = FALSE, alpha = 0.5) +
+  geom_boxplot(width = 0.1, outlier.shape = NA) +
+  labs(
+    title = "Distribution of response by group",
+    x     = "Group",
+    y     = "Response"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+## Relationships between continuous variables
+
+If you have two or more continuous variables, a scatter plot reveals whether
+they are associated and how.
+
+### Scatterplot
+
+```r
+ggplot(tidy_data, aes(x = predictor, y = response, colour = group)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(
+    title = "Response as a function of predictor",
+    x     = "Predictor",
+    y     = "Response",
+    colour = "Group"
+  ) +
+  theme_minimal()
+```
+
+::: {.callout-note}
+`geom_smooth(method = "lm")` adds a linear trend line with a confidence band.
+At this stage it is descriptive only, not a formal model. It helps you see
+whether the relationship looks linear, and whether it differs by group.
+:::
+
+## Time series or ordered structure
+
+If your data has a time variable or an ordered factor (e.g., developmental
+stages, doses), a line plot shows how the response evolves.
+
+```r
+# Means with standard error ribbons per group over time
+tidy_data |>
+  group_by(group, time_point) |>
+  summarise(
+    mean_response = mean(response, na.rm = TRUE),
+    se            = sd(response, na.rm = TRUE) / sqrt(n()),
+    .groups       = "drop"
+  ) |>
+  ggplot(aes(x = time_point, y = mean_response,
+             colour = group, group = group)) +
+  geom_line() +
+  geom_ribbon(aes(
+    ymin = mean_response - se,
+    ymax = mean_response + se,
+    fill = group
+  ), alpha = 0.2, colour = NA) +
+  labs(
+    title  = "Mean response over time by group",
+    x      = "Time point",
+    y      = "Mean response (± SE)",
+    colour = "Group",
+    fill   = "Group"
+  ) +
+  theme_minimal()
+```
+
+::: {.callout-tip}
+If each subject has repeated measurements, the group mean over time is
+informative, but also consider plotting individual trajectories with
+`geom_line(aes(group = subject_id))` - they often reveal heterogeneity
+that the mean obscures.
+:::
+
+## A note on plot choices
+
+The right plot depends on your data structure. A rough guide:
+
+| Question                                     | Plot type              |
+|----------------------------------------------|------------------------|
+| What does the distribution look like?        | Histogram, density     |
+| How do groups differ?                        | Boxplot, violin plot   |
+| Are two variables associated?                | Scatterplot            |
+| How does the response change over time?      | Line plot with ribbon  |
+| How are categorical variables distributed?   | Bar chart, `count()`   |
+
+You do not need all of these: pick the two or three that are most relevant for your research question.
+
+::: {.callout-important}
+## Individual activity
+Produce at least two exploratory plots for your own dataset. For each plot,
+write a one-sentence comment in your script explaining what you were looking
+for and what you found. **The purpose of a plot is a question, not a decoration.**
+:::
+
+---
+
+
+# Commit, Push, and Wrap-up {#sec-wrapup}
+
+## Commit your work
+
+1. Stage your new script (e.g., `scripts/02_eda.R`) and any updated files.
+2. Write a meaningful commit message, for example: `"Add EDA script: summary stats and exploratory plots"`.
+3. Commit and push to GitHub.
+
+## What was accomplished today
+
+- You verified that your tidy data is correct and complete.
+- You computed summary statistics that describe the distribution and structure of your key variables.
+- You produced exploratory visualisations that reveal patterns, outliers, and
+  potential group differences.
+
+These are not final results. They are the foundation for asking better questions and for choosing appropriate statistical analyses in the next classes.
+
+## What comes next
+
+The next class will continue with EDA, polish your plots with proper labels and customization, and start preparing the data descriptor manuscript using the document template from Nature Scientific Data journal. 
+
+## Homework {#sec-homework}
+
+1. Complete your EDA script (`scripts/02_eda.R`) so it runs cleanly from top
+   to bottom.
+2. For each plot you produced, add a one-line comment explaining what the plot shows and whether the result was expected.
+3. Write two to three sentences in your `README.md` summarising what EDA was conducted and the visualizations created.
+4. Commit and push.
+
+---
