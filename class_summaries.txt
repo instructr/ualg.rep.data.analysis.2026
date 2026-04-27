@@ -150,6 +150,7 @@ Students created an R script in `scripts/` to read, inspect, and begin tidying t
 
 Students committed their work with descriptive messages and pushed to GitHub. The session concluded with a review of the deliberate sequence: presenting data, learning from professional descriptions, sketching a tidy structure, then implementing it, and an introduction to the next class on data exploration and visualisation.
 
+
 #------------------ Class 5 (max 3000 chars) ------------------#
 
 Learning Objectives
@@ -175,3 +176,34 @@ Students selected and produced visualisations matched to their data structure. C
 
 5. Commit, Push, and Wrap-up
 Students committed their EDA script with a descriptive message and pushed to GitHub. 
+
+
+#------------------ Class 6 (3000 chars) ------------------#
+
+Learning Objectives
+
+By the end of this session, students should be able to:
+
+- Present exploratory plots and articulate what each reveals about the data
+- Polish ggplot2 figures with descriptive labels, units, colourblind-friendly palettes, and appropriate themes
+- Create a Quarto document that combines prose and code and renders to a self-contained HTML report
+- Begin drafting a data descriptor manuscript using the Nature Scientific Data template
+
+Content Covered
+
+1. Plot Presentations and Feedback
+
+Each student presented their exploratory plots from class 5 to the instructor, explaining the question each plot addressed and the patterns observed. Feedback focused on plot type suitability, misleading defaults, and overlooked patterns in the data.
+
+2. Polishing Plots for Communication
+
+Students worked through three before-and-after examples using built-in R datasets ("iris", "mtcars", "ChickWeight"), comparing default exploratory plots with polished versions. Key improvements covered: replacing variable names with descriptive axis labels including units, using colourblind-friendly colour palettes via "scale_colour_brewer" and "viridis", overlaying individual observations on boxplots, adding trend lines and faceting for multi-variable comparisons, and exporting figures at publication-quality resolution with ggsave. Students then applied these techniques to polish their own EDA plots.
+
+3. From Script to Quarto Report
+
+Students were introduced to literate programming through Quarto. The rationale was framed as the difference between a script that says "run these commands" and a report that explains what was done, why, and what was found. Students created their first ".qmd" file, learned the structure of YAML headers and code chunks with chunk options ("echo", "warning", "fig-cap"), and migrated their EDA script into a Quarto document that renders to a self-contained HTML report. The requirement that reports must render from a clean R session was emphasised as a reproducibility safeguard.
+
+4. Starting the Data Descriptor Manuscript
+
+Using a "Nature Scientific Data" Word template (provided by the instructor), students began drafting a data descriptor for their dataset. The session focused on the Title, Abstract, Background and Summary, Methods, Data Records, and Technical Validation sections. Each section was explicitly connected to work already completed in previous classes: the README maps to the Methods, the GitHub repository maps partially to the Data Records, and the EDA plots and summary statistics map to Technical Validation.
+
