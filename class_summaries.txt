@@ -232,3 +232,28 @@ The bulk of the class was dedicated to hands-on work on individual projects, wit
 
 Students that decided to use Git and Github for their project, committed all updated files with descriptive messages and pushed to GitHub. The session concluded with a review of the four-class arc: presenting data and learning from professional descriptions (class 4), verifying tidy data and conducting exploratory analysis (class 5), polishing plots, creating a Quarto report, and beginning the data descriptor (class 6), and completing all deliverables (class 7). Each student's project now contains raw data, a tidying script, an EDA script, a rendered Quarto report, polished figures, and a data descriptor manuscript, i.e. a fully documented, version-controlled, and reproducible analysis project.
 
+
+#------------------ Class 8 (3000 chars) ------------------#
+
+Learning Objectives
+
+By the end of this session, students should be able to:
+
+- Verify the completeness of a reproducible analysis project against a defined checklist
+- Articulate the core principles of reproducible data analysis: tidy data, version control, literate programming, and data documentation
+
+Content Covered
+
+1. Final Completeness Check
+
+Each student validated their project and verified it against a completeness checklist covering: README with dataset and variable descriptions, raw and processed data in place, tidying script running without errors, Quarto EDA report rendering from a clean R session, polished plots with proper labels and palettes, data descriptor manuscript with all sections populated, and a properly configured .gitignore. The instructor reviewed each student's status and flagged critical gaps.
+
+2. Finish Pending Work
+
+Guided work time was used to resolve remaining issues identified during the completeness check, prioritising items that affect reproducibility such as broken rendering pipelines or undocumented variables.
+
+3. Review of Key Concepts
+
+The session concluded with a brief review of the core principles covered throughout the course: preserving raw data and documenting all transformations in code, structuring datasets in tidy format determined by the experimental design, using Git for version control with meaningful commit messages, combining code and narrative in Quarto reports rendered from clean sessions, and documenting datasets following the Nature Scientific Data model to ensure they are understandable and reusable. 
+
+

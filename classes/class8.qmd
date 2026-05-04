@@ -1,0 +1,133 @@
+---
+title: "Topic 8 | Course Wrap-up"
+---
+
+::: {.callout-note appearance="simple"}
+## Class Details
+
+Date: May, 2026\
+Synopsis: Final session to complete pending work, review key concepts, and ensure every project is in a reproducible state.
+
+Class overview: By the end of this class you will have: resolved any remaining issues in your project, reviewed the core principles of the course, and pushed a final, complete version of your repository to GitHub.
+:::
+
+---
+
+::: {.callout-note collapse="true"}
+## Timing guide
+
+Two groups (Master's students and PhD students) run independently, same structure.
+
+| Segment                                       | Duration   |
+|-----------------------------------------------|------------|
+| Final completeness check                      | 20 min     |
+| Finish pending work                           | 40 min     |
+| Review of key concepts                        | 40 min     |
+| Final commit and closing                      | 20 min     |
+| **Total**                                     | ~120 min   |
+
+:::
+
+
+# Final Completeness Check {#sec-check}
+
+Pull your project and verify that everything is in place. Use this checklist:
+
+- [ ] `README.md` describes the project, the dataset, and all variables.
+- [ ] `data/raw/` contains the original data (or README explains how to obtain it).
+- [ ] `data/processed/` contains the tidy dataset.
+- [ ] `scripts/01_import_and_tidy.R` runs without errors from a clean session.
+- [ ] `eda_report.qmd` renders to HTML without errors from a clean session.
+- [ ] All plots in the report have descriptive labels, units, and appropriate color palettes.
+- [ ] The data descriptor manuscript has all sections populated.
+- [ ] `.gitignore` excludes files that should not be tracked.
+
+The instructor will review each student's checklist and flag any critical gaps.
+
+::: {.callout-important}
+If your Quarto report does not render from a clean R session, that is the
+first thing to fix. A report that only works on your machine is not
+reproducible.
+:::
+
+---
+
+
+# Finish Pending Work {#sec-pending}
+
+Use this time to close any remaining gaps identified in the checklist above.
+The instructor circulates to help. Prioritise items that affect
+reproducibility --- a broken rendering pipeline or an undocumented variable
+matters more than a plot caption.
+
+---
+
+
+# Review of Key Concepts {#sec-review}
+
+A brief walkthrough of the core ideas that tie the course together.
+
+## The reproducibility chain
+
+Everything in this course serves one principle: someone who has never seen your
+project should be able to clone the repository, read the README, run the code,
+and obtain the same results you did. Each element you built supports this chain:
+
+- Raw data is preserved untouched. All transformations happen in code.
+- The tidying script turns raw data into an analysis-ready format, and the
+  transformation is documented and repeatable.
+- The Quarto report combines the analysis with its narrative, so the reasoning
+  is as reproducible as the computation.
+- The data descriptor documents the dataset independently of the analysis, making
+  it understandable and reusable.
+- Git tracks every change. GitHub makes the project accessible.
+
+## Tidy data
+
+One variable per column. One observation per row. One value per cell. This
+structure is not arbitrary --- it follows from the experimental design and
+determines what analyses are possible. Identifying the observational unit is the
+first and most important step.
+
+## Version control
+
+Git records what changed, when, and why. Meaningful commit messages are
+documentation. The habit of committing small, coherent changes makes it possible
+to trace any result back to the code that produced it.
+
+## Literate programming
+
+Code without explanation is hard to trust. Prose without code is hard to verify.
+A Quarto report provides both, rendered from a clean session, ensuring that what
+the reader sees is what the code actually produces.
+
+## Data documentation
+
+A dataset without a description is a dataset that cannot be evaluated or reused.
+The data descriptor --- inspired by Nature Scientific Data --- provides the
+metadata, variable definitions, and quality evidence that make a dataset a
+proper scientific product.
+
+---
+
+
+# Final Commit and Closing {#sec-closing}
+
+## Commit and push
+
+1. Stage all remaining changes.
+2. Write a final commit message: `"Final project state for course submission"`.
+3. Push to GitHub.
+
+## Verify on GitHub
+
+Open your repository on GitHub and confirm that the files are there and up to
+date. This is what the instructor (and any future reader) will see.
+
+::: {.callout-tip}
+All course materials remain available at
+[instructr.github.io/ualg.rep.data.analysis.2026](https://instructr.github.io/ualg.rep.data.analysis.2026/)
+for future reference.
+:::
+
+---

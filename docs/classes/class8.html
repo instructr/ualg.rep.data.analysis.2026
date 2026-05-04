@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Topic 7 | Finishing Your EDA and Data Descriptor – Reproducible Data Analysis Course</title>
+<title>Topic 8 | Course Wrap-up – Reproducible Data Analysis Course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -179,17 +179,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sec-progress" id="toc-sec-progress" class="nav-link active" data-scroll-target="#sec-progress">Progress Check and Individual Priorities</a></li>
-  <li><a href="#sec-worksession" id="toc-sec-worksession" class="nav-link" data-scroll-target="#sec-worksession">Guided Work Session</a>
+  <li><a href="#sec-check" id="toc-sec-check" class="nav-link active" data-scroll-target="#sec-check">Final Completeness Check</a></li>
+  <li><a href="#sec-pending" id="toc-sec-pending" class="nav-link" data-scroll-target="#sec-pending">Finish Pending Work</a></li>
+  <li><a href="#sec-review" id="toc-sec-review" class="nav-link" data-scroll-target="#sec-review">Review of Key Concepts</a>
   <ul class="collapse">
-  <li><a href="#quarto-eda-report" id="toc-quarto-eda-report" class="nav-link" data-scroll-target="#quarto-eda-report">Quarto EDA report</a></li>
-  <li><a href="#data-descriptor-manuscript" id="toc-data-descriptor-manuscript" class="nav-link" data-scroll-target="#data-descriptor-manuscript">Data descriptor manuscript</a></li>
+  <li><a href="#the-reproducibility-chain" id="toc-the-reproducibility-chain" class="nav-link" data-scroll-target="#the-reproducibility-chain">The reproducibility chain</a></li>
+  <li><a href="#tidy-data" id="toc-tidy-data" class="nav-link" data-scroll-target="#tidy-data">Tidy data</a></li>
+  <li><a href="#version-control" id="toc-version-control" class="nav-link" data-scroll-target="#version-control">Version control</a></li>
+  <li><a href="#literate-programming" id="toc-literate-programming" class="nav-link" data-scroll-target="#literate-programming">Literate programming</a></li>
+  <li><a href="#data-documentation" id="toc-data-documentation" class="nav-link" data-scroll-target="#data-documentation">Data documentation</a></li>
   </ul></li>
-  <li><a href="#sec-wrapup" id="toc-sec-wrapup" class="nav-link" data-scroll-target="#sec-wrapup">Final Commit and Wrap-up</a>
+  <li><a href="#sec-closing" id="toc-sec-closing" class="nav-link" data-scroll-target="#sec-closing">Final Commit and Closing</a>
   <ul class="collapse">
-  <li><a href="#commit-your-work-if-you-are-using-git-and-github" id="toc-commit-your-work-if-you-are-using-git-and-github" class="nav-link" data-scroll-target="#commit-your-work-if-you-are-using-git-and-github">Commit your work (if you are using Git and GitHub)</a></li>
-  <li><a href="#what-was-accomplished-across-classes-4-7" id="toc-what-was-accomplished-across-classes-4-7" class="nav-link" data-scroll-target="#what-was-accomplished-across-classes-4-7">What was accomplished across classes 4-7</a></li>
-  <li><a href="#sec-homework" id="toc-sec-homework" class="nav-link" data-scroll-target="#sec-homework">Homework</a></li>
+  <li><a href="#commit-and-push" id="toc-commit-and-push" class="nav-link" data-scroll-target="#commit-and-push">Commit and push</a></li>
+  <li><a href="#verify-on-github" id="toc-verify-on-github" class="nav-link" data-scroll-target="#verify-on-github">Verify on GitHub</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -199,7 +202,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Topic 7 | Finishing Your EDA and Data Descriptor</h1>
+<h1 class="title">Topic 8 | Course Wrap-up</h1>
 </div>
 
 
@@ -227,8 +230,8 @@ Class Details
 </div>
 <div class="callout-body-container callout-body">
 <p>Date: May, 2026<br>
-Synopsis: Catching up on pending work, completing the Quarto EDA report, and advancing the data descriptor manuscript.</p>
-<p>Class overview: This class is dedicated to finishing what was started in classes 4–6. By the end of this session you will have: a complete, rendering Quarto EDA report and a near-complete data descriptor manuscript.</p>
+Synopsis: Final session to complete pending work, review key concepts, and ensure every project is in a reproducible state.</p>
+<p>Class overview: By the end of this class you will have: resolved any remaining issues in your project, reviewed the core principles of the course, and pushed a final, complete version of your repository to GitHub.</p>
 </div>
 </div>
 <hr>
@@ -254,18 +257,22 @@ Timing guide
 </thead>
 <tbody>
 <tr class="odd">
-<td>Progress check and individual priorities</td>
+<td>Final completeness check</td>
 <td>20 min</td>
 </tr>
 <tr class="even">
-<td>Guided work session</td>
-<td>80 min</td>
+<td>Finish pending work</td>
+<td>40 min</td>
 </tr>
 <tr class="odd">
-<td>Final commit and wrap-up</td>
-<td>20 min</td>
+<td>Review of key concepts</td>
+<td>40 min</td>
 </tr>
 <tr class="even">
+<td>Final commit and closing</td>
+<td>20 min</td>
+</tr>
+<tr class="odd">
 <td><strong>Total</strong></td>
 <td>~120 min</td>
 </tr>
@@ -274,101 +281,98 @@ Timing guide
 </div>
 </div>
 </div>
-<section id="sec-progress" class="level1">
-<h1>Progress Check and Individual Priorities</h1>
-<p>Open your project, (pull from GitHub only if you are using the repository), and take stock of where you are. Render your <code>eda_report.qmd</code> from a clean R session to confirm it works.</p>
-<p>Together with the instructor, identify what is still pending. Common items at this stage:</p>
-<ul>
-<li>Tidying script incomplete or producing warnings.</li>
-<li>Quarto report missing explanatory prose between code chunks.</li>
-<li>Plots not yet polished (labels, units, color palettes).</li>
-<li>Data descriptor sections still empty or too vague.</li>
+<section id="sec-check" class="level1">
+<h1>Final Completeness Check</h1>
+<p>Pull your project and verify that everything is in place. Use this checklist:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><code>README.md</code> describes the project, the dataset, and all variables.</label></li>
+<li><label><input type="checkbox"><code>data/raw/</code> contains the original data (or README explains how to obtain it).</label></li>
+<li><label><input type="checkbox"><code>data/processed/</code> contains the tidy dataset.</label></li>
+<li><label><input type="checkbox"><code>scripts/01_import_and_tidy.R</code> runs without errors from a clean session.</label></li>
+<li><label><input type="checkbox"><code>eda_report.qmd</code> renders to HTML without errors from a clean session.</label></li>
+<li><label><input type="checkbox">All plots in the report have descriptive labels, units, and appropriate color palettes.</label></li>
+<li><label><input type="checkbox">The data descriptor manuscript has all sections populated.</label></li>
+<li><label><input type="checkbox"><code>.gitignore</code> excludes files that should not be tracked.</label></li>
 </ul>
-<p>Write down your priorities for this session. You have 80 minutes of guided work time: Use them on whatever brings your project closest to completion.</p>
+<p>The instructor will review each student’s checklist and flag any critical gaps.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If your Quarto report does not render from a clean R session, that is the first thing to fix. A report that only works on your machine is not reproducible.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="sec-pending" class="level1">
+<h1>Finish Pending Work</h1>
+<p>Use this time to close any remaining gaps identified in the checklist above. The instructor circulates to help. Prioritise items that affect reproducibility — a broken rendering pipeline or an undocumented variable matters more than a plot caption.</p>
+<hr>
+</section>
+<section id="sec-review" class="level1">
+<h1>Review of Key Concepts</h1>
+<p>A brief walkthrough of the core ideas that tie the course together.</p>
+<section id="the-reproducibility-chain" class="level2">
+<h2 class="anchored" data-anchor-id="the-reproducibility-chain">The reproducibility chain</h2>
+<p>Everything in this course serves one principle: someone who has never seen your project should be able to clone the repository, read the README, run the code, and obtain the same results you did. Each element you built supports this chain:</p>
+<ul>
+<li>Raw data is preserved untouched. All transformations happen in code.</li>
+<li>The tidying script turns raw data into an analysis-ready format, and the transformation is documented and repeatable.</li>
+<li>The Quarto report combines the analysis with its narrative, so the reasoning is as reproducible as the computation.</li>
+<li>The data descriptor documents the dataset independently of the analysis, making it understandable and reusable.</li>
+<li>Git tracks every change. GitHub makes the project accessible.</li>
+</ul>
+</section>
+<section id="tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-data">Tidy data</h2>
+<p>One variable per column. One observation per row. One value per cell. This structure is not arbitrary — it follows from the experimental design and determines what analyses are possible. Identifying the observational unit is the first and most important step.</p>
+</section>
+<section id="version-control" class="level2">
+<h2 class="anchored" data-anchor-id="version-control">Version control</h2>
+<p>Git records what changed, when, and why. Meaningful commit messages are documentation. The habit of committing small, coherent changes makes it possible to trace any result back to the code that produced it.</p>
+</section>
+<section id="literate-programming" class="level2">
+<h2 class="anchored" data-anchor-id="literate-programming">Literate programming</h2>
+<p>Code without explanation is hard to trust. Prose without code is hard to verify. A Quarto report provides both, rendered from a clean session, ensuring that what the reader sees is what the code actually produces.</p>
+</section>
+<section id="data-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="data-documentation">Data documentation</h2>
+<p>A dataset without a description is a dataset that cannot be evaluated or reused. The data descriptor — inspired by Nature Scientific Data — provides the metadata, variable definitions, and quality evidence that make a dataset a proper scientific product.</p>
+<hr>
+</section>
+</section>
+<section id="sec-closing" class="level1">
+<h1>Final Commit and Closing</h1>
+<section id="commit-and-push" class="level2">
+<h2 class="anchored" data-anchor-id="commit-and-push">Commit and push</h2>
+<ol type="1">
+<li>Stage all remaining changes.</li>
+<li>Write a final commit message: <code>"Final project state for course submission"</code>.</li>
+<li>Push to GitHub.</li>
+</ol>
+</section>
+<section id="verify-on-github" class="level2">
+<h2 class="anchored" data-anchor-id="verify-on-github">Verify on GitHub</h2>
+<p>Open your repository on GitHub and confirm that the files are there and up to date. This is what the instructor (and any future reader) will see.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Checkpoint
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Every student should be able to state, in one sentence, what they need to finish today. If you are unsure, that is exactly what this check is for.</p>
+<p>All course materials remain available at <a href="https://instructr.github.io/ualg.rep.data.analysis.2026/">instructr.github.io/ualg.rep.data.analysis.2026</a> for future reference.</p>
 </div>
 </div>
-<hr>
-</section>
-<section id="sec-worksession" class="level1">
-<h1>Guided Work Session</h1>
-<p>This is hands-on time. Work on your own project; the instructor circulates to help with individual issues.</p>
-<p>Use the checklist below to track your progress. By the end of this session, every item should be done or close to done.</p>
-<section id="quarto-eda-report" class="level2">
-<h2 class="anchored" data-anchor-id="quarto-eda-report">Quarto EDA report</h2>
-<ul class="task-list">
-<li><label><input type="checkbox">The report renders from a clean R session without errors.</label></li>
-<li><label><input type="checkbox">Every code chunk has a short paragraph explaining the purpose and the finding.</label></li>
-<li><label><input type="checkbox">All plots have descriptive labels, units, and a color-friendly palette.</label></li>
-<li><label><input type="checkbox">Summary statistics are computed per group where appropriate.</label></li>
-<li><label><input type="checkbox"><code>code-fold: true</code> is set in the YAML header.</label></li>
-</ul>
-</section>
-<section id="data-descriptor-manuscript" class="level2">
-<h2 class="anchored" data-anchor-id="data-descriptor-manuscript">Data descriptor manuscript</h2>
-<ul class="task-list">
-<li><label><input type="checkbox">Title describes the dataset, not the research question.</label></li>
-<li><label><input type="checkbox">Abstract summarises what the dataset contains and how it was collected.</label></li>
-<li><label><input type="checkbox">Background and Summary provides scientific context.</label></li>
-<li><label><input type="checkbox">Methods describes data collection and processing (reference your tidying script).</label></li>
-<li><label><input type="checkbox">Data Records lists all variables with names, types, units, and meaning of missing values.</label></li>
-<li><label><input type="checkbox">Technical Validation references your EDA findings (distributions, outlier checks, group balance).</label></li>
-<li><label><input type="checkbox">Code Availability points to your GitHub repository.</label></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If you finish early, review your README file: Does it still accurately describe the current state of the project? Update it if needed.</p>
-</div>
-</div>
-<hr>
-</section>
-</section>
-<section id="sec-wrapup" class="level1">
-<h1>Final Commit and Wrap-up</h1>
-<section id="commit-your-work-if-you-are-using-git-and-github" class="level2">
-<h2 class="anchored" data-anchor-id="commit-your-work-if-you-are-using-git-and-github">Commit your work (if you are using Git and GitHub)</h2>
-<ol type="1">
-<li>Stage all updated files.</li>
-<li>Write a descriptive commit message.</li>
-<li>Commit and push to GitHub.</li>
-</ol>
-</section>
-<section id="what-was-accomplished-across-classes-4-7" class="level2">
-<h2 class="anchored" data-anchor-id="what-was-accomplished-across-classes-4-7">What was accomplished across classes 4-7</h2>
-<p>Over four classes, you built a complete reproducible analysis project:</p>
-<ul>
-<li>Class 4: You presented your data, learned from professional data descriptions, and structured your dataset into tidy format.</li>
-<li>Class 5: You verified the tidy data and explored it through summary statistics and visualisation.</li>
-<li>Class 6: You polished your plots, created a Quarto report, and began the data descriptor.</li>
-<li>Class 7: You completed the Quarto report and data descriptor manuscript.</li>
-</ul>
-<p>Your GitHub repository now should contain: Raw data, a tidying script, an EDA and plotting script, a Quarto report that renders to HTML, polished figures, and a data descriptor manuscript. Every step is documented, version-controlled, and reproducible.</p>
-</section>
-<section id="sec-homework" class="level2">
-<h2 class="anchored" data-anchor-id="sec-homework">Homework</h2>
-<ol type="1">
-<li>Render the final version of <code>eda_report.qmd</code> from a clean R session and confirm it runs without errors.</li>
-<li>Review the data descriptor for completeness: every section should have content, every variable should be described, and the GitHub repository should be referenced.</li>
-<li>Final commit and push. Your repository should be in a state where someone unfamiliar with the project can clone it, read the README, render the report, and understand the entire analysis.</li>
-</ol>
 <hr>
 
 
