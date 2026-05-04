@@ -207,3 +207,28 @@ Students were introduced to literate programming through Quarto. The rationale w
 
 Using a "Nature Scientific Data" Word template (provided by the instructor), students began drafting a data descriptor for their dataset. The session focused on the Title, Abstract, Background and Summary, Methods, Data Records, and Technical Validation sections. Each section was explicitly connected to work already completed in previous classes: the README maps to the Methods, the GitHub repository maps partially to the Data Records, and the EDA plots and summary statistics map to Technical Validation.
 
+
+#------------------ Class 7 (3000 chars) ------------------#
+
+Learning Objectives
+
+By the end of this session, students should be able to:
+
+- Assess the completeness of their reproducible analysis project against a defined checklist
+- Produce a Quarto EDA report that renders without errors from a clean R session
+- Complete a data descriptor manuscript with all sections populated following the Nature Scientific Data template
+
+Content Covered
+
+1. Progress Check and Individual Priorities
+
+Each student opened their project, and rendered their Quarto report from a clean R session. Together with the instructor, pending issues were identified and prioritised for the session. Common items included incomplete tidying scripts, missing prose between code chunks, plots lacking proper labels or units, and empty data descriptor sections.
+
+2. Guided Work Session
+
+The bulk of the class was dedicated to hands-on work on individual projects, with the instructor circulating to address specific issues. Students worked against a completion checklist covering two deliverables. For the Quarto EDA report: clean rendering from a fresh session, explanatory prose accompanying every code chunk, polished plots with descriptive labels and manual color-palettes, grouped summary statistics. For the data descriptor manuscript: a title describing the dataset, an abstract summarising contents and collection method, background and scientific context, methods referencing the tidying script, a complete Data Records section listing all variables with types, units, and missing value conventions, Technical Validation referencing EDA findings, and a Code Availability section pointing to the GitHub repository.
+
+3. Final Commit and Wrap-up
+
+Students that decided to use Git and Github for their project, committed all updated files with descriptive messages and pushed to GitHub. The session concluded with a review of the four-class arc: presenting data and learning from professional descriptions (class 4), verifying tidy data and conducting exploratory analysis (class 5), polishing plots, creating a Quarto report, and beginning the data descriptor (class 6), and completing all deliverables (class 7). Each student's project now contains raw data, a tidying script, an EDA script, a rendered Quarto report, polished figures, and a data descriptor manuscript, i.e. a fully documented, version-controlled, and reproducible analysis project.
+

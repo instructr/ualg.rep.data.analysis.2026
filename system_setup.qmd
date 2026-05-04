@@ -57,6 +57,8 @@ By combining these tools, researchers can streamline their workflows, ensure rep
     - [Quick-R](http://www.statmethods.net) (Roadmap and R code to quickly use R.)  
     - [R-bloggers](https://www.r-bloggers.com/) (Great resource for posts related to alternative ways to do the same thing in R.)
     - [Bioconductor workflows](http://bioconductor.org/packages/release/BiocViews.html#___Workflow) (R code for pipelines of genomic analyses.)
+    - [The R Graph Gallery](https://r-graph-gallery.com/) (Great resource with plot examples and the R code to produce them.)
+    - [Data 2 Viz](https://www.data-to-viz.com/) (Find the most appropriate graph for your data.)
 
 
   - **Free Online Books**
@@ -67,5 +69,35 @@ By combining these tools, researchers can streamline their workflows, ensure rep
     - [Introduction to Data Science: Statistics and Prediction Algorithms Through Case Studies](https://rafalab.dfci.harvard.edu/dsbook-part-2/) (Rafael A. Irizarry. Hands-on tutorials focused on learning how to use **R for data analysis** using carefully chosen case studies, where data analysis brings information to light.)
     - [Cookbook for R](http://www.cookbook-r.com/) (Winston Chang. Well-structured R scripts (practical “recipes”) for common programming tasks.)
 
+
+### **Course final evaluation**
+
+#### **Masters students**
+
+As outlined in the [FUC](https://academico.ualg.pt/netpa/page?stage=FichaUnidadeCurricular&fucId=35487), the final evaluation will take into account the following components:
+
+  - Participation in class (10%);
+  - Project progress discussed in each class (10%);
+  - Final project report (40%), formatted in the style of a Nature Scientific Data article;
+  - Final oral presentation (40%), consisting of a 10-minute presentation.
+
+The final report should be submitted on the same day as the oral presentation. During the presentation, students will briefly introduce their dataset and present their quality assessment of the data.
+
+The tutor will evaluate their overall performance in class, as well as the quality of their written report and oral presentation.
+
+
+#### **PhD students**
+
+As outlined in the [FUC](https://academico.ualg.pt/netpa/page?stage=FichaUnidadeCurricular&fucId=36044), the final evaluation will take into account the following components:
+
+  - Participation in class (15%);
+  - Final project report (35%), formatted in the style of a Nature Scientific Data article;
+  - Final project oral presentation (35%), consisting of a 10-minute presentation;
+  - Peer review of a fellow student's final project report (15%) evaluated on the constructiveness, depth of feedback, critical analysis, clarity, originality, independent thought; 
+  - The report to be reviewed will be assigned at random, and the peer review will be carried out during the presentation by completing a peer-feedback form.
+
+The final report should be submitted on the same day as the oral presentation. During the presentation, students will briefly introduce their dataset and present their quality assessment of the data.
+
+The tutor will evaluate their overall performance in class, the quality of their written report and oral presentation, and their peer-feedback form.
 
 

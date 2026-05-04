@@ -1,0 +1,131 @@
+---
+title: "Topic 7 | Finishing Your EDA and Data Descriptor"
+---
+
+::: {.callout-note appearance="simple"}
+## Class Details
+
+Date: May, 2026\
+Synopsis: Catching up on pending work, completing the Quarto EDA report, and advancing the data descriptor manuscript.
+
+Class overview: This class is dedicated to finishing what was started in classes 4--6. By the end of this session you will have: a complete, rendering Quarto EDA report and a near-complete data descriptor manuscript.
+:::
+
+---
+
+::: {.callout-note collapse="true"}
+## Timing guide
+
+Two groups (Master's students and PhD students) run independently, same structure.
+
+| Segment                                       | Duration |
+|-----------------------------------------------|----------|
+| Progress check and individual priorities      | 20 min   |
+| Guided work session                           | 80 min   |
+| Final commit and wrap-up                      | 20 min   |
+| **Total**                                     | ~120 min |
+
+:::
+
+
+# Progress Check and Individual Priorities {#sec-progress}
+
+Open your project, (pull from GitHub only if you are using the repository), and take stock of where you are. Render
+your `eda_report.qmd` from a clean R session to confirm it works.
+
+Together with the instructor, identify what is still pending. Common items at
+this stage:
+
+- Tidying script incomplete or producing warnings.
+- Quarto report missing explanatory prose between code chunks.
+- Plots not yet polished (labels, units, color palettes).
+- Data descriptor sections still empty or too vague.
+
+Write down your priorities for this session. You have 80 minutes of guided work
+time: Use them on whatever brings your project closest to completion.
+
+::: {.callout-tip}
+## Checkpoint
+Every student should be able to state, in one sentence, what they need to
+finish today. If you are unsure, that is exactly what this check is for.
+:::
+
+---
+
+
+# Guided Work Session {#sec-worksession}
+
+This is hands-on time. Work on your own project; the instructor circulates to
+help with individual issues.
+
+Use the checklist below to track your progress. By the end of this session,
+every item should be done or close to done.
+
+## Quarto EDA report
+
+- [ ] The report renders from a clean R session without errors.
+- [ ] Every code chunk has a short paragraph explaining the purpose and the
+      finding.
+- [ ] All plots have descriptive labels, units, and a color-friendly
+      palette.
+- [ ] Summary statistics are computed per group where appropriate.
+- [ ] `code-fold: true` is set in the YAML header.
+
+## Data descriptor manuscript
+
+- [ ] Title describes the dataset, not the research question.
+- [ ] Abstract summarises what the dataset contains and how it was collected.
+- [ ] Background and Summary provides scientific context.
+- [ ] Methods describes data collection and processing (reference your tidying
+      script).
+- [ ] Data Records lists all variables with names, types, units, and meaning of
+      missing values.
+- [ ] Technical Validation references your EDA findings (distributions, outlier
+      checks, group balance).
+- [ ] Code Availability points to your GitHub repository.
+
+::: {.callout-note}
+If you finish early, review your README file: Does it still accurately describe the
+current state of the project? Update it if needed.
+:::
+
+---
+
+
+# Final Commit and Wrap-up {#sec-wrapup}
+
+## Commit your work (if you are using Git and GitHub)
+
+1. Stage all updated files.
+2. Write a descriptive commit message.
+3. Commit and push to GitHub.
+
+## What was accomplished across classes 4-7
+
+Over four classes, you built a complete reproducible analysis project:
+
+- Class 4: You presented your data, learned from professional data descriptions,
+  and structured your dataset into tidy format.
+- Class 5: You verified the tidy data and explored it through summary statistics
+  and visualisation.
+- Class 6: You polished your plots, created a Quarto report, and began the data
+  descriptor.
+- Class 7: You completed the Quarto report and data descriptor manuscript.
+
+Your GitHub repository now should contain: Raw data, a tidying script, an EDA and
+plotting script, a Quarto report that renders to HTML, polished figures, and a
+data descriptor manuscript. Every step is documented, version-controlled, and
+reproducible.
+
+## Homework {#sec-homework}
+
+1. Render the final version of `eda_report.qmd` from a clean R session and
+   confirm it runs without errors.
+2. Review the data descriptor for completeness: every section should have
+   content, every variable should be described, and the GitHub repository
+   should be referenced.
+3. Final commit and push. Your repository should be in a state where someone
+   unfamiliar with the project can clone it, read the README, render the report,
+   and understand the entire analysis.
+
+---
